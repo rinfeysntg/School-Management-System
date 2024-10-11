@@ -1,0 +1,33 @@
+body {
+    position: relative;
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login {
+    position: relative;
+    left: 750px;
+    top: 200px;
+}
+
+.form-control {
+    width: 300px;
+}
+
+.btn {
+    position: relative;
+    background-color: #BDCB95;
+    color: black;
+    width: 200px;
+    left: 50px;
+}
+
+.btn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+.row-sm-3 {
+    color: white;
+}
