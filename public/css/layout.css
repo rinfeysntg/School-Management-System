@@ -38,6 +38,36 @@ body {
     color: white;
 }
 
+#dashboardBtn {
+    position: relative;
+    background-color: #BDCB95;
+    color: black;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#dashboardBtn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+#logoutBtn {
+    position: relative;
+    background-color: #A87979;
+    color: white;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#logoutBtn:hover {
+    background-color:#5c3e3e;
+    color: white;
+}
+
 .rec {
     position: relative;
     top: -30px;
@@ -47,6 +77,46 @@ body {
     background-size: cover;
     width: 1016px;
     height: 518px;
+}
+
+.rec_dashboard {
+    position: relative;
+    top: 40px;
+    left: 50px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+.buttons {
+    float: left;
+    width: 300px;
+}
+
+.logoContainer {
+    margin-left: 320px;
+}
+
+.registrarLbl {
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    color: white;
+}
+
+.logoDashboard{
+    position: relative;
+    left: 210px;
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 270px;
+    height: 270px;
+    margin: 10px;
 }
 
 .createBldgLbl {

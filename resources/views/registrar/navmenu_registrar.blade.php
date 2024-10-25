@@ -11,7 +11,7 @@
                 </a>
             </li>
             <li>
-                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                <a href="#" data-bs-toggle="collapse" class="nav-link text-truncate">
                     <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Announcements</span> </a>
             </li>
             <li>
