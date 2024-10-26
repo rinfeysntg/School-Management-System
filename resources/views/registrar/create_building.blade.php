@@ -11,11 +11,10 @@
             <button class="btn float-none" id="menuBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
-            <div class="rec">
-    <br>
-    <br>
-<h1 class="createBldgLbl">Create Building</h1>
-
+        <div class="rec">
+        <br>
+        <br>
+    <h1 class="createBldgLbl">Create Building</h1>
     <form action="" method="POST">
     @csrf
     <div>
@@ -35,9 +34,9 @@
         <br>
         <button type="submit" id="createBldgBtn" id="createBldgBtn" class="btn btn-success">Create</button>   
     </div>
-</form>
-</div>
-        </div>
+    </form>
+    </div>
+    </div>
     </div>
 </div>
 
