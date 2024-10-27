@@ -16,7 +16,7 @@
             margin: 12px;
         }
         .grid-container {
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
             display: grid;
             gap: 25px;
@@ -24,10 +24,9 @@
         .grid-table {
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgb(255, 255, 255);
-            border-radius: 10px;
             height: 500px;
             grid-column-start: 1;
-            grid-column-end: 5;
+            grid-column-end: 9;
             grid-row-start: 1;
             grid-row-end: 4;
             overflow: scroll;
@@ -35,7 +34,7 @@
         table.table-list {
             border-radius: 10px;
             color: black;
-            font-size: 25px;
+            font-size: 20px;
             border-collapse: collapse;
             width: 100%;
         }
@@ -48,18 +47,33 @@
             border: 2px solid black;
         }
         .grid-slip {
-            background-color: blue;
-            grid-column-start: 5;
-            grid-column-end: 6;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgb(255, 255, 255);
+            grid-column-start: 9;
+            grid-column-end: 11;
             grid-row-start: 1;
             grid-row-end: 6;
+        }
+        .payslip-header {
+            text-align: center
         }
         .grid-info {
             background-color: yellow;
             grid-column-start: 1;
-            grid-column-end: 2;
+            grid-column-end: 6;
             grid-row-start: 4;
             grid-row-end: 6;
+            display: flex;
+            justify-content: space-between;
+        }
+        .age-gender {
+            display; flex;
+        }
+        #age, #gender {
+            width: 6%;
+        }
+        .input-box {
+            margin: 10px;
         }
     </style>
 </head>
