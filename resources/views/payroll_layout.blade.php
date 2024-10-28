@@ -11,22 +11,26 @@
     <link rel="stylesheet" href="../css/layout.css">
     <title>Wesleyan University Philippines</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
         .payroll-container {
             padding: 12px;
             margin: 12px;
         }
         .grid-container {
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
             display: grid;
-            gap: 25px;
+            gap: 10px;
         }
         .grid-table {
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgb(255, 255, 255);
             height: 500px;
             grid-column-start: 1;
-            grid-column-end: 9;
+            grid-column-end: 11;
             grid-row-start: 1;
             grid-row-end: 4;
             overflow: scroll;
@@ -46,11 +50,16 @@
         .table-list td, .table-list th {
             border: 2px solid black;
         }
+        tr:hover,
+        tr:focus-within {
+          background: #8f8f8f;
+          outline: none;
+        }
         .grid-slip {
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgb(255, 255, 255);
-            grid-column-start: 9;
-            grid-column-end: 11;
+            grid-column-start: 11;
+            grid-column-end: 13;
             grid-row-start: 1;
             grid-row-end: 6;
         }
@@ -58,7 +67,7 @@
             text-align: center
         }
         .grid-info {
-            background-color: yellow;
+            background-color: rgba(255, 255, 255, 0.8);
             grid-column-start: 1;
             grid-column-end: 6;
             grid-row-start: 4;
@@ -66,14 +75,59 @@
             display: flex;
             justify-content: space-between;
         }
+        .info-column {
+            background-color: rgba(255, 255, 255, 0);
+        }
         .age-gender {
-            display; flex;
+            width: 280px;
+        }
+
+        .input-gender, .input-age {
         }
         #age, #gender {
-            width: 6%;
+            width: 30px;
         }
         .input-box {
             margin: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .age-gender {
+            display: flex;
+            justify-content: space-around;
+        }
+        .search-salary-info {
+            grid-column-start: 7;
+            grid-column-end: 10;
+            grid-row-start: 4;
+            grid-row-end: 6;
+        }
+        .ssi-item {
+            margin: 10px;
+            padding: 10px 0;
+        }
+        .salary-info {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .payment-info {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .search-label {
+            color: white;
+            font-weight: bold;
+        }
+        nav {
+            position: sticky;
+            bottom: 0;
+            overflow: hidden;
+            background-color: #333;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            height: 10%;
+        }
+        nav button {
+            width: 20%;
         }
     </style>
 </head>
@@ -82,5 +136,12 @@
     <div class="payroll-container">
         @yield('content')
     </div>
+    <nav class="bottom-nav">
+        <button>CREATE</button>
+        <button>UPDATE</button>
+        <button>DELETE</button>
+        <button>RELEASE PAYMENT</button>
+        <button>ADD</button>
+    </nav>
 </body>
 </html>
