@@ -35,25 +35,28 @@
             grid-row-end: 4;
             overflow: scroll;
         }
-        table.table-list {
+        table#table_list {
             border-radius: 10px;
             color: black;
             font-size: 20px;
             border-collapse: collapse;
             width: 100%;
         }
-        .table-list th {
+        #table_list th {
             background-color: white;
             position: sticky;
             top: 0;
         }
-        .table-list td, .table-list th {
+        #table_list td, #table_list th {
             border: 2px solid black;
         }
         tr:hover,
         tr:focus-within {
           background: #8f8f8f;
           outline: none;
+        }
+        .hidden-columns {
+            display:none;
         }
         .grid-slip {
             background-color: rgba(255, 255, 255, 0.8);
@@ -91,6 +94,7 @@
             margin: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         .age-gender {
             display: flex;
@@ -143,5 +147,31 @@
         <button>RELEASE PAYMENT</button>
         <button>ADD</button>
     </nav>
+    <script>
+        var table = document.getElementById('table_list'),rIndex;
+
+        for(var i = 0; i < table_list.rows.length; i++)
+    {
+        table.rows[i].onclick = function()
+        {
+            rIndex = this.rowIndex;
+            document.getElementById("fname").value = this.cells[1].innerHTML;
+            document.getElementById("surname").value = this.cells[2].innerHTML;
+            document.getElementById("position").value = this.cells[3].innerHTML;
+            document.getElementById("department").value = this.cells[4].innerHTML;
+            document.getElementById("gender").value = this.cells[5].innerHTML[0];
+            document.getElementById("age").value = this.cells[6].innerHTML;
+            document.getElementById("salary-gr").value = this.cells[7].innerHTML;
+            document.getElementById("emp-id").value = this.cells[8].innerHTML;
+            document.getElementById("birthdate").value = this.cells[9].innerHTML;
+            document.getElementById("mobile-no").value = this.cells[10].innerHTML;
+            document.getElementById("email").value = this.cells[11].innerHTML;
+            document.getElementById("date-of-hire").value = this.cells[12].innerHTML;
+            document.getElementById("address").value = this.cells[13].innerHTML;
+            document.querySelector(".emp-id-ps").value = this.cells[8].innerHTML;
+        }
+        
+    }
+    </script>
 </body>
 </html>
