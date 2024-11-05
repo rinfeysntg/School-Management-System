@@ -3,7 +3,7 @@
 @section('content')
     <div class="grid-container">
         <div class="grid-table">
-            <table class="table-list">
+            <table id="table_list">
                 <thead>
                     <th scope="col">Data ID#</th>
                     <th scope="col">First Name</th>
@@ -14,6 +14,11 @@
                     <th scope="col">Age</th>
                     <th scope="col">Salary Grade</th>
                     <th scope="col">Employee ID#</th>
+                    <th scope="col" class="hidden-columns">Birthdate</th>
+                    <th scope="col" class="hidden-columns">Mobile No.</th>
+                    <th scope="col" class="hidden-columns">E-mail</th>
+                    <th scope="col" class="hidden-columns">Date of Hire</th>
+                    <th scope="col" class="hidden-columns">Address</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -26,6 +31,11 @@
                         <td>20</td>
                         <td>10</td>
                         <td>1234146431</td>
+                        <td class="hidden-columns">1234146431</td>
+                        <td class="hidden-columns">1234146431</td>
+                        <td class="hidden-columns">1234146431</td>
+                        <td class="hidden-columns">1234146431</td>
+                        <td class="hidden-columns">1234146431</td>
                     </tr>
                     @foreach ($names as $name)
                     <tr>
@@ -48,7 +58,7 @@
             <h1>Pay Slip</h1>
             <p>- - - - - - - - - - - - - - - - - - - - - -</p>
             </div>
-            <p>Employee ID:</p>
+            <p>Employee ID: <span class="emp-id-ps">asdfefw</span></p>
             <P>Full Name:</p>
             <P>Department:</p>
             <P>Salary:</p>
@@ -58,13 +68,13 @@
         <form class="grid-info">
             <div class="info-first-column info-column">
                 <div class="input-box">
-                    <label for="fname">Position:</label>
-                    <input id="fname" name="fname">
+                    <label for="position">Position:</label>
+                    <input id="position" name="position">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Dept.:</label>
-                    <input id="fname" name="fname">
+                    <label for="department">Dept.:</label>
+                    <input id="department" name="department">
                 </div>
                 
                 <div class="age-gender">
@@ -84,44 +94,44 @@
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Surname:</label>
-                    <input id="fname" name="fname">
+                    <label for="surname">Surname:</label>
+                    <input id="surname" name="surname">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Birthdate:</label>
-                    <input id="fname" name="fname">
+                    <label for="birthdate">Birthdate:</label>
+                    <input id="birthdate" name="birthdate">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Mobile No.:</label>
-                    <input id="fname" name="fname">
+                    <label for="mobile-no">Mobile No.:</label>
+                    <input id="mobile-no" name="mobile-no">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">E-mail:</label>
-                    <input id="fname" name="fname">
+                    <label for="email">E-mail:</label>
+                    <input id="email" name="email">
                 </div>
             </div>
             <div class="info-first-column info-column">
                 <div class="input-box">
-                    <label for="fname">Employee ID#:</label>
-                    <input id="fname" name="fname">
+                    <label for="emp-id">Employee ID#:</label>
+                    <input id="emp-id" name="emp-id">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Salary Grade:</label>
-                    <input id="fname" name="fname">
+                    <label for="salary-gr">Salary Grade:</label>
+                    <input id="salary-gr" name="salary-gr">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Date of Hire:</label>
-                    <input id="fname" name="fname">
+                    <label for="date-of-hire">Date of Hire:</label>
+                    <input id="date-of-hire" name="date-of-hire">
                 </div>
                 
                 <div class="input-box">
-                    <label for="fname">Address:</label>
-                    <input id="fname" name="fname">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="8" cols="27"></textarea>
                 </div>
             </div>
         </form>
