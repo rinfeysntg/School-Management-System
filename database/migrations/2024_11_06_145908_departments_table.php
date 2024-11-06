@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('building_id');
+            $table->integer('building_id');
         });
     }
 

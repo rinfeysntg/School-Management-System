@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('rate');
-            $table->string('role_id');
+            $table->integer('role_id');
         });
     }
 
