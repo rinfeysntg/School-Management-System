@@ -58,9 +58,9 @@
             <h1>Pay Slip</h1>
             <p>- - - - - - - - - - - - - - - - - - - - - -</p>
             </div>
-            <p>Employee ID: <span class="emp-id-ps">asdfefw</span></p>
-            <P>Full Name:</p>
-            <P>Department:</p>
+            <p>Employee ID: <span class="emp-id-ps"></span></p>
+            <P>Full Name: <span class="fname-ps"></span> <span class="surname-ps"></span></p>
+            <P>Department: <span class="department-ps"></span></p>
             <P>Salary:</p>
             <P>Deductions:</p>
             <P>Total Payment:</p>
