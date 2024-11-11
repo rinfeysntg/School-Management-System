@@ -18,6 +18,6 @@ Route::get('/create_building', function (){
 });
 
 //subjects
-Route::get('/admin/subjects', [SubjectsController::class, 'AdminIndex'])->name('admin_subjects');
+Route::get('/subjects', [SubjectsController::class, 'AdminIndex'])->name('admin_subjects');
 Route::get('/subjects/create', [SubjectsController::class, 'create'])->name('create_subject');
 Route::post('/subjects/store', [SubjectsController::class, 'store'])->name('store_subject');

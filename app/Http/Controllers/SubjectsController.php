@@ -35,7 +35,7 @@ class SubjectsController extends Controller
     public function AdminIndex()
     {
         $subjects = Subject::all();
-        return view('subjects.admin_subjects', compact('subjects'));
+        return view('subjects.subjects', compact('subjects'));
     }
 
     
