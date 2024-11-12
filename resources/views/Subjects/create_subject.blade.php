@@ -22,15 +22,15 @@
                     <textarea id="description" name="description" class="form-control"></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="curriculum_id" class="form-label">Curriculum ID:</label>
-                    <select id="curriculum_id" name="curriculum_id" required class="form-control">
-                        <option value="">Select Curriculum</option>
-                        
-                        <option value="1">Curriculum 1</option>
-                        <option value="2">Curriculum 2</option>
-                    </select>
-                </div>
+                <<div class="form-group">
+                    <label for="curriculum_id">Curriculum</label>
+                    <select name="curriculum_id" class="form-control" required>
+                    <option value="">Select Curriculum</option>
+                @foreach($curriculums as $curriculum)
+                    <option value="{{ $curriculum->id }}">{{ $curriculum->name }}</option>
+                @endforeach
+        </select>
+    </div>
 
                 <button type="submit" class="btn btn-submit">Add</button>
             </form>

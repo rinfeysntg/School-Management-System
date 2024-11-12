@@ -4,34 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Models\Curriculum;
 use Illuminate\Http\Request;
 
 class SubjectsController extends Controller
 {
     public function create()
     {
-        return view('subjects.create_subject');
+        $curriculums = Curriculum::all();
+        return view('subjects.create_subject', compact('curriculums'));
     }
 
     public function store(Request $request)
     {
-        Subject::create([
-            'code' => $request->get('code'),
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'curriculum_id' => $request->get('curriculum_id')
+        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'curriculum_id' => 'required|exists:curriculums,id',
         ]);
 
-        return redirect()->route('subject_home')->with('success', 'Subject created successfully!');
+        
+        Subject::create($validated);
+
+        
+        return redirect()->route('curriculums_index')->with('success', 'Subject created successfully!');
     }
 
-    // public function StudentIndex()
-    // {
-        
-    // $subjects = Subject::all(); 
-
-    // return view('subjects.student_subjects', compact('subjects'));
-    // }
     public function AdminIndex()
     {
         $subjects = Subject::all();

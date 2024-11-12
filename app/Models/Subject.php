@@ -9,11 +9,16 @@ class Subject extends Model
 {
     use HasFactory;
 
-    // Define the fillable columns (adjust as needed)
+    
     protected $fillable = [
         'code',
         'name', 
         'description', 
         'curriculum_id'
     ];
+
+    public function curriculum()
+    {
+        return $this->belongsTo(Curriculum::class);
+    }
 }
