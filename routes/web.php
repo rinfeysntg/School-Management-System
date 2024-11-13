@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentHistoryController; // Add a new controller for payment history
+use App\Http\Controllers\TreasuryController;
 
 // Route for the login page
 Route::get('/', function () {
@@ -35,3 +36,10 @@ Route::get('/payment-done', [PaymentController::class, 'done'])->name('payment.d
 
 // New Route to view specific payment details
 Route::get('/payment-details/{id}', [PaymentController::class, 'show'])->name('payment.details');
+
+// routes/web.php
+Route::get('/treasury-dashboard', [TreasuryController::class, 'dashboard'])->name('treasury.dashboard');
+Route::get('/create-payment', [TreasuryController::class, 'createPayment'])->name('create.payment');
+Route::get('/tuition-payments', [TreasuryController::class, 'tuitionPayments'])->name('tuition.payments');
+Route::get('/user-accounts', [TreasuryController::class, 'userAccounts'])->name('user.accounts');
+Route::get('/financial-analytics', [TreasuryController::class, 'financialAnalytics'])->name('financial.analytics');
