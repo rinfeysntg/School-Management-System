@@ -22,7 +22,9 @@ Route::get('/create_building', function (){
 Route::get('/subjects', [SubjectsController::class, 'AdminIndex'])->name('subjects');
 Route::get('/subjects/create', [SubjectsController::class, 'create'])->name('create_subject');
 Route::post('/subjects/store', [SubjectsController::class, 'store'])->name('store_subject');
-
+Route::get('/subjects/{id}/edit', [SubjectsController::class, 'edit'])->name('subjects_edit');
+Route::put('/subjects/{id}', [SubjectsController::class, 'update'])->name('subjects_update');
+Route::delete('/subjects/{id}', [SubjectsController::class, 'destroy'])->name('subjects_destroy');
 // Curriculum
 Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums_index');
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
