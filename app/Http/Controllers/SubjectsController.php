@@ -21,6 +21,7 @@ class SubjectsController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'curriculum_id' => 'required|exists:curriculums,id',
         ]);
 
@@ -28,7 +29,7 @@ class SubjectsController extends Controller
         Subject::create($validated);
 
         
-        return redirect()->route('curriculums_index')->with('success', 'Subject created successfully!');
+        return redirect()->route('curriculums_index');
     }
 
     public function AdminIndex()
@@ -37,6 +38,35 @@ class SubjectsController extends Controller
         return view('subjects.subjects', compact('subjects'));
     }
 
+    public function edit($id)
+    {
+        $subject = Subject::findOrFail($id);
+        return view('subjects.edit', compact('subject'));
+    }
+
     
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $subject = Subject::findOrFail($id);
+        $subject->update($request->all());
+
+        return redirect()->route('subjects');
+    }
+
+    
+    public function destroy($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
+
+        return redirect()->route('subjects');
+    }
+
 }
 

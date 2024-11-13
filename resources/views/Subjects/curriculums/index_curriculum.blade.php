@@ -5,12 +5,6 @@
 
     <h1>Curriculums</h1>
 
-    @if(session('success'))
-        <div>{{ session('success') }}</div>
-    @endif
-
-    <a href="{{ route('curriculums_create') }}">Create New Curriculum</a>
-<!--                                                                                                para sa course dropdown
     <form action="{{ route('curriculums_index') }}" method="GET">
         <label for="course_id">Select Course:</label>
         <select name="course_id" id="course_id" onchange="this.form.submit()">
@@ -21,15 +15,16 @@
                 </option>
             @endforeach
         </select>
-    </form> -->
+    </form>
 
-    <table>
-        <thead>
+    <div class="container">
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Program Head</th>
-                <th>Actions</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Program Head</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -45,4 +40,8 @@
             @endforeach
         </tbody>
     </table>
-@endsection
+
+    <div class="text-center">
+        <a href="{{ route('curriculums_create') }}" class="btn btn-secondary">Create New Curriculum</a>
+    </div>
+    @endsection

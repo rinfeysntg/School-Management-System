@@ -22,13 +22,12 @@
         <input type="text" class="form-control" id="program_head" name="program_head" required>
     </div>
 
-    <!--                                                                                                        PARA SA COURSE
     <label for="course_id">Select Course</label>
     <select name="course_id" id="course_id" required>
         @foreach($courses as $course)
             <option value="{{ $course->id }}">{{ $course->name }}</option>
         @endforeach
-    </select> -->
+    </select>
 
     <br>
     <button type="submit" class="btn btn-primary">Create Curriculum</button>

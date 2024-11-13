@@ -12,10 +12,11 @@
         <h2>Subjects</h2>
         <ul>
             @forelse($curriculum->subjects as $subject)
-                <li>{{ $subject->name }} ({{ $subject->code }})</li>
+                <li>{{ $subject->name }} ({{ $subject->code }}) </li>
             @empty
                 <li>No subjects available for this curriculum.</li>
             @endforelse
         </ul>
+        <a href="{{ route('create_subject') }}" class="btn btn-secondary btn-create">Add Subject</a>
     </div>
 @endsection

@@ -9,15 +9,19 @@ class Curriculum extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'program_head'];
+    protected $fillable = [
+        'code', 
+        'name', 
+        'program_head'
+    ];
     protected $table = 'curriculums';
     public function subjects()
     {
         return $this->hasMany(Subject::class);
     }
                                                 //                  for course
-    // public function course()                                             
-    // {
-    // return $this->belongsTo(Course::class);
-    // }   
+    public function course()                                             
+    {
+    return $this->belongsTo(Course::class);
+    }   
 }

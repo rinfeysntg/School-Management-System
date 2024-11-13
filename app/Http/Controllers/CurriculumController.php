@@ -17,10 +17,9 @@ class CurriculumController extends Controller
     
     public function create()
     {
-        //                                                                          para sa course
-        // $courses = Course::all();
-        // return view('subjects.curriculums.create_curriculum', compact('courses'));
-        return view('subjects.curriculums.create_curriculum');              //for test
+                                                                                 
+        $courses = Course::all();
+        return view('subjects.curriculums.create_curriculum', compact('courses'));
     }
 
    
@@ -31,7 +30,7 @@ class CurriculumController extends Controller
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'program_head' => 'required|string|max:255',
-            // 'course_id' => 'required|exists:courses,id'                      #################
+            'course_id' => 'required|exists:courses,id'                   
         ]);
 
         
