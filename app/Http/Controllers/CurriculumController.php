@@ -45,4 +45,35 @@ class CurriculumController extends Controller
         $curriculum = Curriculum::with('subjects')->findOrFail($id);
         return view('subjects.curriculums.show', compact('curriculum'));
     }
+
+    public function edit($id)
+    {
+        $curriculum = Curriculum::findOrFail($id);
+        return view('subjects.curriculums.edit_cur', compact('curriculum'));
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'code' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'program_head' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id' 
+        ]);
+
+        $curriculum = Curriculum::findOrFail($id);
+        $curriculum->update($request->all());
+
+        return redirect()->route('curriculums_index');
+    }
+
+    
+    public function destroy($id)
+    {
+        $curriculum = Curriculum::findOrFail($id);
+        $curriculum->delete();
+
+        return redirect()->route('curriculums_index');
+    }
 }

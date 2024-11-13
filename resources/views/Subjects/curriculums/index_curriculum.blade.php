@@ -36,6 +36,13 @@
                     <td>
                         <a href="{{ route('curriculums_show', $curriculum->id) }}">View Curriculum</a>
                     </td>
+                    <td>
+                        <a href="{{ route('curriculums_edit', $curriculum->id) }}" class="btn btn-success btn-sm">Edit</a>
+                        <form action="{{ route('curriculums_destroy', $curriculum->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                 </tr>
             @endforeach
         </tbody>
