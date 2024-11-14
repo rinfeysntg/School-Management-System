@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (){
@@ -33,3 +34,5 @@ Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('cu
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
+// Payroll
+Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
