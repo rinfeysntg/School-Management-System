@@ -13,11 +13,15 @@ body {
     top: 200px;
 }
 
-.form-control {
+#inputEmail {
     width: 300px;
 }
 
-.btn {
+#inputPassword {
+    width: 300px;
+}
+
+#loginBtn {
     position: relative;
     background-color: #BDCB95;
     color: black;
@@ -25,11 +29,179 @@ body {
     left: 50px;
 }
 
-.btn:hover {
+#loginBtn:hover {
     background-color:#1E3A32;
     color: white;
 }
 
-.row-sm-3 {
+#loginTxt {
     color: white;
+}
+
+#dashboardBtn {
+    position: relative;
+    background-color: #BDCB95;
+    color: black;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#dashboardBtn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+#logoutBtn {
+    position: relative;
+    background-color: #A87979;
+    color: white;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#logoutBtn:hover {
+    background-color:#5c3e3e;
+    color: white;
+}
+
+.rec {
+    position: relative;
+    top: -30px;
+    left: 30px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+.rec_dashboard {
+    position: relative;
+    top: 40px;
+    left: 50px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+.buttons {
+    float: left;
+    width: 300px;
+}
+
+.logoContainer {
+    margin-left: 320px;
+}
+
+.registrarLbl {
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    color: white;
+}
+
+.logoDashboard{
+    position: relative;
+    left: 210px;
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 270px;
+    height: 270px;
+    margin: 10px;
+}
+
+.createBldgLbl {
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: white;
+}
+
+#bldgName {
+    position: relative;
+    width: 565px;
+    left: 70px;
+}
+
+#bldgDesc {
+    position: relative;
+    width: 565px;
+    left: 70px;
+    top: -40px;
+}
+
+#nameLbl {
+    position: relative;
+    left: 70px;
+    top: -60px;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#descLbl {
+    position: relative;
+    left: 70px;
+    top: -98px;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.recgray {
+    position: relative;
+    left: 160px;
+    background-image: url('../images/recgray.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 652px;
+    height: 346px;
+}
+
+.recgray2 {
+    position: relative;
+    top: 10px;
+    left: 150px;
+    background-image: url('../images/recgray2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 710px;
+    height: 302px;
+}
+
+#createBldgBtn {
+    position: relative;
+    left: 690px;
+    background-color: #BDCB95;
+    width: 160px;
+    color: black;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#createBldgBtn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+#menuBtn {
+    position: relative;
+    top: 10px;
+    left: -70px;
+    width: 50px;
+    height: 50px;
+    background-image: url('../images/logo.png');
+    background-size: contain;
 }
