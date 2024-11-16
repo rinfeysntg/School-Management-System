@@ -79,23 +79,24 @@ body {
     padding: 120px; 
   }
 
-  .button-container {
+.button-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
     gap: 10px;
-    padding-right: 50px; 
+    padding-right: 50px;
+    width: 100%;
 }
 
 .button-container .btn {
     background-color: #BDCB95;
     color: black;
-    padding: 10px 20px;
+    padding: 10px 35px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 200px;
     text-align: center;
+    width: auto;
 }
 
 .button-container .btn:hover {
