@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        @yield('departmentdashboard')
+        @yield('coursedashboard')
     </div>
 </body>
 </html>

@@ -1,14 +1,14 @@
-@extends('layoutdepartment')
+@extends('layoutcourse')
 
-@section('departmentdashboard')
+@section('coursedashboard')
 <div class="glass">
-    <h1 class="heading">Create Departments</h1>
+    <h1 class="heading">Create Courses</h1>
     <div class="frame">
         <h4>Name: <input></h4>
         <br>
-        <h4>Description: <input class="description"></h4>
+        <h4>Description: <input ></h4>
         <br>
-        <h4>Building ID: 
+        <h4>Department ID: 
             <select id="dropdown">
                 <option value="option1">CECT</option>
                 <option value="option2">CBA</option>
