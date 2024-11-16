@@ -1,18 +1,17 @@
-@extends('layout')
+@extends('layoutregistrar')
 
-@section('content')
+@section('registrardashboard')
 <div class="glass">
-    <h1 class="heading">Create Departmments</h1>
-    <div class="frame">
-        <div class="button-container">
-                <h4>Name:  <input></h4>
-                <br>
-                <h4>Description:  <input class="description"></h4>
-                <br>
-                <h4>Building: <select id="dropdown">
-                    <option value="option1">CECT</option>
-                    <option value="option2">CBA</option>
-                    <option value="option3">CAS</option></h4>
+        <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
+    <div class="button-container">
+        <button class="btn">Announcements</button>
+        <button class="btn">Create Course</button>
+        <button class="btn">Create Curriculum</button>
+        <button class="btn">Buildings</button>
+        <button class="btn">Departmments</button>
+        <br>
+        <div class="button-container-red">
+            <button class="btn">Log Out</button>
         </div>
     </div>
 </div>

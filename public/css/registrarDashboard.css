@@ -44,7 +44,7 @@ body {
     
   }
   
-.glass {
+  .glass {
     position: relative;
     background: inherit;
     overflow: hidden;
@@ -57,7 +57,7 @@ body {
     z-index: 1;
   }
   
-.glass:before {
+  .glass:before {
     content: '';
     position: absolute;
     background: inherit;
@@ -70,3 +70,65 @@ body {
     filter: blur(10px);
     z-index: -1;
   }
+
+  .DashboardLogocontainer{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .dashboardLogo {
+    position: absolute; 
+    top: 50%; 
+    left: 65%; 
+    transform: translate(-50%, -50%); 
+    width: 400px;
+    height: auto;
+}
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 0px; 
+}
+
+.button-container .btn {
+    background-color: #BDCB95;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;          
+    text-align: center;
+}
+
+.button-container .btn:hover {
+    background-color: #1E3A32;
+    color: white;
+}
+
+  .button-container-red {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 0px; 
+}
+
+.button-container-red .btn {
+    background-color: #860b0b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;          
+    text-align: center;
+}
+
+.button-container-red .btn:hover {
+    background-color: #530606;
+    color: white;
+}
