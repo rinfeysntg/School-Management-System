@@ -5,10 +5,10 @@
         <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
     <div class="button-container">
         <button class="btn">Announcements</button>
-        <button class="btn">Create Course</button>
-        <button class="btn">Create Curriculum</button>
-        <button class="btn">Buildings</button>
-        <button class="btn">Departmments</button>
+        <a href="{{ route('course') }}"><button class="btn">Create Course</button></a>
+        <a href="{{ route('course') }}"><button class="btn">Create Curriculum</button></a>
+        <a href="{{ route('course') }}"><button class="btn">Buildings</button></a>
+        <a href="{{ route('department') }}"><button class="btn">Departments</button></a>
         <br>
         <div class="button-container-red">
             <button class="btn">Log Out</button>
