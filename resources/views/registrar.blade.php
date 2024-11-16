@@ -1,23 +1,18 @@
-@extends('layout')
+@extends('layoutregistrar')
 
-@section('content')
+@section('registrardashboard')
 <div class="glass">
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-        <div class="row mb-3">
-            <label for="inputEmail" class="row-sm-3 row-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" id="inputEmail" required>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputPassword" class="row-sm-3 row-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="inputPassword" required>
-            </div>
-        </div>
+        <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
+    <div class="button-container">
+        <button class="btn">Announcements</button>
+        <button class="btn">Create Course</button>
+        <button class="btn">Create Curriculum</button>
+        <button class="btn">Buildings</button>
+        <button class="btn">Departmments</button>
         <br>
-        <button type="submit" class="btn btn-success">Login</button>
-    </form>
+        <div class="button-container-red">
+            <button class="btn">Log Out</button>
+        </div>
+    </div>
 </div>
 @endsection

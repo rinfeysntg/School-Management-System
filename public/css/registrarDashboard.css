@@ -71,10 +71,18 @@ body {
     z-index: -1;
   }
 
+  .DashboardLogocontainer{
+    display: flex;
+    justify-content: center;
+  }
+  
   .dashboardLogo {
-    width: 150px;        
-    height: auto;          
-    border-radius: 10px;   
+    position: absolute; 
+    top: 50%; 
+    left: 65%; 
+    transform: translate(-50%, -50%); 
+    width: 400px;
+    height: auto;
 }
 
   .button-container {
@@ -86,7 +94,7 @@ body {
 }
 
 .button-container .btn {
-    background-color: #88926c;
+    background-color: #BDCB95;
     color: black;
     padding: 10px 20px;
     border: none;
