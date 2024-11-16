@@ -8,9 +8,10 @@ body {
 }
 
 .login {
-    position: relative;
-    left: 750px;
-    top: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .form-control {
