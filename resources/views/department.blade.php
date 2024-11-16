@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('layoutdepartment')
 
-@section('content')
+@section('departmentdashboard')
 <div class="glass">
     <h1 class="heading">Create Departmments</h1>
     <div class="frame">

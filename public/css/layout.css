@@ -43,19 +43,20 @@ body {
     height: 100vh;
   }
   
-  .glass {
+.glass {
     position: relative;
     background: inherit;
     overflow: hidden;
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
+    padding: 100px;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 
                 0 6px 20px rgba(0, 0, 0, 0.15);
     z-index: 1;
   }
   
-  .glass:before {
+.glass:before {
     content: '';
     position: absolute;
     background: inherit;
@@ -68,3 +69,43 @@ body {
     filter: blur(10px);
     z-index: -1;
   }
+
+
+  .frame {
+    background-color: #D6D4A5;
+    width: 100%; 
+    height: 100%; 
+    border-radius: 8px; 
+    padding: 50px; 
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 0px; 
+}
+
+.button-container .btn {
+    background-color: #BDCB95;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+}
+
+.button-container .btn:hover {
+    background-color: #1E3A32;
+    color: white;
+}
+
+.heading {
+    text-align: center;
+    color: white;
+    padding-bottom: 40px;
+}
+
