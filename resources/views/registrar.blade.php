@@ -1,7 +1,7 @@
-@extends('layoutregistrar')
+@extends('layout')
 
-@section('registrardashboard')
-<div class="login">
+@section('content')
+<div class="glass">
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="row mb-3">
