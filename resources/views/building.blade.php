@@ -13,6 +13,7 @@
     <br>
     <div class="button-container">
     <button type="button" class="btn">Create</button>
+    <a href="{{ route('buildingDashboard') }}"><button class="btn">Return</button></a>
     </div>
 </div>
 @endsection

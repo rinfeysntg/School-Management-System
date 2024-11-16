@@ -37,6 +37,6 @@
         </table>
     </div>
     <div class="button-container">
-        <button type="button" class="btn">Return</button>
+        <a href="{{ route('curriculumDashboard') }}"><button class="btn">Return</button></a>
 </div>
 @endsection

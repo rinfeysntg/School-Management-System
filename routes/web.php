@@ -17,6 +17,7 @@ use App\Http\Controllers\LogHome;
 use App\Http\Controllers\CourseDashboard;
 use App\Http\Controllers\CurriculumDashboard;
 use App\Http\Controllers\DepartmentDashboard;
+use App\Http\Controllers\BuildingDashboard;
 
 Route::get('/', function (){
     return view('login');
@@ -38,6 +39,7 @@ Route::get('/curriculumdashboard', [CurriculumDashboard::class, 'index'])->name(
 
 Route::get('/subject', [Subject::class, 'index'])->name('subject');
 Route::get('/building', [Building::class, 'index'])->name('building');
+Route::get('/buildingdashboard', [BuildingDashboard::class, 'index'])->name('buildingDashboard');
 Route::get('/buildingTable', [buildingTable::class, 'index'])->name('buildingTable');
 Route::get('/departmentTable', [departmentTable::class, 'index'])->name('departmentTable');
 Route::get('/courseTable', [courseTable::class, 'index'])->name('courseTable');
