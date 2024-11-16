@@ -76,15 +76,15 @@ body {
     width: 100%; 
     height: 100%; 
     border-radius: 8px; 
-    padding: 50px; 
+    padding: 100px; 
   }
 
   .button-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 10px;
-    padding-left: 0px; 
+    padding-right: 50px; 
 }
 
 .button-container .btn {
@@ -102,6 +102,7 @@ body {
     background-color: #1E3A32;
     color: white;
 }
+
 
 .heading {
     text-align: center;
