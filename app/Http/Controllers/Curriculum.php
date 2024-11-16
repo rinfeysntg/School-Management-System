@@ -9,6 +9,6 @@ class Curriculum extends Controller
     public function index()
     {
 
-        return view('department');
+        return view('curriculum');
     }
 }

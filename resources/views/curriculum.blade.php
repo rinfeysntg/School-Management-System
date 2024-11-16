@@ -2,13 +2,13 @@
 
 @section('curriculumdashboard')
 <div class="glass">
-    <h1 class="heading">Create Courses</h1>
+    <h1 class="heading">Create Curriculum</h1>
     <div class="frame">
-        <h4>Name: <input></h4>
+        <h4>Code: <input></h4>
         <br>
-        <h4>Description: <input ></h4>
+        <h4>Name: <input ></h4>
         <br>
-        <h4>Department ID: 
+        <h4>Course ID: 
             <select id="dropdown">
                 <option value="option1">CECT</option>
                 <option value="option2">CBA</option>
