@@ -4,6 +4,8 @@ use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AnnouncementCreateController;
 
 Route::get('/', function (){
     return view('login');
@@ -36,3 +38,10 @@ Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
 // Payroll
 Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
+
+// Announcement
+
+Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
+Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
+Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
+Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
