@@ -29,13 +29,20 @@ Route::put('/buildings/{id}', [BuildingController::class, 'update'])->name('buil
 Route::delete('/buildings/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
 
 //Rooms
-
 Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
 Route::get('/rooms/create_rooms', [RoomController::class, 'create'])->name('rooms.create');
 Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
 Route::get('/rooms/{id}/edit', [RoomController::class, 'edit'])->name('rooms.edit');
 Route::put('/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update');
 Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
+
+//Departments
+Route::get('/departments', [RoomController::class, 'index'])->name('department.index');
+Route::get('/departments/create_dept', [RoomController::class, 'create'])->name('department.create');
+Route::post('/departments', [RoomController::class, 'store'])->name('department.store');
+Route::get('/departments/{id}/edit', [RoomController::class, 'edit'])->name('department.edit');
+Route::put('/departments/{id}', [RoomController::class, 'update'])->name('department.update');
+Route::delete('/departments/{id}', [RoomController::class, 'destroy'])->name('department.destroy');
 
 // Attendance routes
 
