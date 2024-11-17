@@ -25,14 +25,10 @@ use App\Http\Controllers\AnnouncementCreateController;
 Route::get('/', function () {
     return view('login');
 });
-// Route::get('/', function (){
-//     return view('login');
-// });
 
+// login routes
 Route::get('/', [LoginAuth::class, 'Unback']);
 Route::get('/login', [LoginAuth::class, 'Unback']);
-
-
 Route::get('login', [LoginAuth::class, 'LoginPage'])->name('login');
 Route::post('login', [LoginAuth::class, 'login']);
 Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
