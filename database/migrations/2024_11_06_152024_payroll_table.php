@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('payroll', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('age');
-            $table->string('address');
-            $table->string('username');
-            $table->string('email');
-            $table->string('password');
-            $table->integer('role_id');
+            $table->integer('date_start');
+            $table->integer('date_end');
+            $table->integer('amount');
+            $table->integer('deductions');
+            $table->integer('user_id');
         });
     }
 
