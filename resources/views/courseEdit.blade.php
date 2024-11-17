@@ -2,7 +2,7 @@
 
 @section('courseEditDashboard')
 <div class="glass">
-    <h1 class="heading">Course</h1>
+    <h1 class="heading">Edit Course</h1>
     <div class="frame">
         <form id="editCourseForm" action="{{ route('courses.update', $course->id) }}" method="POST" onsubmit="return confirmUpdate()">
             @csrf
