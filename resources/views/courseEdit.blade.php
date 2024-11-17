@@ -6,7 +6,7 @@
     <div class="frame">
         <form id="editCourseForm" action="{{ route('courses.update', $course->id) }}" method="POST" onsubmit="return confirmUpdate()">
             @csrf
-            @method('PUT') <!-- Use PUT method for updating a course -->
+            @method('PUT') 
             
             <h4>Name: <input type="text" name="name" value="{{ old('name', $course->name) }}" required></h4>
             <br>
