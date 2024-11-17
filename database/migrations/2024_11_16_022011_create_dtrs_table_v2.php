@@ -12,7 +12,7 @@ class CreateDtrsTableV2 extends Migration
     if (!Schema::hasTable('dtrs')) {
         Schema::create('dtrs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employee')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->date('date');
             $table->time('time_in');
             $table->time('time_out')->nullable();
