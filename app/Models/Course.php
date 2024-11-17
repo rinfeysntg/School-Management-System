@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Course extends Model
 {
     use HasFactory;
-  
+    public $timestamps=false;
+    
     protected $fillable = [
         'name',
-        'email',
-        'role',
+        'description',
+        'department_id',
     ];
-
-    // Define the relationship with the Dtr model
-    public function dtrs()
-    {
-        return $this->hasMany(Dtr::class);
-    }
-
 }

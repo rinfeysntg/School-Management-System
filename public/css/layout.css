@@ -3,14 +3,18 @@ body {
     background-image: url('../images/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
 
 .login {
-    position: relative;
-    left: 750px;
-    top: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #inputEmail {
@@ -198,8 +202,35 @@ body {
     font-style: normal;
     font-size: 30px;
     color: white;
-    top: 40px;
 }
+
+  
+.glass {
+    position: relative;
+    background: inherit;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 100px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 
+                0 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+  }
+  
+.glass:before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: -20px;
+    box-shadow: inset 0 0 500px rgba(255, 255, 255, .4); 
+    filter: blur(10px);
+    z-index: -1;
+  }
 
 .rooms-table {
     width: 100%;

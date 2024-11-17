@@ -4,13 +4,21 @@ use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\LoginAuth;
+use App\Http\Controllers\Registrar;
+use App\Http\Controllers\Department;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\courseTabledashboard;
+use App\Http\Controllers\LogHome;
+use App\Http\Controllers\CourseDashboard;
+use App\Http\Controllers\courseEditController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DtrController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
-
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
 
@@ -18,11 +26,16 @@ Route::get('/', function () {
     return view('login');
 });
 
-// Test routes
-Route::get('/registrar', function () {
-    return view('registrar.registrar_dashboard');
-});
+Route::get('/', [LogHome::class, 'index'])->name('/');
 
+// initial login funct
+Route::post('/login', [LoginAuth::class, 'Login'])->name('login');
+
+// registrar site
+Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
+
+
+// Test routes
 Route::get('/student', function () {
     return view('student.student_dashboard');
 });
@@ -34,6 +47,15 @@ Route::get('/treasury', function () {
 Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
+
+//Course
+Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
+Route::get('/course', [CourseController::class, 'createCourse'])->name('course');
+Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+Route::get('/course-table', [courseTabledashboard::class, 'index'])->name('courseTable');
+Route::get('/course/{id}/edit', [courseEditController::class, 'edit'])->name('courses.edit');
+Route::put('/course/{id}', [courseEditController::class, 'update'])->name('courses.update');
+Route::get('/course-table/delete/{id}', [courseEditController::class, 'destroy'])->name('courseTable.delete');
 
 // Building
 Route::get('/buildings', [BuildingController::class, 'index'])->name('building.index');
