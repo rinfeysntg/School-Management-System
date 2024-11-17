@@ -44,7 +44,7 @@ class BuildingController extends Controller
     public function edit($id)
 {
     $building = Building::findOrFail($id); 
-    return view('building.edit_building', compact('buildings')); 
+    return view('building.edit_building', compact('building')); 
 }
 
 public function update(Request $request, $id)
