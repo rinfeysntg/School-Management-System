@@ -21,6 +21,7 @@ Route::get('/create_building', function () {
     return view('registrar.create_building');
 });
 
+
 // Attendance routes
 Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::get('/attendance/student', [AttendanceController::class, 'studentDashboard'])->name('student.dashboard');
@@ -31,11 +32,13 @@ Route::get('/attendance/edit/{id}', [AttendanceController::class, 'edit'])->name
 Route::put('/attendance/update/{id}', [AttendanceController::class, 'update'])->name('attendance.update');
 Route::delete('/attendance/destroy/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
+
 // DTR routes
 Route::get('/attendance/dtr/form', [DtrController::class, 'showForm'])->name('dtr.form');
 Route::post('/attendance/dtr/store', [DtrController::class, 'store'])->name('dtr.store');
 Route::get('/attendance/dtr', [DtrController::class, 'index'])->name('dtr.index');
 Route::get('/attendance/dtr/{id}', [DtrController::class, 'show'])->name('dtr.show');
+
 
 // Event routes handled by EventController
 Route::prefix('attendance/events')->group(function () {
@@ -67,6 +70,7 @@ Route::prefix('attendance/events')->group(function () {
     Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store');
 });
 
+
 // Subjects
 Route::get('/subjects', [SubjectsController::class, 'AdminIndex'])->name('subjects');
 Route::get('/subjects/create', [SubjectsController::class, 'create'])->name('create_subject');
@@ -74,6 +78,7 @@ Route::post('/subjects/store', [SubjectsController::class, 'store'])->name('stor
 Route::get('/subjects/{id}/edit', [SubjectsController::class, 'edit'])->name('subjects_edit');
 Route::put('/subjects/{id}', [SubjectsController::class, 'update'])->name('subjects_update');
 Route::delete('/subjects/{id}', [SubjectsController::class, 'destroy'])->name('subjects_destroy');
+
 
 // Curriculum
 Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums_index');
