@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     use HasFactory;
-
     
     protected $fillable = [
         'code',
@@ -22,3 +21,4 @@ class Subject extends Model
         return $this->belongsTo(Curriculum::class);
     }
 }
+
