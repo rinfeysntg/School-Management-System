@@ -31,7 +31,13 @@
 
 <script>
     function confirmCreate() {
-        return confirm('Create Course?');
+        if (confirm('Create Course?')) {
+            setTimeout(() => {
+                alert('Course Created');
+            }, 100);
+            return true;
+        }
+        return false;
     }
 </script>
 @endsection
