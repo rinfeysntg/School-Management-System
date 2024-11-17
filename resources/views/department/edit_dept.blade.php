@@ -1,5 +1,5 @@
 @extends('layout')
-
+@include('registrar.navbar_registrar')
 @section('content')
 <div class="rec_dashboard">
     <h1 class="createroomLbl">Edit Department</h1> 

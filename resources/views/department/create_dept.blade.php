@@ -1,5 +1,5 @@
 @extends('layout')
-
+@include('registrar.navbar_registrar')
 @section('content')
 
 <div class="rec_dashboard">
