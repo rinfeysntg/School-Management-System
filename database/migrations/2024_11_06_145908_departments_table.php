@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->integer('building_id');
+            $table->text('description')->nullable();
+            $table->foreignId('building_id')->constrained('buildings')->onDelete('cascade'); 
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('departments');
     }
 };

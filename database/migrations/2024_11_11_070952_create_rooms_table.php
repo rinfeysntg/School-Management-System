@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('building_id'); 
+            $table->foreignId('building_id')->constrained('buildings')->onDelete('cascade'); 
             $table->timestamps();
         });
         
