@@ -4,6 +4,7 @@
 <div class="login">
     <form method="POST" action="{{ url('login') }}">
         @csrf
+        <div class="glass">
         <div class="row mb-3">
             <label class="row-sm-3 row-form-label" for="username">Username:</label>
             <input class="form-control" type="text" name="username" id="username" required>
@@ -14,6 +15,7 @@
         </div>
         <br>
         <button class="btn btn-success" type="submit">Login</button>
+        </div>
 
         @if ($errors->any())
             <div style="color:red;">
