@@ -6,29 +6,36 @@
     <div class="frame">
         <form id="editCourseForm" action="{{ route('courses.update', $course->id) }}" method="POST" onsubmit="return confirmUpdate()">
             @csrf
-            @method('PUT') 
+            @method('PUT') <!-- Use PUT method for updating a course -->
             
-            <h4>Name: <input type="text" name="name" value="{{ old('name', $course->name) }}" required></h4>
+            <div class="form-group">
+                <label for="name" class="form-label">Course Name:</label>
+                <input type="text" name="name" class="form-control" value="{{ old('name', $course->name) }}" required>
+            </div>
             <br>
-            <h4>Description: <input type="text" name="description" value="{{ old('description', $course->description) }}" required></h4>
+            <div class="form-group">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" name="description" class="form-control" value="{{ old('description', $course->description) }}" required>
+            </div>
             <br>
-            <h4>Department ID: 
-                <select id="dropdown" name="department_id" required>
+            <div class="form-group">
+                <label for="department_id" class="form-label">Department:</label>
+                <select id="dropdown" name="department_id" class="form-control" required>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}" {{ $department->id == $course->department_id ? 'selected' : '' }}>
                             {{ $department->name }}
                         </option>
                     @endforeach
                 </select>
-            </h4>
+            </div>
             <br>
             <div class="button-container">
-                <button type="submit" class="btn" id="updateButton">Update</button>
+                <button type="submit" class="btn btn-success" id="updateButton">Update Course</button>
             </div>
         </form>
         <br>
         <div class="button-container">
-            <a href="{{ route('courseDashboard') }}"><button class="btn">Return</button></a>
+            <a href="{{ route('courseDashboard') }}"><button class="btn btn-secondary">Return</button></a>
         </div>
     </div>
 </div>
