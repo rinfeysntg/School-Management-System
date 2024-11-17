@@ -10,7 +10,7 @@ use App\Http\Controllers\Subject;
 use App\Http\Controllers\Building;
 use App\Http\Controllers\buildingTable;
 use App\Http\Controllers\departmentTable;
-use App\Http\Controllers\courseTable;
+use App\Http\Controllers\courseTabledashboard;
 use App\Http\Controllers\curriculumTable;
 
 use App\Http\Controllers\LogHome;
@@ -37,10 +37,22 @@ Route::get('/department', [Department::class, 'index'])->name('department');
 Route::get('/departmentdashboard', [DepartmentDashboard::class, 'index'])->name('departmentDashboard');
 
 
-
-Route::get('/course', [CourseController::class, 'createCourse'])->name('course');
+// dashboard course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
+
+//add course
+Route::get('/course', [CourseController::class, 'createCourse'])->name('course');
 Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+
+//course table
+// Route for the course table dashboard
+Route::get('/course-table', [courseTabledashboard::class, 'index'])->name('courseTable');
+
+// Route for editing a course
+Route::get('/course/{id}/edit', [courseTabledashboard::class, 'edit'])->name('courses.edit');
+Route::put('/course/{id}', [courseTabledashboard::class, 'update'])->name('courses.update');
+// Route for deleting a course
+Route::get('/course-table/delete/{id}', [courseTabledashboard::class, 'destroy'])->name('courseTable.delete');
 
 
 
@@ -60,7 +72,6 @@ Route::get('/buildingTable', [buildingTable::class, 'index'])->name('buildingTab
 
 
 Route::get('/departmentTable', [departmentTable::class, 'index'])->name('departmentTable');
-Route::get('/courseTable', [courseTable::class, 'index'])->name('courseTable');
 Route::get('/curriculumTable', [curriculumTable::class, 'index'])->name('curriculumTable');
 
 
