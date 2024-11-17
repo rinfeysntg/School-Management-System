@@ -2,22 +2,27 @@
 
 @section('content')
 <div class="login">
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ url('login') }}">
         @csrf
-        <div class="row mb-3">
-            <label for="inputEmail" class="row-sm-3 row-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" id="inputEmail" required>
-            </div>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
         </div>
-        <div class="row mb-3">
-            <label for="inputPassword" class="row-sm-3 row-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="inputPassword" required>
-            </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
         </div>
-        <br>
-        <button type="submit" class="btn btn-success">Login</button>
+        <button type="submit">Login</button>
+
+        @if ($errors->any())
+            <div style="color:red;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </form>
 </div>
 @endsection

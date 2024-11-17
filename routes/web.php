@@ -20,14 +20,18 @@ use App\Http\Controllers\DepartmentDashboard;
 use App\Http\Controllers\BuildingDashboard;
 use App\Http\Controllers\courseEditController;
 
-Route::get('/', function (){
-    return view('login');
-});
+// Route::get('/', function (){
+//     return view('login');
+// });
 
-Route::get('/', [LogHome::class, 'index'])->name('/');
+Route::get('/', [LoginAuth::class, 'Unback']);
+Route::get('/login', [LoginAuth::class, 'Unback']);
 
-// initial login funct
-Route::post('/login', [LoginAuth::class, 'Login'])->name('login');
+
+Route::get('login', [LoginAuth::class, 'LoginPage'])->name('login');
+Route::post('login', [LoginAuth::class, 'login']);
+Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
+
 
 // registrar site
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
