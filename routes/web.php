@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
-use App\Http\Controllers\Course;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Curriculum;
 use App\Http\Controllers\Subject;
 use App\Http\Controllers\Building;
@@ -30,17 +30,35 @@ Route::post('/login', [LoginAuth::class, 'Login'])->name('login');
 
 // registrar site
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
+
+
+
 Route::get('/department', [Department::class, 'index'])->name('department');
 Route::get('/departmentdashboard', [DepartmentDashboard::class, 'index'])->name('departmentDashboard');
-Route::get('/course', [Course::class, 'index'])->name('course');
+
+
+
+Route::get('/course', [CourseController::class, 'createCourse'])->name('course');
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
+Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+
+
+
 Route::get('/curriculum', [Curriculum::class, 'index'])->name('curriculum');
 Route::get('/curriculumdashboard', [CurriculumDashboard::class, 'index'])->name('curriculumDashboard');
 
+
+
 Route::get('/subject', [Subject::class, 'index'])->name('subject');
+
+
+
 Route::get('/building', [Building::class, 'index'])->name('building');
 Route::get('/buildingdashboard', [BuildingDashboard::class, 'index'])->name('buildingDashboard');
 Route::get('/buildingTable', [buildingTable::class, 'index'])->name('buildingTable');
+
+
+
 Route::get('/departmentTable', [departmentTable::class, 'index'])->name('departmentTable');
 Route::get('/courseTable', [courseTable::class, 'index'])->name('courseTable');
 Route::get('/curriculumTable', [curriculumTable::class, 'index'])->name('curriculumTable');
