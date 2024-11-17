@@ -26,12 +26,11 @@ class LoginAuth extends Controller
             'password' => 'required',
         ]);
 
-
         $user = DB::table('users')->where('username', $request->username)->first();
 
         if ($user && $user->password === $request->password) {
-            session(['user' => $user]);
-            return redirect()->route('registrar');
+            session(['user' => $user]); 
+            return $this->redirectToRolePage($user->role_id);
         }
     
         return redirect()->route('login')->withErrors('Invalid username or password');
@@ -52,9 +51,25 @@ class LoginAuth extends Controller
     private function redirectToRolePage($role_id)
     {
         if ($role_id == 1) {
-            return redirect()->route('registrar');
+            return redirect()->route('registrar');//admin
         } elseif ($role_id == 2) {
-            return redirect()->route('courses');
+            return redirect()->route('registrar');//registrar
+        } elseif ($role_id == 3) {
+            return redirect()->route('course');//treasury
+        } elseif ($role_id == 4) {
+            return redirect()->route('course');//program_head
+        } elseif ($role_id == 5) {
+            return redirect()->route('course');//human_resource
+        } elseif ($role_id == 6) {
+            return redirect()->route('course');//professors
+        } elseif ($role_id == 7) {
+            return redirect()->route('course');//students
+        } elseif ($role_id == 8) {
+            return redirect()->route('course');//dummy
+        } elseif ($role_id == 9) {
+            return redirect()->route('course');//dummy
+        } elseif ($role_id == 10) {
+            return redirect()->route('course');//dummy
         }
 
         return redirect()->route('login')->withErrors(['Role not found']);
