@@ -3,6 +3,9 @@ body {
     background-image: url('../images/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
@@ -14,11 +17,15 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.form-control {
+#inputEmail {
     width: 300px;
 }
 
-.btn {
+#inputPassword {
+    width: 300px;
+}
+
+#loginBtn {
     position: relative;
     background-color: #BDCB95;
     color: black;
@@ -26,23 +33,177 @@ body {
     left: 50px;
 }
 
-.btn:hover {
+#loginBtn:hover {
     background-color:#1E3A32;
     color: white;
 }
 
-.row-sm-3 {
+#loginTxt {
     color: white;
 }
 
-body {
+#dashboardBtn {
+    position: relative;
+    background-color: #BDCB95;
+    color: black;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#dashboardBtn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+#logoutBtn {
+    position: relative;
+    background-color: #A87979;
+    color: white;
+    width: 200px;
+    left: 160px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#logoutBtn:hover {
+    background-color:#5c3e3e;
+    color: white;
+}
+
+.rec {
+    position: relative;
+    top: -30px;
+    left: 30px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
     background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+.rec_dashboard {
+    position: relative;
+    top: 190px;
+    left: 70px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+/*sTART OF ROOMS*/
+.rec_dashboard2 {
+    position: relative;
+    background-color: #D6D4A5; 
+    border-radius: 10px;
+    top: 50px; 
+    width: 700px;
+    height: 300px; 
+    margin: 0 auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.rec_dashboard3 {
+    position: relative;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    top: 50px; 
+    width: 900px;
+    height: 330px; 
+    margin: 0 auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.mb-3 {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    align-items: top; 
+    gap: 10px;
     
-  }
+}
+
+.RnamelBl,
+.RdescLbl,
+.RbuildingLbl {
+    width: 100px;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 20px; 
+    color: #000; 
+    text-align: right;
+    font-family: 'Times New Roman', Times, serif;
+    
+}
+
+
+.Nrooms_txt {
+    flex: 1;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.building_id_txt {
+    width: 90px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.rooms_desc {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    min-height: 80px; 
+    resize: vertical; 
+}
+
+.cRoomsForm {
+    position: relative;
+    top: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    
+}
+
+.createRoomBtn {
+
+    position: relative;
+    top: 85px;
+    left: 740px;
+    background-color: #BDCB95;
+    width: 120px;
+    color: black;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 10px;
+    height: 40px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+
+}
+
+.createroomLbl {
+    position: relative;
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: white;
+}
+
   
 .glass {
     position: relative;
@@ -70,3 +231,199 @@ body {
     filter: blur(10px);
     z-index: -1;
   }
+
+.rooms-table {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rooms-table th, .rooms-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.rooms-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.rooms-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #90EE90;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #FF7F7F; 
+    color: #fff;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.createRoomBtn {
+    padding: 10px 20px;
+    left: 470px;
+    top: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+}
+
+.createRoomBtn2 {
+    position: relative;
+    left: 828px;
+    top: 50px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set text color to white */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.createRoomBtn:hover {
+    background-color: #4c8c4c; /* Darker shade of green */
+}
+
+.createRoomBtn2:hover {
+    background-color: #4c8c4c; /* Darker shade of green */
+}
+
+/*END OF ROOMS*/
+
+.buttons {
+    float: left;
+    width: 300px;
+}
+
+.logoContainer {
+    margin-left: 320px;
+}
+
+.registrarLbl {
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    top: 40px;
+    font-size: 40px;
+    color: white;
+}
+
+
+.logoDashboard{
+    position: relative;
+    left: 210px;
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 270px;
+    height: 270px;
+    margin: 10px;
+}
+
+.createBldgLbl {
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: white;
+}
+
+#bldgName {
+    position: relative;
+    width: 565px;
+    left: 70px;
+}
+
+#bldgDesc {
+    position: relative;
+    width: 565px;
+    left: 70px;
+    top: -40px;
+}
+
+#nameLbl {
+    position: relative;
+    left: 70px;
+    top: -60px;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#descLbl {
+    position: relative;
+    left: 70px;
+    top: -98px;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.recgray {
+    position: relative;
+    left: 160px;
+    background-image: url('../images/recgray.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 652px;
+    height: 346px;
+}
+
+.recgray2 {
+    position: relative;
+    top: 10px;
+    left: 150px;
+    background-image: url('../images/recgray2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 710px;
+    height: 302px;
+}
+
+#createBldgBtn {
+    position: relative;
+    left: 690px;
+    background-color: #BDCB95;
+    width: 160px;
+    color: black;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#createBldgBtn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+#menuBtn {
+    position: relative;
+    top: 10px;
+    left: -70px;
+    width: 50px;
+    height: 50px;
+    background-image: url('../images/logo.png');
+    background-size: contain;
+}

@@ -1,0 +1,194 @@
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url("../images/background.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    position: relative; /* Needed for positioning the pseudo-element */
+    color: white;
+    width: 60%;
+    height: 85%;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Ensures the pseudo-element does not overflow */
+}
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1e3a32;
+    background-size: cover;
+    opacity: 0.6; /* Set the background image opacity */
+    z-index: -1; /* Place it behind the content */
+}
+
+.announcement {
+    background: white;
+    color: black;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.announcement .content {
+    max-width: 80%;
+}
+
+.delete-btn {
+    background: #e57373;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #d32f2f;
+}
+
+.create-btn {
+    background: #c8e6c9;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.create-btn:hover {
+    background: #81c784;
+}
+
+.announcement-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding: 0px 15px;
+    height: 100%;
+    justify-items: center;
+    align-items: center;
+}
+.flex-grow {
+    flex-grow: 1;
+    border-radius: 0.6rem;
+}
+.createbtn-container {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    gap: 5rem;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.fullheight {
+    height: 100%;
+
+}
+
+.targetid {
+    width: 20rem;
+}
+textarea::placeholder {
+    color: rgb(255, 0, 0);
+    opacity: 0.8; /* Optional: controls transparency */
+}
+
+.announcement-item {
+    padding: 10px 25px;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    width: 100%;
+}
+
+.announcement-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: #ABABAB;
+}
+
+.target-Id {
+    display: flex;
+}
+
+.marginright {
+    margin-left: 93%;
+}
+
+/*Button css*/
+
+.edit-button, .delete-button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+}
+
+.edit-button {
+    background: linear-gradient(45deg, #4CAF50, #81C784); /* Gradient background */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Subtle shadow */
+}
+
+.delete-button {
+    background: linear-gradient(45deg, #f44336, #EF5350); /* Gradient background*/
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2); /* Subtle shadow */
+    width: 80px; /* Adjust the width as needed */
+    height: 35px;
+    text-align: center;
+}
+
+.edit-button:hover {
+    background: linear-gradient(45deg, #66BB6A, #388E3C); /* Darker gradient on hover*/
+    transform: translateY(-2px); /* Button lift effect*/
+    box-shadow: 0 6px 12px rgba(0, 128, 0, 0.3); /* Enhanced shadow */
+}
+
+.delete-button:hover {
+    background: linear-gradient(45deg, #F44336, #D32F2F); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Button lift effect */
+    box-shadow: 0 6px 12px rgba(255, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.edit-button:focus, .delete-button:focus {
+    outline: none; /* Removes default outline */
+}

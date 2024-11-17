@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('message');
             $table->integer('announcement_target_id');
+            $table->timestamps();  // Add this to track created_at and updated_at
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('announcements');
     }
 };
