@@ -20,9 +20,12 @@
             <br>
             <div class="button-container">
                 <button type="submit" class="btn">Create</button>
-                <a href="{{ route('courseDashboard') }}"><button class="btn">Return</button></a>
             </div>
         </form>
+        <br>
+        <div class="button-container">
+            <a href="{{ route('courseDashboard') }}"><button class="btn">Return</button></a>
+        </div>
     </div>
 </div>
 @endsection
