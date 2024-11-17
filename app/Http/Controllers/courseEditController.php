@@ -10,9 +10,9 @@ class courseEditController extends Controller
 {
     public function edit($id)
     {
-        $course = Course::findOrFail($id);  // Fetch the course to edit
-        $departments = Department::all();   // Fetch departments
-        return view('courseEdit', compact('course', 'departments'));  // Pass course and departments to the view
+        $course = Course::findOrFail($id);  
+        $departments = Department::all();   
+        return view('courseEdit', compact('course', 'departments'));  
     }
 
     public function update(Request $request, $id)
