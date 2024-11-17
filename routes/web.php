@@ -23,6 +23,18 @@ Route::get('/registrar', function () {
     return view('registrar.registrar_dashboard');
 });
 
+Route::get('/student', function () {
+    return view('student.student_dashboard');
+});
+
+Route::get('/treasury', function () {
+    return view('treasury.treasury_dashboard');
+});
+
+Route::get('/program-head', function () {
+    return view('program-head.program-head_dashboard');
+});
+
 // Building
 Route::get('/buildings', [BuildingController::class, 'index'])->name('building.index');
 Route::get('/rooms/create_building', [BuildingController::class, 'create'])->name('building.create');

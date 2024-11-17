@@ -165,7 +165,7 @@
     <div class="rec_dashboard">
         <!-- Dashboard Header -->
         <div class="logoDashboard"></div>
-        <h1 class="registrarLbl">Teacher Dashboard</h1>
+        <h1 class="registrarLbl">Professor Dashboard</h1>
 
         <!-- Manage Attendance Section -->
         <div class="attendance-section">
