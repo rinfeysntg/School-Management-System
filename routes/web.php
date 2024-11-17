@@ -18,6 +18,7 @@ use App\Http\Controllers\CourseDashboard;
 use App\Http\Controllers\CurriculumDashboard;
 use App\Http\Controllers\DepartmentDashboard;
 use App\Http\Controllers\BuildingDashboard;
+use App\Http\Controllers\courseEditController;
 
 Route::get('/', function (){
     return view('login');
@@ -49,10 +50,10 @@ Route::post('/courses', [CourseController::class, 'store'])->name('courses.store
 Route::get('/course-table', [courseTabledashboard::class, 'index'])->name('courseTable');
 
 // Route for editing a course
-Route::get('/course/{id}/edit', [courseTabledashboard::class, 'edit'])->name('courses.edit');
-Route::put('/course/{id}', [courseTabledashboard::class, 'update'])->name('courses.update');
+Route::get('/course/{id}/edit', [courseEditController::class, 'edit'])->name('courses.edit');
+Route::put('/course/{id}', [courseEditController::class, 'update'])->name('courses.update');
 // Route for deleting a course
-Route::get('/course-table/delete/{id}', [courseTabledashboard::class, 'destroy'])->name('courseTable.delete');
+Route::get('/course-table/delete/{id}', [courseEditController::class, 'destroy'])->name('courseTable.delete');
 
 
 
