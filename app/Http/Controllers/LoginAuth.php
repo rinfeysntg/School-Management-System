@@ -44,7 +44,7 @@ class LoginAuth extends Controller
         //     Session::put('username', $user->username);
         //     Session::put('role_id', $user->role_id);
         //     return $this->redirectToRolePage($user->role_id);
-        // }
+        // } 
 
         return redirect()->back()->withErrors(['Invalid username or password']);
     }
