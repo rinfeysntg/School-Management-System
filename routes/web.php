@@ -8,6 +8,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DtrController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\BuildingController;
 
 
 Route::get('/', function () {

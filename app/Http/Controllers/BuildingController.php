@@ -36,7 +36,7 @@ class BuildingController extends Controller
     public function index()
     {
         $buildings = Building::all(); 
-        return view('building.view_buildings', compact('building')); 
+        return view('building.view_buildings', compact('buildings')); 
     }
 
     //EDIT//
@@ -44,7 +44,7 @@ class BuildingController extends Controller
     public function edit($id)
 {
     $building = Building::findOrFail($id); 
-    return view('building.edit_building', compact('building')); 
+    return view('building.edit_building', compact('buildings')); 
 }
 
 public function update(Request $request, $id)
