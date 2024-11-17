@@ -8,7 +8,7 @@
 
     <div class="rec_dashboard2">
 
-        <form class="cRoomsForm" action="{{ route('dept.store') }}" method="POST">
+        <form class="cRoomsForm" action="{{ route('department.store') }}" method="POST">
             @csrf 
 
             <div class="mb-3">

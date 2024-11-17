@@ -9,6 +9,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DtrController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\DepartmentController;
 
 
 Route::get('/', function () {
@@ -37,12 +38,12 @@ Route::put('/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update
 Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
 
 //Departments
-Route::get('/departments', [RoomController::class, 'index'])->name('department.index');
-Route::get('/departments/create_dept', [RoomController::class, 'create'])->name('department.create');
-Route::post('/departments', [RoomController::class, 'store'])->name('department.store');
-Route::get('/departments/{id}/edit', [RoomController::class, 'edit'])->name('department.edit');
-Route::put('/departments/{id}', [RoomController::class, 'update'])->name('department.update');
-Route::delete('/departments/{id}', [RoomController::class, 'destroy'])->name('department.destroy');
+Route::get('/departments', [DepartmentController::class, 'index'])->name('department.index');
+Route::get('/departments/create_department', [DepartmentController::class, 'create'])->name('department.create');
+Route::post('/departments', [DepartmentController::class, 'store'])->name('department.store');
+Route::get('/departments/{id}/edit', [DepartmentController::class, 'edit'])->name('department.edit');
+Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('department.update');
+Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
 
 // Attendance routes
 

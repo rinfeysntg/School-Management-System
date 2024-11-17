@@ -10,7 +10,7 @@ class DepartmentController extends Controller
 {
     public function create()
     {
-        return view('dept.create_dept'); 
+        return view('department.create_dept'); 
     }
 
    
@@ -30,22 +30,22 @@ class DepartmentController extends Controller
             'building_id' => $request->input('building_id'),
         ]);
 
-        return redirect()->route('dept.index')->with('success', 'Department created successfully!');
+        return redirect()->route('department.index')->with('success', 'Department created successfully!');
     }
 
    
     public function index()
     {
-        $depts = Department::all(); 
-        return view('dept.view_rooms', compact('depts')); 
+        $departments = Department::all(); 
+        return view('department.view_dept', compact('departments')); 
     }
 
     //EDIT//
 
     public function edit($id)
 {
-    $dept = dept::findOrFail($id); 
-    return view('dept.edit_dept', compact('dept')); 
+    $department = Department::findOrFail($id); 
+    return view('department.edit_dept', compact('department')); 
 }
 
 public function update(Request $request, $id)
@@ -58,22 +58,22 @@ public function update(Request $request, $id)
     ]);
 
    
-    $dept = Department::findOrFail($id);
-    $dept->update([
+    $department = Department::findOrFail($id);
+    $department->update([
         'name' => $request->input('name'),
         'description' => $request->input('description'),
         'building_id' => $request->input('building_id'),
     ]);
 
-    return redirect()->route('dept.index')->with('success', 'DEpartment updated successfully!');
+    return redirect()->route('department.index')->with('success', 'Department updated successfully!');
 }
 
 
 public function destroy($id)
 {
-    $dept = Department::findOrFail($id); 
-    $dept->delete(); 
+    $department = Department::findOrFail($id); 
+    $department->delete(); 
 
-    return redirect()->route('dept.index')->with('success', 'Department deleted successfully!');
+    return redirect()->route('department.index')->with('success', 'Department deleted successfully!');
 }
 }

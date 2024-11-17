@@ -8,19 +8,19 @@
     <div class="rec_dashboard3">
         <table class="rooms-table">
             <tbody>
-                @foreach ($depts as $dept)
+                @foreach ($departments as $department)
                     <tr>
                         <td>
-                            <strong>{{ $dept->name }}</strong><br>
-                            <span class="description">{{ $dept->description }}</span>
+                            <strong>{{ $department->name }}</strong><br>
+                            <span class="description">{{ $department->description }}</span>
                         </td>
                         <td>
-                            Department ID: {{ $dept->id }}<br>
-                            Building ID: {{ $dept->building_id }}
+                            Department ID: {{ $department->id }}<br>
+                            Building ID: {{ $department->building_id }}
                         </td>
                         <td>
-                            <a href="{{ route('dept.edit', $dept->id) }}" class="edit-btn">Edit</a>
-                            <form action="{{ route('dept.destroy', $dept->id) }}" method="POST" style="display: inline;">
+                            <a href="{{ route('department.edit', $department->id) }}" class="edit-btn">Edit</a>
+                            <form action="{{ route('department.destroy', $department->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this department?')">Delete</button>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="button-container">
-        <a href="{{ route('dept.create') }}" class="createRoomBtn2">Create Department</a>
+        <a href="{{ route('department.create') }}" class="createRoomBtn2">Create Department</a>
     </div>
 
 </div>
