@@ -4,7 +4,7 @@
 <div class="glass">
     <h1 class="heading">Create Courses</h1>
     <div class="frame">
-        <form action="{{ route('courses.store') }}" method="POST">
+        <form id="createCourseForm" action="{{ route('courses.store') }}" method="POST" onsubmit="return confirmCreate()">
             @csrf
             <h4>Name: <input type="text" name="name" required></h4>
             <br>
@@ -19,7 +19,7 @@
             </h4>
             <br>
             <div class="button-container">
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn" id="createButton">Create</button>
             </div>
         </form>
         <br>
@@ -28,4 +28,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmCreate() {
+        return confirm('Create Course?');
+    }
+</script>
 @endsection
