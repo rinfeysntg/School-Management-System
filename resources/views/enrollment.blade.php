@@ -1,6 +1,6 @@
 @extends('layoutenrollment')
 
-@section('enrollmentdashboard')
+@section('enrollment')
 <div class="glass">
     <h1 class="heading">Enroll Student</h1>
     <div class="frame">
@@ -8,25 +8,20 @@
             <option value="option1">Harold</option>
             <option value="option2">Gian</option>
             <option value="option3">Erwin</option>
+            <option value="option3">Reaver</option>
+            <option value="option3">Marko</option>
         </select></h4>
         <br>
-        <h4>Department ID: <select id="dropdown">
-            <option value="option1">CECT</option>
-            <option value="option2">CBA</option>
-            <option value="option3">CAS</option>
+        <h4>Status: <select id="dropdown">
+            <option value="option1">Not Enrolled</option>
+            <option value="option2">Enrolled</option>
         </select></h4>
         <br>
-        <h4>Course ID: 
-            <select id="dropdown">
-                <option value="option1">BSIT</option>
-                <option value="option2">BSCE</option>
-            </select>
-        </h4>
     </div>
     <br>
     <div class="button-container">
     <button type="button" class="btn">Enroll</button>
-    <a ><button class="btn">Return</button></a>
+    <a href="{{ route('enrollmentDashboard') }}"><button class="btn">Return</button></a>
     </div>
 </div>
 @endsection

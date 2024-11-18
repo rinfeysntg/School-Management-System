@@ -6,6 +6,8 @@ use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Enrollment;
+use App\Http\Controllers\enrollmentDashboard;
+use App\Http\Controllers\enrollmentTable;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
@@ -54,7 +56,9 @@ Route::get('/program-head', function () {
 
 // Enrollment
 
-Route::get('/enroll', [Enrollment::class, 'index'])->name('enrollmentDashboard');
+Route::get('/enroll', [Enrollment::class, 'index'])->name('enrollment');
+Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollmentDashboard');
+Route::get('/enrollTable', [enrollmentTable::class, 'index'])->name('enrollmentTable');
 
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
