@@ -5,6 +5,7 @@ use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Enrollment;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
@@ -50,6 +51,10 @@ Route::get('/treasury', function () {
 Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
+
+// Enrollment
+
+Route::get('/enroll', [Enrollment::class, 'index'])->name('enrollmentDashboard');
 
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
@@ -162,3 +167,6 @@ Route::get('/announcement', [AnnouncementController::class, 'index'])->name('ann
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+
+
+
