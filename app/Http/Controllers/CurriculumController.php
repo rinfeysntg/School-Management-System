@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CurriculumController extends Controller
@@ -11,6 +12,7 @@ class CurriculumController extends Controller
     public function index()
     {
         $curriculums = Curriculum::all();
+        $courses = Course::all();
         return view('subjects.curriculums.index_curriculum', compact('curriculums'));
     }
 
