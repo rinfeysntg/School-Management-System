@@ -85,7 +85,6 @@ Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('
 Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
 
 // Attendance routes
-
 Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::get('/attendance/student', [AttendanceController::class, 'studentDashboard'])->name('student.dashboard');
 Route::get('/attendance/teacher', [AttendanceController::class, 'teacherDashboard'])->name('teacher.dashboard');
@@ -157,7 +156,6 @@ Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
 
 
 // Announcement
-
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');

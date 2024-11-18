@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('grade_required');
             $table->integer('grade_id');
             $table->integer('activity_id');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('activities_grades');
     }
 };
