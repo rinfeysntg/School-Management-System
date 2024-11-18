@@ -45,7 +45,7 @@ class EnrollmentController extends Controller
 
     public function edit(Enrollment $enrollment)
     {
-        return view('enrollment.edit', compact('enrollment'));
+        return view('enrollmentEditTable', compact('enrollment'));
     }
 
     public function update(Request $request, Enrollment $enrollment)
