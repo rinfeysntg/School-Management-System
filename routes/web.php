@@ -170,3 +170,5 @@ Route::post('/user/store', [UsersController::class, 'store'])->name('store_user'
 Route::delete('/user/delete/{id}', [UsersController::class, 'delete'])->name('delete_user');
 Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_user_page');
 Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
+Route::get('/users', [UsersController::class, 'index'])->name('usersController');
+

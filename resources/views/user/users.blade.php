@@ -8,6 +8,14 @@
 
 <h1>User List</h1>
 
+<!-- Search Bar -->
+<form action="{{ route('usersController') }}" method="GET" class="mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control" name="search" placeholder="Search Users" value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
 <!-- Include User Cards here -->
 @include('user.User-cards')
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Users;
 use Illuminate\Http\Request;
 
@@ -17,21 +18,32 @@ class UsersController extends Controller
         'students' => 7,
     ];
 
-    public function index()
-{
-    $users = Users::get();
-    $roleNames = [
-        1 => 'Admin',
-        2 => 'Registrar',
-        3 => 'Treasury',
-        4 => 'Program Head',
-        5 => 'Human Resource',
-        6 => 'Professors',
-        7 => 'Students',
-    ];
-    return view('user.users', compact('users', 'roleNames'));
-}
+    public function index(Request $request)
+    {
+        // Get the search query from the request
+        $search = $request->input('search');
 
+        // Query the Users model
+        $users = Users::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%")
+                         ->orWhere('username', 'like', "%{$search}%");
+        })->get();
+
+        // Define role names mapping
+        $roleNames = [
+            1 => 'Admin',
+            2 => 'Registrar',
+            3 => 'Treasury',
+            4 => 'Program Head',
+            5 => 'Human Resource',
+            6 => 'Professors',
+            7 => 'Students',
+        ];
+
+        // Return view with filtered users and role names
+        return view('user.users', compact('users', 'roleNames'));
+    }
 
     // Store new user
     public function store(Request $request)
@@ -99,6 +111,5 @@ class UsersController extends Controller
 
         return redirect()->route('usersController')->with('success', 'User updated successfully.');
     }
-
-
 }
+
