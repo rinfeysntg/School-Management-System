@@ -1,0 +1,171 @@
+body {
+    position: relative;
+    background-image: url('../images/bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-control {
+    width: 300px;
+}
+
+.btn {
+    position: relative;
+    background-color: #BDCB95;
+    color: black;
+    width: 200px;
+    left: 50px;
+}
+
+.btn:hover {
+    background-color:#1E3A32;
+    color: white;
+}
+
+.row-sm-3 {
+    color: white;
+}
+
+body {
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+.glass {
+    position: relative;
+    background: inherit;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 100px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 
+                0 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+  }
+  
+.glass:before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: -20px;
+    box-shadow: inset 0 0 500px rgba(255, 255, 255, .4); 
+    filter: blur(10px);
+    z-index: -1;
+  }
+
+
+  .frame {
+    background-color: #D6D4A5;
+    width: 100%; 
+    height: 100%; 
+    border-radius: 8px; 
+    padding: 120px; 
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 10px; 
+}
+
+.button-container .btn {
+    background-color: #BDCB95;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+}
+
+.button-container .btn:hover {
+    background-color: #1E3A32;
+    color: white;
+}
+
+
+.heading {
+    text-align: center;
+    color: white;
+    padding-bottom: 40px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+
+.edit-button, .delete-button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+}
+
+.edit-button {
+    background: linear-gradient(45deg, #4CAF50, #81C784); /* Gradient background */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Subtle shadow */
+}
+
+.delete-button {
+    background: linear-gradient(45deg, #f44336, #EF5350); /* Gradient background */
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.edit-button:hover {
+    background: linear-gradient(45deg, #66BB6A, #388E3C); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Button lift effect */
+    box-shadow: 0 6px 12px rgba(0, 128, 0, 0.3); /* Enhanced shadow */
+}
+
+.delete-button:hover {
+    background: linear-gradient(45deg, #F44336, #D32F2F); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Button lift effect */
+    box-shadow: 0 6px 12px rgba(255, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.edit-button:focus, .delete-button:focus {
+    outline: none; /* Removes default outline */
+}
+
+
+
