@@ -10,11 +10,18 @@ use Illuminate\Http\Request;
 class CurriculumController extends Controller
 {
    
-    public function index()
+    public function index(Request $request)
     {
         $curriculums = Curriculum::all();
         $courses = Course::all();
-        return view('subjects.curriculums.index_curriculum', compact('curriculums'));
+
+        if ($request->has('course_id') && $request->course_id != '') {
+            $curriculums = Curriculum::where('course_id', $request->course_id)->get();
+        } else {
+            $curriculums = collect();
+        }
+
+        return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
     }
 
     
@@ -28,31 +35,38 @@ class CurriculumController extends Controller
    
     public function store(Request $request)
     {
-     
-        $request->validate([
+        
+        $validated = $request->validate([
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'program_head' => 'required|string|max:255',
-            'course_id' => 'required|exists:courses,id'                   
+            'course_id' => 'required|exists:courses,id' 
         ]);
-
+    
         
-        Curriculum::create($request->all());
-
+        Curriculum::create([
+            'code' => $validated['code'],
+            'name' => $validated['name'],
+            'program_head' => $validated['program_head'],
+            'course_id' => $validated['course_id'], 
+        ]);
+    
         
         return redirect()->route('curriculums_index');
     }
 
     public function show($id)
     {
+        $courses = Course::all();
         $curriculum = Curriculum::with('subjects')->findOrFail($id);
         return view('subjects.curriculums.show', compact('curriculum'));
     }
 
     public function edit($id)
     {
+        $courses = Course::all();
         $curriculum = Curriculum::findOrFail($id);
-        return view('subjects.curriculums.edit_cur', compact('curriculum'));
+        return view('subjects.curriculums.edit_cur', compact('curriculum','courses'));
     }
 
     
