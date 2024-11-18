@@ -3,7 +3,7 @@
 @section('registrardashboard')
 <div class="glass">
         <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
-    <div class="button-container">
+        <div class="button-container">
         <a href="/announcement"><button class="btn">Announcements</button></a>
         <a href="/departments"><button class="btn">Departments</button></a>
         <a href="{{ route('courseDashboard') }}"><button class="btn">Courses</button></a>
