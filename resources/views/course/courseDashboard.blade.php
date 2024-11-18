@@ -1,5 +1,4 @@
 @extends('layoutCourseDashboard')
-
 @section('CourseDashboard')
 <div class="glass">
         <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
