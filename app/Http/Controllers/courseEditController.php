@@ -12,7 +12,7 @@ class courseEditController extends Controller
     {
         $course = Course::findOrFail($id);  
         $departments = Department::all();   
-        return view('courseEdit', compact('course', 'departments'));  
+        return view('course.courseEdit', compact('course', 'departments'));  
     }
 
     public function update(Request $request, $id)

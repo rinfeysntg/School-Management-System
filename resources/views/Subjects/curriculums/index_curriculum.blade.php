@@ -10,9 +10,7 @@
         <select name="course_id" id="course_id" onchange="this.form.submit()">
             <option value="">Select a course</option>
             @foreach($courses as $course)
-                <option value="{{ $course->id }}" {{ request('course_id') == $course->id ? 'selected' : '' }}>
-                    {{ $course->name }}
-                </option>
+                <option value="{{ $course->id }}"> {{ $course->name }} </option>
             @endforeach
         </select>
     </form>

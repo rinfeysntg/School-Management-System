@@ -143,7 +143,7 @@ Route::delete('/subjects/{id}', [SubjectsController::class, 'destroy'])->name('s
 // Curriculum
 Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums_index');
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
-Route::post('/curriculums', [CurriculumController::class, 'store'])->name('curriculums_store');
+Route::post('/curriculums/store', [CurriculumController::class, 'store'])->name('curriculums_store');
 Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('curriculums_show');
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');

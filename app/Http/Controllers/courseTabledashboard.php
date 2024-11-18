@@ -11,7 +11,7 @@ class courseTabledashboard extends Controller
     public function index()
     {
         $courses = Course::all();
-        return view('courseTable', compact('courses'));
+        return view('course.courseTable', compact('courses'));
     }
 
 }
