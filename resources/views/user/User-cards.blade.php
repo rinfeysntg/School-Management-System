@@ -4,9 +4,7 @@
             <div class="col">
                 <div class="card h-100 glass-effect">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $user->name }}
-                        </h5>
+                        <h5 class="card-title">{{ $user->name }}</h5>
                         <h4 class="card-text">ID {{ $user->id }}</h4>
 
                         <!-- Edit Button that Triggers Modal -->
@@ -63,8 +61,17 @@
                                         <label for="password">Password</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="role_id" class="form-control" name="role_id" id="role_id" placeholder="Role_id" value="{{ $user->role_id }}" required>
-                                        <label for="role_id">Role_id</label>
+                                        <!-- Role Dropdown with String Values -->
+                                        <select class="form-control" name="role_id" required>
+                                            <option value="admin" {{ $user->role_id == 'admin' ? 'selected' : '' }}>Admin</option>
+                                            <option value="registrar" {{ $user->role_id == 'registrar' ? 'selected' : '' }}>Registrar</option>
+                                            <option value="treasury" {{ $user->role_id == 'treasury' ? 'selected' : '' }}>Treasury</option>
+                                            <option value="program_head" {{ $user->role_id == 'program_head' ? 'selected' : '' }}>Program Head</option>
+                                            <option value="human_resource" {{ $user->role_id == 'human_resource' ? 'selected' : '' }}>Human Resource</option>
+                                            <option value="professors" {{ $user->role_id == 'professors' ? 'selected' : '' }}>Professors</option>
+                                            <option value="students" {{ $user->role_id == 'students' ? 'selected' : '' }}>Students</option>
+                                        </select>
+                                        <label for="role_id">Role</label>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success" id="submitButton">Edit user</button>
@@ -74,7 +81,7 @@
                 </div>
             </div>
 
-
+            <!-- Modal for Viewing user details -->
             <div class="modal fade" id="viewProductModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewProductModalLabel{{ $user->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content glass-effect">
@@ -90,7 +97,21 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Password:</strong> {{ $user->password }}</p>
-                            <p><strong>Role_id:</strong> {{ $user->role_id }}</p>
+                            <p><strong>Role:</strong> 
+                                @php
+                                    $roleNames = [
+                                        'admin' => 'Admin',
+                                        'registrar' => 'Registrar',
+                                        'treasury' => 'Treasury',
+                                        'program_head' => 'Program Head',
+                                        'human_resource' => 'Human Resource',
+                                        'professors' => 'Professors',
+                                        'students' => 'Students'
+                                    ];
+                                    $roleName = $roleNames[$user->role_id] ?? 'Unknown'; 
+                                @endphp
+                                {{ $roleName }}
+                            </p>
                         </div>
                     </div>
                 </div>
