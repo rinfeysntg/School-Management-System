@@ -22,6 +22,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
+use App\Http\Controllers\EnrollmentController;
 
 Route::get('/', function () {
     return view('login');
@@ -53,8 +54,8 @@ Route::get('/program-head', function () {
 });
 
 // Enrollment
-
-Route::get('/enroll', [Enrollment::class, 'index'])->name('enrollmentDashboard');
+Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollmentDashboard');
+Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
 
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
