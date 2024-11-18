@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('user_id');
             //prof
             $table->integer('employee_id');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('activities');
     }
 };
