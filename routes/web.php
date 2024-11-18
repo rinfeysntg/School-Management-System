@@ -21,6 +21,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
+use App\Http\Controllers\UsersController;
 
 Route::get('/', function () {
     return view('login');
@@ -104,28 +105,28 @@ Route::get('/attendance/dtr/{id}', [DtrController::class, 'show'])->name('dtr.sh
 Route::prefix('attendance/events')->group(function () {
     // Show Event Creation Form (Teacher view)
     Route::get('create', [EventController::class, 'create'])->name('attendance.events.create');
-    
+
     // Store Event (Teacher/Admin submits event creation)
     Route::post('/', [EventController::class, 'store'])->name('attendance.events.store');
-    
+
     // Show the list of events (Teacher or Admin view)
     Route::get('/', [EventController::class, 'index'])->name('attendance.events.list');
-    
+
     // Show Event Edit Form
     Route::get('{id}/edit', [EventController::class, 'edit'])->name('attendance.events.edit');
-    
+
     // Update event (PUT request)
     Route::put('{id}', [EventController::class, 'update'])->name('attendance.events.update');
-    
+
     // Delete event (DELETE request)
     Route::delete('{id}', [EventController::class, 'destroy'])->name('attendance.events.destroy');
-    
+
     // Show Event Attendees List (Teacher view)
     Route::get('{event}/attendees', [EventController::class, 'eventAttendees'])->name('attendance.event.attendees');
-    
+
     // Store Event Attendance Form (Student view)
     Route::get('{event}/attend', [EventController::class, 'eventAttendanceForm'])->name('attendance.event.create');
-    
+
     // Store Event Attendance (POST request)
     Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store');
 });
@@ -159,3 +160,13 @@ Route::get('/announcement', [AnnouncementController::class, 'index'])->name('ann
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+
+// users
+
+
+Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
+Route::get('/user/create', [UsersController::class, 'create'])->name('create_user');
+Route::post('/user/store', [UsersController::class, 'store'])->name('store_user');
+Route::delete('/user/delete/{id}', [UsersController::class, 'delete'])->name('delete_user');
+Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_user_page');
+Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');

@@ -9,4 +9,5 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Users extends Model
 {
     use HasFactory;
+    public $timestamps =false;
 }
