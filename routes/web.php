@@ -26,10 +26,13 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/', [LogHome::class, 'index'])->name('/');
+// login routes
+Route::get('/', [LoginAuth::class, 'Unback']);
+Route::get('/login', [LoginAuth::class, 'Unback']);
+Route::get('login', [LoginAuth::class, 'LoginPage'])->name('login');
+Route::post('login', [LoginAuth::class, 'login']);
+Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 
-// initial login funct
-Route::post('/login', [LoginAuth::class, 'Login'])->name('login');
 
 // registrar site
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
