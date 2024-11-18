@@ -1,5 +1,5 @@
 @extends('layout')
-
+@include('registrar.navbar_registrar')
 @section('content')
     <div class="curriculum-create-container">
         <h1>Create a New Curriculum</h1>

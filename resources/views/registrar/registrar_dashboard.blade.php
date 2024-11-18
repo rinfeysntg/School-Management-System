@@ -7,15 +7,15 @@
         <br>
         <br>
         <br>
-        <button id="dashboardBtn" class="btn btn-success">Announcements</button>
+        <a><button id="dashboardBtn" class="btn btn-success">Announcements</button></a>
         <br>
-        <button id="dashboardBtn" class="btn btn-success">Create Course</button>
+        <a><button id="dashboardBtn" class="btn btn-success">Courses</button></a>
         <br>
-        <button id="dashboardBtn" class="btn btn-success">Create Curriculum</button>
+        <a href="/curriculums"><button id="dashboardBtn" class="btn btn-success">Curriculums</button></a>
         <br>
-        <button id="dashboardBtn" class="btn btn-success">Buildings</button>
+        <a href="/buildings"><button id="dashboardBtn" class="btn btn-success">Buildings</button></a>
         <br>
-        <button id="dashboardBtn" class="btn btn-success">Departments</button>
+        <a href="/departments"><button id="dashboardBtn" class="btn btn-success">Departments</button></a>
         <br>
         <br>
         <button id="logoutBtn" class="btn btn-danger">Logout</button>
