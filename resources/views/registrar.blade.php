@@ -13,7 +13,7 @@
         <a href="/rooms"><button class="btn">Rooms</button></a>
         <br>
         <div class="button-container-red">
-            <a href="{{ route('/') }}"><button class="btn">Log Out</button></a>
+        <a href="{{ route('logout') }}"><button class="btn">Log Out</button></a>
         </div>
     </div>
 </div>
