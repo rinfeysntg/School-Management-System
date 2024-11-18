@@ -34,6 +34,6 @@ class EnrollmentController extends Controller
             'enrollment_date' => now(),       
         ]);
 
-        return redirect()->route('enrollmentDashboard')->with('success', 'Student enrolled successfully!');
+        return redirect()->route('enrollDashboard')->with('success', 'Student enrolled successfully!');
     }
 }

@@ -56,7 +56,8 @@ Route::get('/program-head', function () {
 });
 
 // Enrollment
-Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollmentDashboard');
+Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
+Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollDashboard');
 Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
 
 //Course

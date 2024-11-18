@@ -27,7 +27,7 @@
         </form>
         <br>
         <div class="button-container">
-            <a href="{{ route('enrollmentDashboard') }}"><button class="btn">Return</button></a>
+            <a href="{{ route('enrollDashboard') }}"><button class="btn">Return</button></a>
         </div>
     </div>
 </div>
