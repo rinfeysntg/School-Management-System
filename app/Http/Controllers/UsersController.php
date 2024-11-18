@@ -18,10 +18,20 @@ class UsersController extends Controller
     ];
 
     public function index()
-    {
-        $users = Users::get();
-        return view('user.users')->with('users', $users);
-    }
+{
+    $users = Users::get();
+    $roleNames = [
+        1 => 'Admin',
+        2 => 'Registrar',
+        3 => 'Treasury',
+        4 => 'Program Head',
+        5 => 'Human Resource',
+        6 => 'Professors',
+        7 => 'Students',
+    ];
+    return view('user.users', compact('users', 'roleNames'));
+}
+
 
     // Store new user
     public function store(Request $request)
@@ -89,4 +99,6 @@ class UsersController extends Controller
 
         return redirect()->route('usersController')->with('success', 'User updated successfully.');
     }
+
+
 }
