@@ -21,6 +21,6 @@ class Enrollment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class); // This assumes 'user_id' is the foreign key
+        return $this->belongsTo(User::class);
     }
 }
