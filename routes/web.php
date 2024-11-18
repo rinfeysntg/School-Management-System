@@ -6,6 +6,8 @@ use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Enrollment;
+use App\Http\Controllers\enrollmentDashboard;
+use App\Http\Controllers\enrollmentTable;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;

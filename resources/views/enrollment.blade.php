@@ -1,6 +1,6 @@
 @extends('layoutenrollment')
 
-@section('enrollmentdashboard')
+@section('enrollment')
 <div class="glass">
     <h1 class="heading">Enroll Students</h1>
     <div class="frame">
