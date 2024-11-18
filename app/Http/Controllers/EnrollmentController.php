@@ -36,4 +36,26 @@ class EnrollmentController extends Controller
 
         return redirect()->route('enrollDashboard')->with('success', 'Student enrolled successfully!');
     }
+
+    public function showEnrollmentTable()
+    {
+        $enrollments = Enrollment::with('user')->get();
+        return view('enrollmentTable', compact('enrollments'));
+    }
+
+    public function edit(Enrollment $enrollment)
+    {
+        return view('enrollment.edit', compact('enrollment'));
+    }
+
+    public function update(Request $request, Enrollment $enrollment)
+    {
+        $request->validate([
+            'status' => 'required|string',
+        ]);
+        $enrollment->update($request->all());
+        return redirect()->route('enrollmentTable')->with('success', 'Enrollment updated successfully!');
+    }
+
+
 }

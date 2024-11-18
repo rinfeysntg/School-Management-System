@@ -18,4 +18,9 @@ class Enrollment extends Model
     protected $casts = [
         'enrollment_date' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class); // This assumes 'user_id' is the foreign key
+    }
 }
