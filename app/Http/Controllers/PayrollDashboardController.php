@@ -63,12 +63,12 @@ class PayrollDashboardController extends Controller
                 ->get();
 
         Log::info($data);
-        return view('payroll_dashboard')->with('data', $data);
+        return view('payroll.payroll_dashboard')->with('data', $data);
     }
 
     public function create()
     {
-        return view('payroll_create');
+        return view('payroll.payroll_create');
     }
 
     public function store(Request $request)
@@ -135,7 +135,7 @@ class PayrollDashboardController extends Controller
 
                 
 
-        return view('payroll_edit', compact('data'));
+        return view('payroll.payroll_edit', compact('data'));
     }
 
     public function update(Request $request)
@@ -208,7 +208,7 @@ class PayrollDashboardController extends Controller
                 )
                 ->get();
 
-                return view('payroll_release', compact('data'));
+                return view('payroll.payroll_release', compact('data'));
     }
 
     public function release(Request $request)

@@ -9,6 +9,6 @@ class enrollmentDashboard extends Controller
     public function index()
     {
 
-        return view('enrollmentDashboard');
+        return view('enrollment.enrollmentDashboard');
     }
 }

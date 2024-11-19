@@ -18,7 +18,7 @@ class EnrollmentEditController extends Controller
         $users = User::all();
         
         // Return the view and pass necessary data
-        return view('enrollmentEdit');
+        return view('enrollment.enrollmentEdit');
     }
 
     // Handle updating the enrollment
