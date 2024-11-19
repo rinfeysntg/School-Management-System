@@ -46,13 +46,15 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-control" name="dept_id" required>
-                            @foreach ($roleNames as $roleName => $roleId)
-                                <option value="{{ $roleName }}">{{ ucfirst($roleName) }}</option>
-                            @endforeach
-                        </select>
-                        <label for="dept_id">Role</label>
-                    </div>
+    <select class="form-control" name="department_id" required>
+        @foreach ($departments as $department)
+            <option value="{{ $department->id }}">
+                {{ $department->name }}
+            </option>
+        @endforeach
+    </select>
+    <label for="department_id">Department</label>
+</div>
 
                     <button type="submit" class="btn btn-success">Add Role</button>
                 </form>

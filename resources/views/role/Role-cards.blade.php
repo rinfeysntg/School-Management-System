@@ -1,6 +1,6 @@
 <div>
     <div class="row row-cols-1 row-cols-md-4 g-4">
-        @foreach (json_decode($roles) as $role)
+        @foreach ($roles as $role)
             <div class="col">
                 <div class="card h-100 glass-effect">
                     <div class="card-body">
@@ -39,28 +39,25 @@
                                         <input type="hidden" name="id" value="{{ $role->id }}">
                                         <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{ $role->name }}" required>
                                         <label for="name">Name</label>
-                                    </div>       
+                                    </div>
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" name="description" id="description" placeholder="description" value="{{ $role->description }}" required>
                                         <label for="description">Description</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" name="yearlevel" id="yearlevel" placeholder="yearlevel" value="{{ $role->yearlevel }}" required>
-                                        <label for="yearlevel">yearlevel</label>
+                                        <label for="yearlevel">Year Level</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <!-- Role Dropdown with String Values -->
-                                        <select class="form-control" name="dept_id" required>
-                                            <option value="CAMS" {{ $role->dept_id == 1 ? 'selected' : '' }}>CAMS</option>
-                                            <option value="CAS" {{ $role->dept_id == 2 ? 'selected' : '' }}>CAS</option>
-                                            <option value="CBA" {{ $role->dept_id == 3 ? 'selected' : '' }}>CBA</option>
-                                            <option value="CCJE" {{ $role->dept_id == 4 ? 'selected' : '' }}>CCJE</option>
-                                            <option value="CECT" {{ $role->dept_id == 5 ? 'selected' : '' }}>CECT</option>
-                                            <option value="CHTM" {{ $role->dept_id == 6 ? 'selected' : '' }}>CHTM</option>
-                                            <option value="COED" {{ $role->dept_id == 7 ? 'selected' : '' }}>COED</option>
-                                            <option value="CON" {{ $role->dept_id == 8 ? 'selected' : '' }}>CON</option>
+                                        <!-- Role Dropdown with Departments -->
+                                        <select class="form-control" name="department_id" required>
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}" {{ $role->department_id == $department->id ? 'selected' : '' }}>
+                                                    {{ $department->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
-                                        <label for="dept_id">Role</label>
+                                        <label for="department_id">Department</label>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success" id="submitButton">Edit Role</button>
@@ -70,7 +67,7 @@
                 </div>
             </div>
 
-            <!-- Modal for Viewing Role details -->
+            <!-- Modal for Viewing Role Details -->
             <div class="modal fade" id="viewRoleModal{{ $role->id }}" tabindex="-1" aria-labelledby="viewRoleModalLabel{{ $role->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content glass-effect">
@@ -82,22 +79,9 @@
                             <p><strong>ID:</strong> {{ $role->id }}</p>
                             <p><strong>Name:</strong> {{ $role->name }}</p>
                             <p><strong>Description:</strong> {{ $role->description }}</p>
-                            <p><strong>Yearlevel:</strong> {{ $role->yearlevel }}</p>
-                            <p><strong>Role ID:</strong> {{ $role->dept_id }}</p>
-                            <p><strong>Role Name:</strong>
-                                @php
-                                    $roleNames = [
-                                        1 => 'CAMS',
-                                        2 => 'CAS',
-                                        3 => 'CBA',
-                                        4 => 'CCJE',
-                                        5 => 'CECT',
-                                        6 => 'CHTM',
-                                        7 => 'COED',
-                                        8 => 'CON',
-                                    ];
-                                @endphp
-                                {{ $roleNames[$role->dept_id] ?? 'Unknown Role' }}
+                            <p><strong>Year Level:</strong> {{ $role->yearlevel }}</p>
+                            <p><strong>Department:</strong>
+                                {{ $departments->firstWhere('id', $role->department_id)?->name ?? 'Unknown Department' }}
                             </p>
                         </div>
                     </div>

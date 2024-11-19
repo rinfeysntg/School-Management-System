@@ -2,38 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;  // Import the Roles model
+use App\Models\Roles;
+use App\Models\Department; // Import the Department model
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
-    protected $roleMapping = [
-        'CAMS' => 1,
-        'CAS' => 2,
-        'CBA' => 3,
-        'CCJE' => 4,
-        'CECT' => 5,
-        'CHTM' => 6,
-        'COED' => 7,
-        'CON' => 8,
-    ];
-
     public function index(Request $request)
     {
         // Get the search query from the request
         $search = $request->input('search');
 
-        // Query the Roles model (changed from Users to Roles)
+        // Query the Roles model
         $roles = Roles::when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%")
                          ->orWhere('yearlevel', 'like', "%{$search}%");
         })->get();
 
-        // Define role names mapping
-        $roleNames = $this->roleMapping;
+        // Fetch departments from the database
+        $departments = Department::all(); // Retrieve all departments
 
-        // Return view with filtered roles and role names
-        return view('role.roles', compact('roles', 'roleNames'));
+        // Return view with filtered roles and department names
+        return view('role.roles', compact('roles', 'departments'));
     }
 
     // Store new role
@@ -43,8 +33,7 @@ class RolesController extends Controller
         $roles->name = $request->get('name');
         $roles->description = $request->get('description');
         $roles->yearlevel = $request->get('yearlevel');
-        $role = $request->get('dept_id');  // This will be the role name (e.g., 'admin')
-        $roles->dept_id = $this->roleMapping[$role] ?? 0; // Map role name to role_id (default to 0 if not found)
+        $roles->department_id = $request->get('department_id'); // Save selected department ID
 
         $roles->save();
 
@@ -69,12 +58,13 @@ class RolesController extends Controller
     public function preEdit($id)
     {
         $roles = Roles::find($id);
+        $departments = Department::all(); // Fetch all departments for the dropdown
 
         if (!$roles) {
             return redirect()->route('rolesController')->with('error', 'Role not found.');
         }
 
-        return view('role.edit', ['roles' => $roles]);
+        return view('role.edit', compact('roles', 'departments'));
     }
 
     // Edit role details
@@ -89,13 +79,10 @@ class RolesController extends Controller
         $roles->name = $req->name;
         $roles->description = $req->description;
         $roles->yearlevel = $req->yearlevel;
-        $role = $req->dept_id;  // This will be the role name (e.g., 'admin')
-        $roles->dept_id = $this->roleMapping[$role] ?? 0; // Map role name to role_id (default to 0 if not found)
+        $roles->department_id = $req->department_id; // Update with selected department ID
 
         $roles->save();
 
         return redirect()->route('rolesController')->with('success', 'Role updated successfully.');
     }
 }
-
-
