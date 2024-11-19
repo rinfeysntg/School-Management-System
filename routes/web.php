@@ -177,3 +177,4 @@ Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'd
 
 // Students
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
+Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
