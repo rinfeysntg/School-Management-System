@@ -49,19 +49,17 @@
                                         <label for="rate">Rate</label>
                                     </div>
 
-                                    <div class="form-floating mb-3">
-                                        <!-- Role Dropdown with String Values -->
-                                        <select class="form-control" name="role_id" required>
-                                            <option value="admin" {{ $position->role_id == 1 ? 'selected' : '' }}>Admin</option>
-                                            <option value="registrar" {{ $position->role_id == 2 ? 'selected' : '' }}>Registrar</option>
-                                            <option value="treasury" {{ $position->role_id == 3 ? 'selected' : '' }}>Treasury</option>
-                                            <option value="program_head" {{ $position->role_id == 4 ? 'selected' : '' }}>Program Head</option>
-                                            <option value="human_resource" {{ $position->role_id == 5 ? 'selected' : '' }}>Human Resource</option>
-                                            <option value="professors" {{ $position->role_id == 6 ? 'selected' : '' }}>Professors</option>
-                                            <option value="students" {{ $position->role_id == 7 ? 'selected' : '' }}>Students</option>
-                                        </select>
-                                        <label for="role_id">Role</label>
-                                    </div>
+                                    <!-- Role Dropdown -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="role_id" required>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                    {{ $role->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="role_id">Role</label>
+                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-success" id="submitButton">Edit position</button>
                             </form>
@@ -83,21 +81,7 @@
                             <p><strong>Name:</strong> {{ $position->name }}</p>
                             <p><strong>Description:</strong> {{ $position->description }}</p>
                             <p><strong>rate:</strong> {{ $position->rate }}</p>
-                            <p><strong>Role ID:</strong> {{ $position->role_id }}</p>
-                            <p><strong>Role Name:</strong>
-                                @php
-                                    $roleNames = [
-                                        1 => 'Admin',
-                                        2 => 'Registrar',
-                                        3 => 'Treasury',
-                                        4 => 'Program Head',
-                                        5 => 'Human Resource',
-                                        6 => 'Professors',
-                                        7 => 'Students',
-                                    ];
-                                @endphp
-                                {{ $roleNames[$position->role_id] ?? 'Unknown Role' }}
-                            </p>
+                            <p><strong>Role:</strong> {{ $roles->where('id', $user->role_id)->first()->name ?? 'Unknown' }}</p>
                         </div>
                     </div>
                 </div>

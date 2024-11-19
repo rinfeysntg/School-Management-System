@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Positions;
+use App\Models\Role; // Include the Role model
 use Illuminate\Http\Request;
 
 class PositionsController extends Controller
@@ -31,18 +32,10 @@ class PositionsController extends Controller
                          ->orWhere('rate', 'like', "%{$search}%");
         })->get();
 
-        // Define role names mapping
-        $roleNames = [
-            1 => 'Admin',
-            2 => 'Registrar',
-            3 => 'Treasury',
-            4 => 'Program Head',
-            5 => 'Human Resource',
-            6 => 'Professors',
-            7 => 'Students',
-        ];
+       // Fetch roles from the database
+       $roles = Role::all();
 
-        return view('position.Positions', compact('positions', 'roleNames'));
+        return view('position.Positions', compact('positions', 'roles'));
     }
 
     // Store new position
@@ -53,7 +46,7 @@ class PositionsController extends Controller
         $positions->description = $request->get('description');
         $positions->rate = $request->get('rate');
         $role = $request->get('role_id');  // This will be the role name (e.g., 'admin')
-        $positions->role_id = $this->roleMapping[$role] ?? 0; // Map role name to role_id (default to 0 if not found)
+        $positions->role_id = $request->get('role_id');
 
         $positions->save();
 
@@ -78,6 +71,7 @@ class PositionsController extends Controller
     public function preEdit($id)
     {
         $positions = Positions::find($id);
+        $roles = Role::all(); // Fetch roles for the dropdown
 
         if (!$positions) {
             return redirect()->route('positionsController')->with('error', 'Position not found.');
@@ -99,7 +93,7 @@ class PositionsController extends Controller
         $positions->description = $req->description;
         $positions->rate = $req->rate;
         $role = $req->role_id;
-        $positions->role_id = $this->roleMapping[$role] ?? 0;
+        $positions->role_id = $req->role_id; // Update role ID
 
         $positions->save();
 
