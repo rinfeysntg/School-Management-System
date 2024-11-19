@@ -49,7 +49,7 @@ class LoginAuth extends Controller
         } elseif ($role_id == 6) {
             return redirect()->route('course'); // professors
         } elseif ($role_id == 7) {
-            return redirect()->route('student'); // students
+            return redirect()->route('student_dashboard'); // students
         }
 
         return redirect()->route('login')->withErrors(['Role not found']);

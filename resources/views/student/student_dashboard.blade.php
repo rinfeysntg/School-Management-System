@@ -18,7 +18,7 @@
         <a><button id="dashboardBtn" class="btn btn-success">Enrollment</button></a>
         <br>
         <br>
-        <button id="logoutBtn" class="btn btn-danger">Logout</button>
+        <a href="{{ route('logout') }}"><button id="logoutBtn" class="btn btn-danger">Logout</button></a>
     </div>
     <div class="logoContainer">
         <br>

@@ -25,6 +25,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\Students;
 
 Route::get('/', function () {
     return view('login');
@@ -174,5 +175,5 @@ Route::get('/announcement/create', [AnnouncementCreateController::class, 'create
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 
-
-
+// Students
+Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
