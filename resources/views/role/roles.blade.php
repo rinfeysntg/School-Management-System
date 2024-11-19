@@ -31,9 +31,18 @@
                 <form action="{{ route('store_role') }}" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="name" placeholder="Name" required>
-                        <label for="name">Name</label>
+                        <select class="form-control" name="name" required>
+                            <option value="admin">Admin</option>
+                            <option value="registrar">Registrar</option>
+                            <option value="treasury">Treasury</option>
+                            <option value="program_head">Program Head</option>
+                            <option value="human_resource">Human Resource</option>
+                            <option value="professors">Professors</option>
+                            <option value="students">Students</option>
+                        </select>
+                        <label for="role">Role</label>
                     </div>
+
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="description" placeholder="description" required>

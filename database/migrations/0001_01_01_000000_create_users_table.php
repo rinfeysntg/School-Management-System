@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('age');  // Changed to integer as 'age' should be a number
+            $table->integer('age');  
             $table->string('address');
-            $table->string('username')->unique(); // Ensured username is unique
-            $table->string('email')->unique();    // Ensured email is unique
+            $table->string('username')->unique(); 
+            $table->string('email')->unique();    
             $table->string('password');
-            $table->unsignedInteger('role_id'); // Use unsigned integer for role_id (mapping to role IDs)
-            $table->timestamps(); // Added timestamps to track created and updated dates
+            $table->string('role_id'); 
+            $table->timestamps(); 
         });
     }
 

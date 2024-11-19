@@ -8,17 +8,6 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    // Role mapping array for converting role names to database values
-    protected $roleMapping = [
-        'admin' => 1,
-        'registrar' => 2,
-        'treasury' => 3,
-        'program_head' => 4,
-        'human_resource' => 5,
-        'professors' => 6,
-        'students' => 7,
-    ];
-
     public function index(Request $request)
     {
         // Get the search query from the request
@@ -48,7 +37,10 @@ class UsersController extends Controller
         $users->username = $request->get('username');
         $users->email = $request->get('email');
         $users->password = $request->get('password'); // Do not encrypt the password
-        $users->role_id = $request->get('role_id'); // Role ID directly from dropdown
+
+        // Fetch the role by ID and save the role's name in role_id
+        $role = Role::find($request->get('role_id'));
+        $users->role_id = $role ? $role->name : null; // Save role name if exists
 
         $users->save();
 
@@ -97,7 +89,10 @@ class UsersController extends Controller
         $users->username = $req->username;
         $users->email = $req->email;
         $users->password = $req->password; // Do not encrypt the password
-        $users->role_id = $req->role_id; // Update role ID
+
+        // Fetch the role by ID and save the role's name in role_id
+        $role = Role::find($req->role_id);
+        $users->role_id = $role ? $role->name : null; // Save role name if exists
 
         $users->save();
 

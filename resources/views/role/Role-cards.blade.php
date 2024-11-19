@@ -35,11 +35,20 @@
                             <form action="{{ route('edit_role') }}" method="POST" id="editRoleForm{{ $role->id }}">
                                 @csrf
                                 <div>
-                                    <div class="form-floating mb-3">
-                                        <input type="hidden" name="id" value="{{ $role->id }}">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{ $role->name }}" required>
-                                        <label for="name">Name</label>
-                                    </div>
+                                <div class="form-floating mb-3">
+                                    <input type="hidden" name="id" value="{{ $role->id }}">
+                                    <select class="form-control" name="name" id="name" required>
+                                        <option value="admin" {{ $role->name == 'admin' ? 'selected' : '' }}>Admin</option>
+                                        <option value="registrar" {{ $role->name == 'registrar' ? 'selected' : '' }}>Registrar</option>
+                                        <option value="treasury" {{ $role->name == 'treasury' ? 'selected' : '' }}>Treasury</option>
+                                        <option value="program_head" {{ $role->name == 'program_head' ? 'selected' : '' }}>Program Head</option>
+                                        <option value="human_resource" {{ $role->name == 'human_resource' ? 'selected' : '' }}>Human Resource</option>
+                                        <option value="professors" {{ $role->name == 'professors' ? 'selected' : '' }}>Professors</option>
+                                        <option value="students" {{ $role->name == 'students' ? 'selected' : '' }}>Students</option>
+                                    </select>
+                                    <label for="name">Role</label>
+                                </div>
+
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" name="description" id="description" placeholder="description" value="{{ $role->description }}" required>
                                         <label for="description">Description</label>

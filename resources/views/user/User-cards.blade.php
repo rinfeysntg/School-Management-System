@@ -110,7 +110,7 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Password:</strong> {{ $user->password }}</p>
-                            <p><strong>Role:</strong> {{ $roles->where('id', $user->role_id)->first()->name ?? 'Unknown' }}</p>
+                            <p><strong>Role:</strong> {{ $user->role_id ?? 'Unknown' }}</p>
                         </div>
                     </div>
                 </div>
