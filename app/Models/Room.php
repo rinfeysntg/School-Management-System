@@ -10,5 +10,10 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description', 'building_id'];
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }
 

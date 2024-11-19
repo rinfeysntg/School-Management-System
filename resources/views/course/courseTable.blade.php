@@ -2,6 +2,19 @@
 @section('courseTabledashboard')
 <div class="glass">
 <h1 class="heading">Manage Courses</h1>
+<div class="sel-crs">
+    <form class="how" action="{{ route('courseTable') }}" method="GET">
+        <label for="department_id">Department:</label>
+        <select name="department_id" id="department_id" onchange="this.form.submit()">
+            <option value="">departments</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}" {{ request('department_id') == $department->id ? 'selected' : '' }}>
+                    {{ $department->name }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+    </div>
 <div class="table-responsive">
     <table class="table table-success table-striped">
         <thead class="thead-light">
