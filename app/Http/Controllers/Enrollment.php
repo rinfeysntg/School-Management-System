@@ -9,6 +9,6 @@ class Enrollment extends Controller
     public function index()
     {
 
-        return view('enrollment');
+        return view('enrollment.enrollment');
     }
 }

@@ -17,7 +17,7 @@ class EnrollmentController extends Controller
             })
             ->get();
         
-        return view('enrollment', compact('users'));
+        return view('enrollment.enrollment', compact('users'));
     }
 
     public function store(Request $request)
