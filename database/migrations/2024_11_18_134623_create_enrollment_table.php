@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enrollments', function (Blueprint $table) {
+        Schema::create('enrollment', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('status');
-            $table->timestamp('enrollment_date')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enrollments');
+        Schema::dropIfExists('enrollment');
     }
 };

@@ -5,6 +5,9 @@ use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Enrollment;
+use App\Http\Controllers\enrollmentDashboard;
+use App\Http\Controllers\enrollmentTable;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
@@ -21,6 +24,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
+use App\Http\Controllers\EnrollmentController;
 
 Route::get('/', function () {
     return view('login');
@@ -50,6 +54,14 @@ Route::get('/treasury', function () {
 Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
+
+// Enrollment
+Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
+Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollDashboard');
+Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
+Route::get('/enrollments', [EnrollmentController::class, 'showEnrollmentTable'])->name('enrollmentTable');
+Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollment.edit');
+Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollment.update');
 
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
@@ -160,3 +172,6 @@ Route::get('/announcement', [AnnouncementController::class, 'index'])->name('ann
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+
+
+
