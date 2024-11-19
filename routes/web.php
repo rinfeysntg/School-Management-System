@@ -156,7 +156,16 @@ Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
 
 
 // Announcement
+
+
+
+Route::get('/student-announcements', [AnnouncementController::class, 'studentIndex'])->name('announcement.student');
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+
+Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
+Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
+
