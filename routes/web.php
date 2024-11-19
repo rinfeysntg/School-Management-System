@@ -97,7 +97,6 @@ Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('
 Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
 
 // Attendance routes
-
 Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::get('/attendance/student', [AttendanceController::class, 'studentDashboard'])->name('student.dashboard');
 Route::get('/attendance/teacher', [AttendanceController::class, 'teacherDashboard'])->name('teacher.dashboard');
@@ -158,7 +157,7 @@ Route::delete('/subjects/{id}', [SubjectsController::class, 'destroy'])->name('s
 // Curriculum
 Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums_index');
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
-Route::post('/curriculums', [CurriculumController::class, 'store'])->name('curriculums_store');
+Route::post('/curriculums/store', [CurriculumController::class, 'store'])->name('curriculums_store');
 Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('curriculums_show');
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
@@ -169,7 +168,6 @@ Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
 
 
 // Announcement
-
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');

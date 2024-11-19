@@ -1,5 +1,4 @@
 @extends('layoutcourseEdit')
-
 @section('courseEditDashboard')
 <div class="glass">
     <h1 class="heading">Edit Course</h1>

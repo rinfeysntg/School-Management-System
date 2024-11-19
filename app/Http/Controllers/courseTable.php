@@ -8,6 +8,6 @@ class courseTable extends Controller
 {
     public function index()
     {
-        return view('courseTable');
+        return view('course.courseTable');
     }
 }

@@ -1,5 +1,4 @@
 @extends('layoutcourseTable')
-
 @section('courseTabledashboard')
 <div class="glass">
 <h1 class="heading">Manage Courses</h1>

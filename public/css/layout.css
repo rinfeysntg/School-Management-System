@@ -3,9 +3,6 @@ body {
     background-image: url('../images/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
@@ -426,4 +423,93 @@ body {
     height: 50px;
     background-image: url('../images/logo.png');
     background-size: contain;
+}
+
+
+/* subject */
+
+.sub_dashboard {
+    position: relative;
+    top: 190px;
+    left: 70px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 518px;
+}
+
+.subject-table {
+    width: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.subject-table th, .subject-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.subject-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.subject-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.add-sub {
+    position: relative;
+    left: 828px;
+    top: 50px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sel-crs {
+    bottom: 150%;
+}
+.how{
+    position: absolute;
+    padding: 150px 0px 0px 100px;
+}
+
+.view-container {
+    position: absolute;
+    padding: 50px 0px 0px 100px;
+}
+
+.button-sub-container {
+    display: flex;
+    gap: 10px;
+}
+
+.editsub-btn, .deletesub-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editsub-btn {
+    padding: 10px;
+    background-color: #90EE90;
+    color: #fff;
+}
+
+.deletesub-btn {
+    background-color: #FF7F7F; 
+    color: #fff;
 }

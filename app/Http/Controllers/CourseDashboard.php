@@ -9,6 +9,6 @@ class CourseDashboard extends Controller
     public function index()
     {
 
-        return view('courseDashboard');
+        return view('course.courseDashboard');
     }
 }
