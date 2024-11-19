@@ -53,7 +53,7 @@
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                <option value="{{ $role->id }}" {{ $position->role_id == $role->id ? 'selected' : '' }}>
                                     {{ $role->name }}
                                 </option>
                             @endforeach
@@ -81,7 +81,7 @@
                             <p><strong>Name:</strong> {{ $position->name }}</p>
                             <p><strong>Description:</strong> {{ $position->description }}</p>
                             <p><strong>rate:</strong> {{ $position->rate }}</p>
-                            <p><strong>Role:</strong> {{ $roles->where('id', $user->role_id)->first()->name ?? 'Unknown' }}</p>
+                            <p><strong>Role:</strong> {{ $roles->where('id', $position->role_id)->first()->name ?? 'Unknown' }}</p>
                         </div>
                     </div>
                 </div>
