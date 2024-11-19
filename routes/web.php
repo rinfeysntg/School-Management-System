@@ -22,6 +22,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PositionsController;
 
 Route::get('/', function () {
     return view('login');
@@ -172,3 +173,15 @@ Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_u
 Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
 Route::get('/users', [UsersController::class, 'index'])->name('usersController');
 
+// positions
+
+Route::get('/PositionsController', [PositionsController::class, 'index'])->name('positionsController');
+
+
+Route::get('/position/create', [PositionsController::class, 'create'])->name('create_position');
+Route::post('/position/store', [PositionsController::class, 'store'])->name('store_position');
+
+Route::delete('/position/delete/{id}', [PositionsController::class, 'delete'])->name('delete_position');
+
+Route::get('/position/edit/{id}', [PositionsController::class, 'preEdit'])->name('edit_position_page');
+Route::post('/position/edit', [PositionsController::class, 'edit'])->name('edit_position');

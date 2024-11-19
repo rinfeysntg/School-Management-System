@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('year_level');
+            $table->string('year_level');
             $table->integer('department_id');
         });
     }
