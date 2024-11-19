@@ -39,8 +39,21 @@ class EnrollmentController extends Controller
 
     public function showEnrollmentTable()
     {
+        Enrollment::where('status', 'Not Enrolled')->delete();
+
         $enrollments = Enrollment::with('user')->get();
+
         return view('enrollmentTable', compact('enrollments'));
+    }
+
+    public function showNotEnrollmentTable()
+    {
+        // Fetch users with role_id = 7 who don't have any enrollment records
+        $users = User::where('role_id', 7)
+            ->whereDoesntHave('enrollments')
+            ->get();
+    
+        return view('enrollmentTableNot', compact('users'));
     }
 
     public function edit(Enrollment $enrollment)

@@ -60,6 +60,7 @@ Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStud
 Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollDashboard');
 Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
 Route::get('/enrollments', [EnrollmentController::class, 'showEnrollmentTable'])->name('enrollmentTable');
+Route::get('/enrollments/not', [EnrollmentController::class, 'showNotEnrollmentTable'])->name('enrollmentTableNot');
 Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollment.edit');
 Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollment.update');
 

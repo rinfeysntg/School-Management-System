@@ -16,7 +16,6 @@
             <br>
             <h4>Status: 
                 <select id="dropdown" name="status" required>
-                    <option value="Not Enrolled">Not Enrolled</option>
                     <option value="Enrolled">Enrolled</option>
                 </select>
             </h4>            
