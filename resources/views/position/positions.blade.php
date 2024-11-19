@@ -1,19 +1,22 @@
 @extends('layoutposition')
 
-@section('PositionControl')
-<br>
-<div>
-    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">Add Positions</a>
-</div>
-
-<h1>Positons List</h1>
-
-<!-- Search Bar -->
+<div class="pad">
 <form action="{{ route('positionsController') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input type="text" class="form-control" name="search" placeholder="Search Positons" value="{{ request('search') }}">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
+    <br>
+    <div>
+    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">Add Positions</a>
+</div>
+</form>
+</div>
+@section('PositionControl')
+<h1 style="color:white">Positons List</h1>
+
+<!-- Search Bar -->
+
 </form>
 
 <!-- Include Positon Cards here -->
@@ -24,7 +27,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Create Positon</h5>
+                <h5 style="color:white" class="modal-title" id="addUserModalLabel">Create Positon</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

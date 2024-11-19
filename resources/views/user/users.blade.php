@@ -1,23 +1,24 @@
 @extends('layoutuser')
 
-@section('UserControl')
-<br>
-<div>
-    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">Add Users</a>
-</div>
-
-<h1>User List</h1>
-
-<!-- Search Bar -->
+<div class="pad">
 <form action="{{ route('usersController') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input type="text" class="form-control" name="search" placeholder="Search Users" value="{{ request('search') }}">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
+    <br>
+    <div>
+    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">Add Users</a>
+    </div>
 </form>
+</div>
+@section('UserControl')
+<h1 style="color:white">User List</h1>
 
-<!-- Include User Cards here -->
-@include('user.User-cards')
+<!-- User List Container -->
+<div class="user-list">
+    @include('user.User-cards') <!-- Assuming this dynamically includes user cards -->
+</div>
 
 <!-- Modal to Add User -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
@@ -75,5 +76,4 @@
         </div>
     </div>
 </div>
-
 @endsection

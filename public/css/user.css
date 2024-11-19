@@ -68,3 +68,59 @@
     border-color: rgba(255, 255, 255, 0.5); /* Slightly brighter border on hover */
     transform: translateY(-3px); /* Lift the button on hover for a 3D effect */
 }
+
+.rec {
+    position: relative;
+    top: 130px;
+    left: 375px;
+    background-image: url('../images/rec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1016px;
+    height: 510px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 30px; /* Optional: Add padding for better spacing */
+    
+    /* Optional smooth scrolling behavior */
+    scroll-behavior: smooth;
+}
+
+/* Modern scrollbar styles for WebKit-based browsers */
+.rec::-webkit-scrollbar {
+    width: 10px; /* Scrollbar width */
+}
+
+.rec::-webkit-scrollbar-thumb {
+    background: #555; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #fff; /* Optional: Add a border to match the background */
+}
+
+.rec::-webkit-scrollbar-thumb:hover {
+    background: #333; /* Darker color on hover */
+}
+
+.rec::-webkit-scrollbar-track {
+    background: #e0e0e0; /* Track color */
+    border-radius: 10px; /* Match track corners to thumb corners */
+    margin: 5px 0; /* Optional: Add spacing for a modern look */
+}
+
+/* Firefox scrollbar styles */
+.rec {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #555 #e0e0e0; /* Thumb and track colors */
+}
+
+/* For browsers that don't support custom scrollbars */
+.rec {
+    scrollbar-color: auto;
+}
+
+
+.pad {
+    width: 1000px;
+    position: relative;
+    top: 100px;
+    left: 380px;
+}

@@ -1,20 +1,20 @@
-@extends('layoutuser')
+@extends('layoutrole')
 
-@section('UserControl')
-<br>
-<div>
-    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">Add Role</a>
-</div>
-
-<h1>Role List</h1>
-
-<!-- Search Bar -->
+<div class="pad">
 <form action="{{ route('rolesController') }}" method="GET" class="mb-3">
     <div class="input-group">
         <input type="text" class="form-control" name="search" placeholder="Search Roles" value="{{ request('search') }}">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
+    <br>
+    <div>
+    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">Add Role</a>
+    </div>
 </form>
+</div>
+
+@section('RoleControl')
+<h1 style="color:white">Role List</h1>
 
 <!-- Include Role Cards here -->
 @include('role.role-cards')

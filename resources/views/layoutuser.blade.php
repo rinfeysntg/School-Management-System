@@ -22,8 +22,14 @@
 </head>
 
 <body>
+    
+
+    <div class="rec">
+
     <div class="container">
         @yield('UserControl')
+    </div>
+        
     </div>
 </body>
 

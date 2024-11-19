@@ -3,21 +3,21 @@
         @foreach ($users as $user)
             <div class="col">
                 <div class="card h-100 glass-effect">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $user->name }}</h5>
-                        <h4 class="card-text">ID {{ $user->id }}</h4>
+                    <div style="padding:10px" class="card-body">
+                        <h5 style="color:white" class="card-title">{{ $user->name }}</h5>
+                        <h4 style="color:white" class="card-text">ID {{ $user->id }}</h4>
 
                         <!-- Edit Button -->
-                        <button type="button" class="btn btn-primary glass-button" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">EDIT</button>
+                        <button type="button" class="btn btn-primary glass-button mb-2" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">EDIT</button>
 
                         <!-- View Details Button -->
-                        <button type="button" class="btn btn-info glass-button" data-bs-toggle="modal" data-bs-target="#viewUserModal{{ $user->id }}">VIEW DETAILS</button>
+                        <button type="button" class="btn btn-info glass-button mb-2" data-bs-toggle="modal" data-bs-target="#viewUserModal{{ $user->id }}">VIEW DETAILS</button>
 
                         <!-- Delete Button -->
                         <form action="{{ route('delete_user', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">DELETE</button>
+                            <button type="submit" class="btn btn-danger mb-2">DELETE</button>
                         </form>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
     <div class="modal-dialog">
         <div class="modal-content glass-effect">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User - {{ $user->name }}</h5>
+                <h5 style="color:white" class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User - {{ $user->name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -99,10 +99,10 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content glass-effect">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="viewUserModalLabel{{ $user->id }}">User Details - {{ $user->name }}</h5>
+                            <h5 style="color:white" class="modal-title" id="viewUserModalLabel{{ $user->id }}">User Details - {{ $user->name }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div style="color:white" class="modal-body">
                             <p><strong>ID:</strong> {{ $user->id }}</p>
                             <p><strong>Name:</strong> {{ $user->name }}</p>
                             <p><strong>Age:</strong> {{ $user->age }}</p>

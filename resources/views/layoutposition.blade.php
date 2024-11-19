@@ -21,10 +21,12 @@
     <title>Position</title>
 </head>
 
-<body>
-    <div class="container">
-        @yield('PositionControl')
-    </div>
-</body>
+<div class="rec">
+
+<div class="container">
+    @yield('PositionControl')
+</div>
+    
+</div>
 
 </html>
