@@ -62,13 +62,9 @@
 
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
-                            <option value="admin">Admin</option>
-                            <option value="registrar">Registrar</option>
-                            <option value="treasury">Treasury</option>
-                            <option value="program_head">Program Head</option>
-                            <option value="human_resource">Human Resource</option>
-                            <option value="professors">Professors</option>
-                            <option value="students">Students</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                         <label for="role_id">Role</label>
                     </div>

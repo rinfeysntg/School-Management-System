@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
+use App\Models\Role; // Include the Role model
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -30,19 +31,11 @@ class UsersController extends Controller
                          ->orWhere('username', 'like', "%{$search}%");
         })->get();
 
-        // Define role names mapping
-        $roleNames = [
-            1 => 'Admin',
-            2 => 'Registrar',
-            3 => 'Treasury',
-            4 => 'Program Head',
-            5 => 'Human Resource',
-            6 => 'Professors',
-            7 => 'Students',
-        ];
+        // Fetch roles from the database
+        $roles = Role::all();
 
-        // Return view with filtered users and role names
-        return view('user.users', compact('users', 'roleNames'));
+        // Return view with filtered users and roles
+        return view('user.users', compact('users', 'roles'));
     }
 
     // Store new user
@@ -54,9 +47,8 @@ class UsersController extends Controller
         $users->address = $request->get('address');
         $users->username = $request->get('username');
         $users->email = $request->get('email');
-        $users->password = $request->get('password'); // Store password as plain text
-        $role = $request->get('role_id');  // This will be the role name (e.g., 'admin')
-        $users->role_id = $this->roleMapping[$role] ?? 0; // Map role name to role_id (default to 0 if not found)
+        $users->password = $request->get('password'); // Do not encrypt the password
+        $users->role_id = $request->get('role_id'); // Role ID directly from dropdown
 
         $users->save();
 
@@ -81,12 +73,13 @@ class UsersController extends Controller
     public function preEdit($id)
     {
         $users = Users::find($id);
+        $roles = Role::all(); // Fetch roles for the dropdown
 
         if (!$users) {
             return redirect()->route('usersController')->with('error', 'User not found.');
         }
 
-        return view('users.edit', ['users' => $users]);
+        return view('users.edit', compact('users', 'roles'));
     }
 
     // Edit user details
@@ -103,13 +96,11 @@ class UsersController extends Controller
         $users->address = $req->address;
         $users->username = $req->username;
         $users->email = $req->email;
-        $users->password = $req->password; // Store password as plain text
-        $role = $req->role_id;  // This will be the role name (e.g., 'admin')
-        $users->role_id = $this->roleMapping[$role] ?? 0; // Map role name to role_id (default to 0 if not found)
+        $users->password = $req->password; // Do not encrypt the password
+        $users->role_id = $req->role_id; // Update role ID
 
         $users->save();
 
         return redirect()->route('usersController')->with('success', 'User updated successfully.');
     }
 }
-

@@ -1,19 +1,19 @@
 <div>
     <div class="row row-cols-1 row-cols-md-4 g-4">
-        @foreach (json_decode($users) as $user)
+        @foreach ($users as $user)
             <div class="col">
                 <div class="card h-100 glass-effect">
                     <div class="card-body">
                         <h5 class="card-title">{{ $user->name }}</h5>
                         <h4 class="card-text">ID {{ $user->id }}</h4>
 
-                        <!-- Edit Button that Triggers Modal -->
-                        <button type="button" class="btn btn-primary glass-button" data-bs-toggle="modal" data-bs-target="#editProductModal{{ $user->id }}">EDIT</button>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-primary glass-button" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">EDIT</button>
 
-                        <!-- View Details Button that Triggers Modal -->
-                        <button type="button" class="btn btn-info glass-button" data-bs-toggle="modal" data-bs-target="#viewProductModal{{ $user->id }}">VIEW DETAILS</button>
+                        <!-- View Details Button -->
+                        <button type="button" class="btn btn-info glass-button" data-bs-toggle="modal" data-bs-target="#viewUserModal{{ $user->id }}">VIEW DETAILS</button>
 
-                        <!-- Delete Form -->
+                        <!-- Delete Button -->
                         <form action="{{ route('delete_user', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -23,70 +23,83 @@
                 </div>
             </div>
 
-            <!-- Modal for Editing user -->
-            <div class="modal fade" id="editProductModal{{ $user->id }}" tabindex="-1" aria-labelledby="editProductModalLabel{{ $user->id }}" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content glass-effect">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editProductModalLabel{{ $user->id }}">Edit Product - {{ $user->name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('edit_user') }}" method="POST" id="editProductForm{{ $user->id }}">
-                                @csrf
-                                <div>
-                                    <div class="form-floating mb-3">
-                                        <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{ $user->name }}" required>
-                                        <label for="name">Name</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" name="age" id="age" placeholder="age" value="{{ $user->age }}" required>
-                                        <label for="age">Age</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="{{ $user->address }}" required>
-                                        <label for="address">Address</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="{{ $user->username }}" required>
-                                        <label for="username">Username</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ $user->email }}" required>
-                                        <label for="email">Email</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="{{ $user->password }}" required>
-                                        <label for="password">Password</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <!-- Role Dropdown with String Values -->
-                                        <select class="form-control" name="role_id" required>
-                                            <option value="admin" {{ $user->role_id == 1 ? 'selected' : '' }}>Admin</option>
-                                            <option value="registrar" {{ $user->role_id == 2 ? 'selected' : '' }}>Registrar</option>
-                                            <option value="treasury" {{ $user->role_id == 3 ? 'selected' : '' }}>Treasury</option>
-                                            <option value="program_head" {{ $user->role_id == 4 ? 'selected' : '' }}>Program Head</option>
-                                            <option value="human_resource" {{ $user->role_id == 5 ? 'selected' : '' }}>Human Resource</option>
-                                            <option value="professors" {{ $user->role_id == 6 ? 'selected' : '' }}>Professors</option>
-                                            <option value="students" {{ $user->role_id == 7 ? 'selected' : '' }}>Students</option>
-                                        </select>
-                                        <label for="role_id">Role</label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-success" id="submitButton">Edit user</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" aria-labelledby="editUserModalLabel{{ $user->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content glass-effect">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User - {{ $user->name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form action="{{ route('edit_user') }}" method="POST">
+                    @csrf
+                    <!-- Include the User ID -->
+                    <input type="hidden" name="id" value="{{ $user->id }}">
 
-            <!-- Modal for Viewing user details -->
-            <div class="modal fade" id="viewProductModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewProductModalLabel{{ $user->id }}" aria-hidden="true">
+                    <!-- Name -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="name" value="{{ $user->name }}" placeholder="Name" required>
+                        <label for="name">Name</label>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" name="age" value="{{ $user->age }}" placeholder="Age" required>
+                        <label for="age">Age</label>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="address" value="{{ $user->address }}" placeholder="Address" required>
+                        <label for="address">Address</label>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="username" value="{{ $user->username }}" placeholder="Username" required>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" placeholder="Email" required>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <!-- Password (Editable Field) -->
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="password" value="{{ $user->password }}" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <!-- Role Dropdown -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="role_id" required>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                    {{ $role->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="role_id">Role</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success">Update User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- View User Modal -->
+            <div class="modal fade" id="viewUserModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewUserModalLabel{{ $user->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content glass-effect">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="viewProductModalLabel{{ $user->id }}">User Details - {{ $user->name }}</h5>
+                            <h5 class="modal-title" id="viewUserModalLabel{{ $user->id }}">User Details - {{ $user->name }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -97,21 +110,7 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Password:</strong> {{ $user->password }}</p>
-                            <p><strong>Role ID:</strong> {{ $user->role_id }}</p>
-                            <p><strong>Role Name:</strong>
-                                @php
-                                    $roleNames = [
-                                        1 => 'Admin',
-                                        2 => 'Registrar',
-                                        3 => 'Treasury',
-                                        4 => 'Program Head',
-                                        5 => 'Human Resource',
-                                        6 => 'Professors',
-                                        7 => 'Students',
-                                    ];
-                                @endphp
-                                {{ $roleNames[$user->role_id] ?? 'Unknown Role' }}
-                            </p>
+                            <p><strong>Role:</strong> {{ $roles->where('id', $user->role_id)->first()->name ?? 'Unknown' }}</p>
                         </div>
                     </div>
                 </div>
