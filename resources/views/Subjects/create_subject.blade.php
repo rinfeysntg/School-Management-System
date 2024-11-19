@@ -1,11 +1,11 @@
 @extends('layout')
 @include('registrar.navbar_registrar')
 @section('content')
-    <div class="form-background">
-        <div class="form-container">
-            <h2 class="form-title">Add Subject</h2>
-
-            <form action="{{ route('store_subject') }}" method="POST">
+    
+        <div class="sub_dashboard">
+            <h1 class="createroomLbl">Add Subject</h1>
+            <div class="rec_dashboard2">
+            <form class="cRoomsForm" action="{{ route('store_subject') }}" method="POST">
         @csrf
                 <div class="mb-3">
                     <label for="code" class="form-label">Code:</label>
@@ -22,7 +22,7 @@
                     <textarea id="description" name="description" class="form-control"></textarea>
                 </div>
 
-                <<div class="form-group">
+                <div class="form-group">
                     <label for="curriculum_id">Curriculum</label>
                     <select name="curriculum_id" class="form-control" required>
                     <option value="">Select Curriculum</option>
@@ -31,8 +31,8 @@
                 @endforeach
         </select>
     </div>
-
-                <button type="submit" class="btn btn-submit">Add</button>
+    </div>
+                <button type="submit" class="add-sub">Add</button>
             </form>
         </div>
     </div>
