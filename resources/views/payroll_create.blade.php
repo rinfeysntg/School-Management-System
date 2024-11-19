@@ -10,34 +10,17 @@
                     <th scope="col" onclick="sortTable(2)">Username</th>
                     <th scope="col" onclick="sortTable(3)">Role</th>
                     <th scope="col" onclick="sortTable(4)">Position</th>
-                    <th scope="col" onclick="sortTable(5)">Rate</th>
-                    <th scope="col" onclick="sortTable(6)">Department</th>
-                    <th scope="col" onclick="sortTable(7)">Date Start</th>
-                    <th scope="col" onclick="sortTable(8)">Date End</th>
+                    <th scope="col" onclick="sortTable(4)">Rate</th>
+                    <th scope="col" onclick="sortTable(5)">Department</th>
+                    <th scope="col" onclick="sortTable(5)">Date Start</th>
+                    <th scope="col" onclick="sortTable(5)">Date End</th>
+                    <th scope="col" class="hidden-columns">Birthdate</th>
+                    <th scope="col" class="hidden-columns">Mobile No.</th>
                     <th scope="col" class="hidden-columns">E-mail</th>
+                    <th scope="col" class="hidden-columns">Date of Hire</th>
                     <th scope="col" class="hidden-columns">Address</th>
-                    <th scope="col" class="hidden-columns">Salary</th>
-                    <th scope="col" class="hidden-columns">Deductions</th>
                 </thead>
                 <tbody id="table_list2">
-                    @foreach ($data as $row)
-                    <tr>
-                        <td scope="row">{{$row["user_id"]}}</th>
-                        <td>{{$row["user_name"]}}</td>    
-                        <td>{{$row["user_username"]}}</td>
-                        <td>{{$row["role"]}}</td>
-                        <td>{{$row["position"]}}</td>
-                        <td>₱{{$row["rate"]}}</td>
-                        <td>{{$row["department"]}}</td>
-                        <td>{{$row["date_start"]}}</td>
-                        <td>{{$row["date_end"]}}</td>
-                        <td class="hidden-columns">{{$row["email"]}}</td>
-                        <td class="hidden-columns">{{$row["address"]}}</td>
-                        <td class="hidden-columns">{{$row["amount"]}}</td>
-                        <td class="hidden-columns">{{$row["deductions"]}}</td>
-                        <td class="hidden-columns">{{$row["payroll_id"]}}</td>
-                    </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -50,15 +33,17 @@
             <P>Full Name: <span class="name_ps"></span></p>
             <P>Department: <span class="department_ps"></span></p>
             <P>Salary: <span class="salary_ps"></span></p>
-            <P>Deductions/ Not Earned: <span class="deductions_ps"></span></p>
+            <P>Deductions: <span class="deductions_ps"></span></p>
             <P>Total Payment: <span class="total_ps"></span></p>
         </div>
-        <form class="grid-info">
+        <form action="{{ route('payroll.store') }}" method="POST" class="grid-info">
+            @csrf
             <div class="info-first-column info-column">
                 <div class="input-box">
-                    <label for="date_start">Date Start:</label>
-                    <input id="date_start" type="date" name="date_start" readonly>
+                    <label for="date_start_create">Date Start:</label>
+                    <input id="date_start_create" name="date_start_create" required>
                 </div>
+
                 <div class="input-box">
                     <label for="position">Position:</label>
                     <input id="position" name="position" readonly>
@@ -75,29 +60,29 @@
                 </div>
                 
                 <div class="input-box">
+                    <label for="mobile-no">Mobile No.:</label>
+                    <input id="mobile-no" name="mobile-no" readonly>
+                </div>
+                
+                <div class="input-box">
                     <label for="email">E-mail:</label>
                     <input id="email" name="email" readonly>
                 </div>
             </div>
             <div class="info-second-column info-column">
                 <div class="input-box">
-                    <label for="date_end">Date End:</label>
-                    <input id="date_end" type="date" name="date_end" readonly>
+                    <label for="date_end_create">Date End:</label>
+                    <input id="date_end_create" name="date_end_create" required >
                 </div>
-
+                
                 <div class="input-box">
-                    <label for="user_id">User ID#:</label>
-                    <input id="user_id" name="user-id" readonly>
+                    <label for="user_id_create">User ID#:</label>
+                    <input id="user_id_create" name="user_id_create" required>
                 </div>
                 
                 <div class="input-box">
                     <label for="name">Name:</label>
                     <input id="name" name="name" readonly>
-                </div>
-
-                <div class="input-box">
-                    <label for="username">Username:</label>
-                    <input id="username" name="username" readonly>
                 </div>
 
                 <div class="input-box">
@@ -107,21 +92,18 @@
             </div>
             <div class="info-third-column info-column">
                 <div class="input-box">
-                    <label for="salary">Salary:</label>
-                    <input id="salary" name="salary" readonly>
+                    <label for="salary_create">Salary:</label>
+                    <input id="salary_create" name="salary_create" value='0' readonly>
                 </div>
                 <div class="input-box">
-                    <label for="deductions">Deductions/ Not Earned:</label>
-                    <input id="deductions" name="deductions" readonly>
+                    <label for="deductions_create">Deductions:</label>
+                    <input id="deductions_create" name="deductions_create" value='0' readonly>
                 </div>
                 <div class="input-box">
-                    <label for="total">Total:</label>
-                    <input id="total" name="total" readonly>
+                    <label for="total_create">Total:</label>
+                    <input id="total_create" name="total_create" readonly>
                 </div>
-                
-                <div class="input-box payroll_id">
-                    <input id="payroll_id" name="payroll_id" readonly>
-                </div>
+                <button type="submit" class="btn btn-success track">Track</button>
             </div>
         </form>
         <div class="function-box">
@@ -129,6 +111,7 @@
                 <label for="search" class="search-label">Search:</label>
                 <input id="search" name="search" onkeyup="searchSimilar()">
             </div>
+
             {{-- <form class="salary-info ssi-item">
                 <div class="input-box">
                     <label for="salary">Salary:</label>
@@ -143,12 +126,6 @@
                     <input id="total" name="total">
                 </div>
             </form> --}}
-            <ul class="function_buttons">
-                <a class="btn" id="add_function" href="{{ route('payrolls') }}">Add</a><br>
-                <a class="btn" id="update_function">Update</a><br>
-                <a class="btn" id="release_function">Release</a><br>
-                <a class="btn" id="delete_function">Delete</a>
-            </ul>
         </div>
     </div>
 @endsection

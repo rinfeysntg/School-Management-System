@@ -165,7 +165,14 @@ Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
 
 // Payroll
-Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
+Route::get('/payroll', [PayrollDashboardController::class, 'index'])->name('payrollDashboard');
+Route::get('/payroll/create', [PayrollDashboardController::class, 'create'])->name('payrolls');
+Route::post('/payroll/store/', [PayrollDashboardController::class, 'store'])->name('payroll.store'); // Use POST for create
+Route::get('/payroll/{id}/edit', [PayrollDashboardController::class, 'edit'])->name('payroll.edit');
+Route::put('/payroll/{id}/', [PayrollDashboardController::class, 'update'])->name('payroll.update'); // Use PUT for update
+Route::get('/payroll/delete/{id}', [PayrollDashboardController::class, 'destroy'])->name('payroll.delete');
+Route::get('/payroll/{id}/pay', [PayrollDashboardController::class, 'pay'])->name('payroll.pay');
+Route::post('/payroll/release', [PayrollDashboardController::class, 'release'])->name('payroll.release');
 
 
 // Announcement
