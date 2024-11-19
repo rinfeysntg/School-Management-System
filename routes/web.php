@@ -4,7 +4,7 @@ use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
@@ -172,3 +172,12 @@ Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_u
 Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
 Route::get('/users', [UsersController::class, 'index'])->name('usersController');
 
+// roles
+
+Route::get('/roleController', [RolesController::class, 'index'])->name('rolesController');
+Route::get('/role/create', [RolesController::class, 'create'])->name('create_role');
+Route::post('/role/store', [RolesController::class, 'store'])->name('store_role');
+Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('delete_role');
+Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
+Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
+Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
