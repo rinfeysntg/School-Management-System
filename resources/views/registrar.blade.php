@@ -10,7 +10,6 @@
         <a href="{{ route('courseDashboard') }}"><button class="btn">Courses</button></a>
         <a href="{{ route('curriculums_index') }}"><button class="btn">Curriculums</button></a>
         <a href="{{ route('building.index') }}"><button class="btn">Buildings</button></a>
-        <a href="/rooms"><button class="btn">Rooms</button></a>
         <br>
         <div class="button-container-red">
         <a href="{{ route('logout') }}"><button class="btn">Log Out</button></a>

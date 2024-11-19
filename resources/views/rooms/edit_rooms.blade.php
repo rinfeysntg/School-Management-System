@@ -16,8 +16,13 @@
             </div>
 
             <div class="mb-3">
-                <label for="building_id" class="RbuildingLbl">Building ID:</label>
-                <input type="number" class="building_id_txt" id="building_id" name="building_id" value="{{ old('building_id', $room->building_id) }}" required>
+                <label for="building_id" class="RbuildingLbl">Building:</label>
+                <select id="dropdown" name="building_id" required>
+                    <option value="">Select a building</option>
+                    @foreach ($buildings as $building)
+                        <option value="{{ $building->id }}">{{ $building->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="mb-3">

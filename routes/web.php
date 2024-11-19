@@ -76,6 +76,7 @@ Route::get('/course-table/delete/{id}', [courseEditController::class, 'destroy']
 Route::get('/buildings', [BuildingController::class, 'index'])->name('building.index');
 Route::get('/rooms/create_building', [BuildingController::class, 'create'])->name('building.create');
 Route::post('/buildings', [BuildingController::class, 'store'])->name('building.store');
+Route::get('/buildings/{id}', [BuildingController::class, 'show'])->name('buildings_show');
 Route::get('/buildings/{id}/edit', [BuildingController::class, 'edit'])->name('building.edit');
 Route::put('/buildings/{id}', [BuildingController::class, 'update'])->name('building.update');
 Route::delete('/buildings/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
