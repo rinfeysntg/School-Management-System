@@ -40,12 +40,12 @@ class EnrollmentController extends Controller
     public function showEnrollmentTable()
     {
         $enrollments = Enrollment::with('user')->get();
-        return view('enrollmentTable', compact('enrollments'));
+        return view('enrollment.enrollmentTable', compact('enrollments'));
     }
 
     public function edit(Enrollment $enrollment)
     {
-        return view('enrollmentEditTable', compact('enrollment'));
+        return view('enrollment.enrollmentEditTable', compact('enrollment'));
     }
 
     public function update(Request $request, Enrollment $enrollment)
