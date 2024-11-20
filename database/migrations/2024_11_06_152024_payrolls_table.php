@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payroll', function (Blueprint $table) {
+        Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
-            $table->integer('date_start');
-            $table->integer('date_end');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->integer('amount');
             $table->integer('deductions');
             $table->integer('user_id');

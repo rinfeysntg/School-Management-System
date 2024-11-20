@@ -2,9 +2,21 @@
 @include('registrar.navbar_registrar')
 @section('content')
 
+<div class="sel-crs">
+    <form class="how" action="{{ route('department.index') }}" method="GET">
+        <label for="building_id">Building:</label>
+        <select name="building_id" id="building_id" onchange="this.form.submit()">
+            <option value="">buildings</option>
+            @foreach($buildings as $building)
+                <option value="{{ $building->id }}" {{ request('building_id') == $building->id ? 'selected' : '' }}>
+                    {{ $building->name }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+    </div>
 <div class="rec_dashboard">
     <h1 class="createroomLbl">Departments</h1>
-
     <div class="rec_dashboard3">
         <table class="rooms-table">
             <tbody>

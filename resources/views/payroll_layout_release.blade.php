@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../../css/layout.css">
     <title>Wesleyan University Philippines</title>
     <style>
         body {
@@ -96,10 +96,10 @@
             display: flex;
             flex-direction: column;
         }
-        .payroll_id, #payroll_id {
+        .payroll_id, #payroll_id_release, #rate_release, #attendance_release, #payroll_id_release, #rate_release, #attendance_release, .hidden-box, .department_release {
             display: none;
         }
-        .track {
+        .track, .update {
             width: 50%;
             margin: 10px 0px 10px 105px;
         }
@@ -156,9 +156,38 @@
         @yield('content')
     </div>
     <script>
+        let payrollData = @json($data);
+
+        function getDaysBetweenDates(date1, date2) {
+          const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+                
+          // Convert dates to milliseconds
+          const date1Ms = date1.getTime();
+          const date2Ms = date2.getTime();
+                
+          // Calculate the difference in milliseconds
+          const diffMs = Math.abs(date1Ms - date2Ms);
+                
+          // Convert the difference to days
+          return Math.round(diffMs / oneDay);
+        }
+
+        let date1 = new Date(document.getElementById("date_start_release").value.toString());
+        let date2 = new Date(document.getElementById("date_end_release").value.toString());
+        
+        let daysDiff = getDaysBetweenDates(date1, date2);
+        let fullRate = daysDiff * document.getElementById("rate_release").value;
+        let deductions =  (daysDiff - document.getElementById("attendance_release").value) * document.getElementById("rate_release").value;
+        let total = fullRate - deductions;
+
+        document.getElementById("salary_release").value = fullRate;
+        document.getElementById("deductions_release").value = deductions;
+        document.getElementById("total_release").value = total;
+
+        document.getElementById("receipt_release").value = "User ID: " + document.getElementById("user_id_release").value + "\n\n" + "Name: " + document.getElementById("name_release").value + "\n\n" + "Department: " + document.getElementById("department_release").value + "\n\n" + "Salary: " + "₱" + document.getElementById("salary_release").value + "\n\n"+ "Deductions/ Not Earned: " + "₱" + document.getElementById("deductions_release").value + "\n\n"+ "Total: " + "₱" + document.getElementById("total_release").value + "\n\n" ;
+
         let delete_link = document.getElementById("delete_function");
         let update_link = document.getElementById("update_function");
-        let release_link = document.getElementById("release_function");
         var table = document.getElementById('table_list2'),rIndex;
 
         for(var i = 0; i < table_list.rows.length; i++)
@@ -172,25 +201,22 @@
             document.querySelector(".name_ps").innerHTML = this.cells[1].innerHTML;
             document.getElementById("username").value = this.cells[2].innerHTML;
             document.getElementById("role").value = this.cells[3].innerHTML;
-            // document.querySelector(".department-ps").innerHTML = this.cells[4].innerHTML;
             document.getElementById("position").value = this.cells[4].innerHTML;
             document.getElementById("department").value = this.cells[6].innerHTML;
             document.querySelector(".department_ps").innerHTML = this.cells[6].innerHTML;
             document.getElementById("date_start").value = this.cells[7].innerHTML;
             document.getElementById("date_end").value = this.cells[8].innerHTML;
-            // document.querySelector(".emp-id-ps").innerHTML = this.cells[8].innerHTML;
             document.getElementById("email").value = this.cells[9].innerHTML;
             document.getElementById("address").value = this.cells[10].innerHTML;
-            document.getElementById("salary").value = "₱" + this.cells[11].innerHTML;
-            document.querySelector(".salary_ps").innerHTML = "₱" + this.cells[11].innerHTML;
-            document.getElementById("deductions").value = "₱" + this.cells[12].innerHTML;
-            document.querySelector(".deductions_ps").innerHTML = "₱" + this.cells[12].innerHTML;
-            document.getElementById("total").value = "₱" + (this.cells[11].innerHTML - this.cells[12].innerHTML).toString();
-            document.querySelector(".total_ps").innerHTML = "₱" + (this.cells[11].innerHTML - this.cells[12].innerHTML).toString();
+            document.getElementById("salary").value = this.cells[11].innerHTML;
+            document.querySelector(".salary_ps").innerHTML = "P" + this.cells[11].innerHTML;
+            document.getElementById("deductions").value = this.cells[12].innerHTML;
+            document.querySelector(".deductions_ps").innerHTML = "P" + this.cells[12].innerHTML;
+            document.getElementById("total").value = this.cells[11].innerHTML - this.cells[12].innerHTML;
+            document.querySelector(".total_ps").innerHTML = "P" + (this.cells[11].innerHTML - this.cells[12].innerHTML).toString();
             document.getElementById("payroll_id").value = this.cells[13].innerHTML;
-            delete_link.href='payroll/delete/' + this.cells[13].innerHTML;
-            update_link.href='payroll/' + this.cells[13].innerHTML + '/edit';
-            release_link.href='payroll/' + this.cells[13].innerHTML + '/pay';
+            delete_link.href='payroll_dashboard/delete/' + this.cells[13].innerHTML;
+            update_link.href='payroll_dashboard/edit/' + this.cells[13].innerHTML;
         }
         
     }

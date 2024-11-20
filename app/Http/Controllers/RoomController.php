@@ -5,33 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Room;
+use App\Models\Building;
 
 
 class RoomController extends Controller
 {
     public function create()
     {
-        return view('rooms.create_rooms'); 
+        $buildings = Building::all();
+        return view('rooms.create_rooms', compact('buildings'));
     }
 
    
     public function store(Request $request)
     {
         
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'building_id' => 'required|integer', 
+            'building_id' => 'required|exists:buildings,id', 
         ]);
 
         
-        Room::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'building_id' => $request->input('building_id'),
-        ]);
+        Room::create($validated);
 
-        return redirect()->route('rooms.index')->with('success', 'Room created successfully!');
+        return redirect()->route('building.index')->with('success', 'Room created successfully!');
     }
 
    
@@ -46,7 +44,8 @@ class RoomController extends Controller
     public function edit($id)
 {
     $room = Room::findOrFail($id); 
-    return view('rooms.edit_rooms', compact('room')); 
+    $buildings = Building::all();
+    return view('rooms.edit_rooms', compact('room', 'buildings')); 
 }
 
 public function update(Request $request, $id)
@@ -55,16 +54,12 @@ public function update(Request $request, $id)
     $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
-        'building_id' => 'required|integer',
+        'building_id' => 'required|exists:buildings,id',
     ]);
 
    
     $room = Room::findOrFail($id);
-    $room->update([
-        'name' => $request->input('name'),
-        'description' => $request->input('description'),
-        'building_id' => $request->input('building_id'),
-    ]);
+    $room->update($request->all());
 
     return redirect()->route('rooms.index')->with('success', 'Room updated successfully!');
 }

@@ -36,7 +36,13 @@ class BuildingController extends Controller
     public function index()
     {
         $buildings = Building::all(); 
-        return view('building.view_buildings', compact('buildings')); 
+        return view('building.index_building', compact('buildings')); 
+    }
+
+    public function show($id)
+    {
+        $building = Building::with('rooms')->findOrFail($id);
+        return view('building.show_rooms', compact('building'));
     }
 
     //EDIT//
