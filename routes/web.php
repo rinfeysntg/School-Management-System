@@ -4,7 +4,7 @@ use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\Enrollment;
 use App\Http\Controllers\enrollmentDashboard;
 use App\Http\Controllers\enrollmentTable;
@@ -24,6 +24,8 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Students;
 
@@ -55,6 +57,32 @@ Route::get('/treasury', function () {
 Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
+
+// users
+Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
+Route::get('/user/create', [UsersController::class, 'create'])->name('create_user');
+Route::post('/user/store', [UsersController::class, 'store'])->name('store_user');
+Route::delete('/user/delete/{id}', [UsersController::class, 'delete'])->name('delete_user');
+Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_user_page');
+Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
+Route::get('/users', [UsersController::class, 'index'])->name('usersController');
+
+// positions
+Route::get('/PositionsController', [PositionsController::class, 'index'])->name('positionsController');
+Route::get('/position/create', [PositionsController::class, 'create'])->name('create_position');
+Route::post('/position/store', [PositionsController::class, 'store'])->name('store_position');
+Route::delete('/position/delete/{id}', [PositionsController::class, 'delete'])->name('delete_position');
+Route::get('/position/edit/{id}', [PositionsController::class, 'preEdit'])->name('edit_position_page');
+Route::post('/position/edit', [PositionsController::class, 'edit'])->name('edit_position');
+
+// roles
+Route::get('/roleController', [RolesController::class, 'index'])->name('rolesController');
+Route::get('/role/create', [RolesController::class, 'create'])->name('create_role');
+Route::post('/role/store', [RolesController::class, 'store'])->name('store_role');
+Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('delete_role');
+Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
+Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
+Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
 
 // Students
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
@@ -125,28 +153,28 @@ Route::get('/attendance/dtr/{id}', [DtrController::class, 'show'])->name('dtr.sh
 Route::prefix('attendance/events')->group(function () {
     // Show Event Creation Form (Teacher view)
     Route::get('create', [EventController::class, 'create'])->name('attendance.events.create');
-    
+
     // Store Event (Teacher/Admin submits event creation)
     Route::post('/', [EventController::class, 'store'])->name('attendance.events.store');
-    
+
     // Show the list of events (Teacher or Admin view)
     Route::get('/', [EventController::class, 'index'])->name('attendance.events.list');
-    
+
     // Show Event Edit Form
     Route::get('{id}/edit', [EventController::class, 'edit'])->name('attendance.events.edit');
-    
+
     // Update event (PUT request)
     Route::put('{id}', [EventController::class, 'update'])->name('attendance.events.update');
-    
+
     // Delete event (DELETE request)
     Route::delete('{id}', [EventController::class, 'destroy'])->name('attendance.events.destroy');
-    
+
     // Show Event Attendees List (Teacher view)
     Route::get('{event}/attendees', [EventController::class, 'eventAttendees'])->name('attendance.event.attendees');
-    
+
     // Store Event Attendance Form (Student view)
     Route::get('{event}/attend', [EventController::class, 'eventAttendanceForm'])->name('attendance.event.create');
-    
+
     // Store Event Attendance (POST request)
     Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store');
 });
@@ -190,3 +218,6 @@ Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'd
 Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
+
+
+

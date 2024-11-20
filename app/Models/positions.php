@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Position as Authenticatable;
 
-class Users extends Model
+class positions extends Model
 {
     use HasFactory;
     public $timestamps =false;

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('rate');
-            $table->integer('role_id');
+            $table->unsignedInteger('role_id');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        chema::dropIfExists('positions'); // Drop the positions table if rollback occurs
     }
 };
