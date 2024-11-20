@@ -16,7 +16,7 @@ class EnrollmentController extends Controller
             })
             ->get();
 
-        return view('enrollment', compact('users'));
+        return view('enrollment.enrollment', compact('users'));
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class EnrollmentController extends Controller
 
         $enrollments = Enrollment::with('user')->get();
 
-        return view('enrollmentTable', compact('enrollments'));
+        return view('enrollment.enrollmentTable', compact('enrollments'));
     }
 
     public function showNotEnrollmentTable()
@@ -50,12 +50,12 @@ class EnrollmentController extends Controller
             ->whereDoesntHave('enrollments')
             ->get();
 
-        return view('enrollmentTableNot', compact('users'));
+        return view('enrollment.enrollmentTableNot', compact('users'));
     }
 
     public function edit(Enrollment $enrollment)
     {
-        return view('enrollmentEditTable', compact('enrollment'));
+        return view('enrollment.enrollmentEditTable', compact('enrollment'));
     }
 
     public function update(Request $request, Enrollment $enrollment)
