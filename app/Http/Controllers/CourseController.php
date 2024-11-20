@@ -11,14 +11,14 @@ class CourseController extends Controller
     public function index()
     {
 
-        return view('course');
+        return view('course.course');
     }
 
     //see dropdown
     public function createCourse()
     {
         $departments = Department::all(); 
-        return view('course', compact('departments'));
+        return view('course.course', compact('departments'));
     }
 
 
@@ -39,6 +39,8 @@ class CourseController extends Controller
 
     return redirect()->route('courseDashboard')->with('success', 'Course Created!');
 }
+
+
 
 
 }

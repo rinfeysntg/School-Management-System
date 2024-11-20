@@ -5,6 +5,9 @@ use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\Enrollment;
+use App\Http\Controllers\enrollmentDashboard;
+use App\Http\Controllers\enrollmentTable;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\Registrar;
 use App\Http\Controllers\Department;
@@ -23,15 +26,20 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\Students;
 
 Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/', [LogHome::class, 'index'])->name('/');
+// login routes
+Route::get('/', [LoginAuth::class, 'Unback']);
+Route::get('/login', [LoginAuth::class, 'Unback']);
+Route::get('login', [LoginAuth::class, 'LoginPage'])->name('login');
+Route::post('login', [LoginAuth::class, 'login']);
+Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 
-// initial login funct
-Route::post('/login', [LoginAuth::class, 'Login'])->name('login');
 
 // registrar site
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
@@ -50,6 +58,45 @@ Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
 
+// users
+Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
+Route::get('/user/create', [UsersController::class, 'create'])->name('create_user');
+Route::post('/user/store', [UsersController::class, 'store'])->name('store_user');
+Route::delete('/user/delete/{id}', [UsersController::class, 'delete'])->name('delete_user');
+Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_user_page');
+Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
+Route::get('/users', [UsersController::class, 'index'])->name('usersController');
+
+// positions
+Route::get('/PositionsController', [PositionsController::class, 'index'])->name('positionsController');
+Route::get('/position/create', [PositionsController::class, 'create'])->name('create_position');
+Route::post('/position/store', [PositionsController::class, 'store'])->name('store_position');
+Route::delete('/position/delete/{id}', [PositionsController::class, 'delete'])->name('delete_position');
+Route::get('/position/edit/{id}', [PositionsController::class, 'preEdit'])->name('edit_position_page');
+Route::post('/position/edit', [PositionsController::class, 'edit'])->name('edit_position');
+
+// roles
+Route::get('/roleController', [RolesController::class, 'index'])->name('rolesController');
+Route::get('/role/create', [RolesController::class, 'create'])->name('create_role');
+Route::post('/role/store', [RolesController::class, 'store'])->name('store_role');
+Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('delete_role');
+Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
+Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
+Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
+
+// Students
+Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
+Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+
+// Enrollment
+Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
+Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollDashboard');
+Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
+Route::get('/enrollments', [EnrollmentController::class, 'showEnrollmentTable'])->name('enrollmentTable');
+Route::get('/enrollments/not', [EnrollmentController::class, 'showNotEnrollmentTable'])->name('enrollmentTableNot');
+Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollment.edit');
+Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollment.update');
+
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
 Route::get('/course', [CourseController::class, 'createCourse'])->name('course');
@@ -63,6 +110,7 @@ Route::get('/course-table/delete/{id}', [courseEditController::class, 'destroy']
 Route::get('/buildings', [BuildingController::class, 'index'])->name('building.index');
 Route::get('/rooms/create_building', [BuildingController::class, 'create'])->name('building.create');
 Route::post('/buildings', [BuildingController::class, 'store'])->name('building.store');
+Route::get('/buildings/{id}', [BuildingController::class, 'show'])->name('buildings_show');
 Route::get('/buildings/{id}/edit', [BuildingController::class, 'edit'])->name('building.edit');
 Route::put('/buildings/{id}', [BuildingController::class, 'update'])->name('building.update');
 Route::delete('/buildings/{id}', [BuildingController::class, 'destroy'])->name('building.destroy');
@@ -84,7 +132,6 @@ Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('
 Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
 
 // Attendance routes
-
 Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::get('/attendance/student', [AttendanceController::class, 'studentDashboard'])->name('student.dashboard');
 Route::get('/attendance/teacher', [AttendanceController::class, 'teacherDashboard'])->name('teacher.dashboard');
@@ -145,53 +192,32 @@ Route::delete('/subjects/{id}', [SubjectsController::class, 'destroy'])->name('s
 // Curriculum
 Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums_index');
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
-Route::post('/curriculums', [CurriculumController::class, 'store'])->name('curriculums_store');
+Route::post('/curriculums/store', [CurriculumController::class, 'store'])->name('curriculums_store');
 Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('curriculums_show');
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
 
 // Payroll
-Route::get('/payroll_dashboard', [PayrollDashboardController::class, 'index']);
+Route::get('/payroll', [PayrollDashboardController::class, 'index'])->name('payrollDashboard');
+Route::get('/payroll/create', [PayrollDashboardController::class, 'create'])->name('payrolls');
+Route::post('/payroll/store/', [PayrollDashboardController::class, 'store'])->name('payroll.store'); // Use POST for create
+Route::get('/payroll/{id}/edit', [PayrollDashboardController::class, 'edit'])->name('payroll.edit');
+Route::put('/payroll/{id}/', [PayrollDashboardController::class, 'update'])->name('payroll.update'); // Use PUT for update
+Route::get('/payroll/delete/{id}', [PayrollDashboardController::class, 'destroy'])->name('payroll.delete');
+Route::get('/payroll/{id}/pay', [PayrollDashboardController::class, 'pay'])->name('payroll.pay');
+Route::post('/payroll/release', [PayrollDashboardController::class, 'release'])->name('payroll.release');
 
 
 // Announcement
-
+Route::get('/student-announcements', [AnnouncementController::class, 'studentIndex'])->name('announcement.student');
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
-
-// users
-
-
-Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
-Route::get('/user/create', [UsersController::class, 'create'])->name('create_user');
-Route::post('/user/store', [UsersController::class, 'store'])->name('store_user');
-Route::delete('/user/delete/{id}', [UsersController::class, 'delete'])->name('delete_user');
-Route::get('/user/edit/{id}', [UsersController::class, 'preEdit'])->name('edit_user_page');
-Route::post('/user/edit', [UsersController::class, 'edit'])->name('edit_user');
-Route::get('/users', [UsersController::class, 'index'])->name('usersController');
-
-// positions
-
-Route::get('/PositionsController', [PositionsController::class, 'index'])->name('positionsController');
+Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
+Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
 
 
-Route::get('/position/create', [PositionsController::class, 'create'])->name('create_position');
-Route::post('/position/store', [PositionsController::class, 'store'])->name('store_position');
 
-Route::delete('/position/delete/{id}', [PositionsController::class, 'delete'])->name('delete_position');
-
-Route::get('/position/edit/{id}', [PositionsController::class, 'preEdit'])->name('edit_position_page');
-Route::post('/position/edit', [PositionsController::class, 'edit'])->name('edit_position');
-
-// roles
-
-Route::get('/roleController', [RolesController::class, 'index'])->name('rolesController');
-Route::get('/role/create', [RolesController::class, 'create'])->name('create_role');
-Route::post('/role/store', [RolesController::class, 'store'])->name('store_role');
-Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('delete_role');
-Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
-Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
-Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
