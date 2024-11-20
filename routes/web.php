@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PayrollDashboardController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\Enrollment;
 use App\Http\Controllers\enrollmentDashboard;
@@ -28,6 +28,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Students;
+use App\Http\Controllers\Admin;
 
 Route::get('/', function () {
     return view('login');
@@ -43,6 +44,7 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 
 // registrar site
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
+Route::get('/admin', [Admin::class, 'index'])->name('admin');
 
 
 // Test routes

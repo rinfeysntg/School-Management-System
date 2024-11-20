@@ -10,7 +10,7 @@ class Students extends Controller
     public function index()
     {
 
-        return view('student.student_dashboard');
+        return view('student');
     }
 
     public function enrollmentForm()
