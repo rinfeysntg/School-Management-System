@@ -9,8 +9,9 @@
             <br>
             <h4>Description: <input type="text" name="description" required></h4>
             <br>
-            <h4>Department ID: 
+            <h4>Department: 
                 <select id="dropdown" name="department_id" required>
+                <option value="">Select a department</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach

@@ -12,7 +12,8 @@ class Curriculum extends Model
     protected $fillable = [
         'code', 
         'name', 
-        'program_head'
+        'program_head',
+        'course_id'
     ];
     protected $table = 'curriculums';
     public function subjects()

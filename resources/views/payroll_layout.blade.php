@@ -77,7 +77,7 @@
         .grid-info {
             background-color: rgba(255, 255, 255, 0.8);
             grid-column-start: 1;
-            grid-column-end: 6;
+            grid-column-end: 8;
             grid-row-start: 4;
             grid-row-end: 6;
             display: flex;
@@ -86,14 +86,22 @@
         .info-column {
             background-color: rgba(255, 255, 255, 0);
         }
-        .age-gender {
-            width: 280px;
-        }
 
-        .input-gender, .input-age {
+        .info-second-column, .info-first-column{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        #age, #gender {
-            width: 30px;
+        .info-third-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .payroll_id, #payroll_id {
+            display: none;
+        }
+        .track {
+            width: 50%;
+            margin: 10px 0px 10px 105px;
         }
         .input-box {
             margin: 10px;
@@ -101,29 +109,32 @@
             justify-content: space-between;
             align-items: center;
         }
-        .age-gender {
-            display: flex;
-            justify-content: space-around;
-        }
-        .search-salary-info {
-            grid-column-start: 7;
-            grid-column-end: 10;
+        .function-box {
+            grid-column-start: 8;
+            grid-column-end: 11;
             grid-row-start: 4;
             grid-row-end: 6;
+            text-align: center;
         }
         .ssi-item {
             margin: 10px;
             padding: 10px 0;
         }
-        .salary-info {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        .payment-info {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
         .search-label {
             color: white;
             font-weight: bold;
+        }
+        .function_buttons {
+            margin-top: 25px;
+            
+        }
+
+        .function_buttons a {
+            font-weight: bold;
+            width:25%;
+            margin: 5px;
+            color:black;
+            background-color:rgb(255, 255, 255);
         }
         nav {
             position: sticky;
@@ -140,19 +151,14 @@
         }
     </style>
 </head>
-
 <body>
     <div class="payroll-container">
         @yield('content')
     </div>
-    <nav class="bottom-nav">
-        <button>CREATE</button>
-        <button>UPDATE</button>
-        <button>DELETE</button>
-        <button>RELEASE PAYMENT</button>
-        <button>ADD</button>
-    </nav>
     <script>
+        let delete_link = document.getElementById("delete_function");
+        let update_link = document.getElementById("update_function");
+        let release_link = document.getElementById("release_function");
         var table = document.getElementById('table_list2'),rIndex;
 
         for(var i = 0; i < table_list.rows.length; i++)
@@ -160,23 +166,31 @@
         table.rows[i].onclick = function()
         {
             rIndex = this.rowIndex;
-            document.getElementById("fname").value = this.cells[1].innerHTML;
-            document.querySelector(".fname-ps").innerHTML = this.cells[1].innerHTML;
-            document.getElementById("surname").value = this.cells[2].innerHTML;
-            document.querySelector(".surname-ps").innerHTML = this.cells[2].innerHTML;
-            document.getElementById("position").value = this.cells[3].innerHTML;
-            document.getElementById("department").value = this.cells[4].innerHTML;
-            document.querySelector(".department-ps").innerHTML = this.cells[4].innerHTML;
-            document.getElementById("gender").value = this.cells[5].innerHTML[0];
-            document.getElementById("age").value = this.cells[6].innerHTML;
-            document.getElementById("salary-gr").value = this.cells[7].innerHTML;
-            document.getElementById("emp-id").value = this.cells[8].innerHTML;
-            document.querySelector(".emp-id-ps").innerHTML = this.cells[8].innerHTML;
-            document.getElementById("birthdate").value = this.cells[9].innerHTML;
-            document.getElementById("mobile-no").value = this.cells[10].innerHTML;
-            document.getElementById("email").value = this.cells[11].innerHTML;
-            document.getElementById("date-of-hire").value = this.cells[12].innerHTML;
-            document.getElementById("address").value = this.cells[13].innerHTML;
+            document.getElementById("user_id").value = this.cells[0].innerHTML;
+            document.querySelector(".user_id_ps").innerHTML = this.cells[0].innerHTML;
+            document.getElementById("name").value = this.cells[1].innerHTML;
+            document.querySelector(".name_ps").innerHTML = this.cells[1].innerHTML;
+            document.getElementById("username").value = this.cells[2].innerHTML;
+            document.getElementById("role").value = this.cells[3].innerHTML;
+            // document.querySelector(".department-ps").innerHTML = this.cells[4].innerHTML;
+            document.getElementById("position").value = this.cells[4].innerHTML;
+            document.getElementById("department").value = this.cells[6].innerHTML;
+            document.querySelector(".department_ps").innerHTML = this.cells[6].innerHTML;
+            document.getElementById("date_start").value = this.cells[7].innerHTML;
+            document.getElementById("date_end").value = this.cells[8].innerHTML;
+            // document.querySelector(".emp-id-ps").innerHTML = this.cells[8].innerHTML;
+            document.getElementById("email").value = this.cells[9].innerHTML;
+            document.getElementById("address").value = this.cells[10].innerHTML;
+            document.getElementById("salary").value = "₱" + this.cells[11].innerHTML;
+            document.querySelector(".salary_ps").innerHTML = "₱" + this.cells[11].innerHTML;
+            document.getElementById("deductions").value = "₱" + this.cells[12].innerHTML;
+            document.querySelector(".deductions_ps").innerHTML = "₱" + this.cells[12].innerHTML;
+            document.getElementById("total").value = "₱" + (this.cells[11].innerHTML - this.cells[12].innerHTML).toString();
+            document.querySelector(".total_ps").innerHTML = "₱" + (this.cells[11].innerHTML - this.cells[12].innerHTML).toString();
+            document.getElementById("payroll_id").value = this.cells[13].innerHTML;
+            delete_link.href='payroll/delete/' + this.cells[13].innerHTML;
+            update_link.href='payroll/' + this.cells[13].innerHTML + '/edit';
+            release_link.href='payroll/' + this.cells[13].innerHTML + '/pay';
         }
         
     }

@@ -2,9 +2,10 @@
 @include('registrar.navbar_registrar')
 @section('content')
 
-<h1>Edit Subject</h1>
+<div class="rec_dashboard">
+<h1 class="createroomLbl">Edit Subject</h1>
 
-<form action="{{ route('subjects_update', $subject->id) }}" method="POST">
+<form class="rec_dashboard2" action="{{ route('subjects_update', $subject->id) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -22,9 +23,10 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" name="description" rows="4">{{ $subject->description }}</textarea>
     </div>
-
-    <button type="submit" class="btn btn-primary">Update</button>
-    <a href="{{ route('subjects') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+    <button type="submit" class="add-sub">Update</button>
+    <a href="{{ route('subjects') }}" class="add-sub">Cancel</a>
+    
 </form>
 
 @endsection
