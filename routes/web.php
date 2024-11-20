@@ -25,6 +25,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\Students;
 
 Route::get('/', function () {
     return view('login');
@@ -55,11 +56,16 @@ Route::get('/program-head', function () {
     return view('program-head.program-head_dashboard');
 });
 
+// Students
+Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
+Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+
 // Enrollment
 Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
 Route::get('/enrollDashboard', [enrollmentDashboard::class, 'index'])->name('enrollDashboard');
 Route::post('/enroll/store', [EnrollmentController::class, 'store'])->name('enroll.store');
 Route::get('/enrollments', [EnrollmentController::class, 'showEnrollmentTable'])->name('enrollmentTable');
+Route::get('/enrollments/not', [EnrollmentController::class, 'showNotEnrollmentTable'])->name('enrollmentTableNot');
 Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollment.edit');
 Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollment.update');
 
@@ -184,5 +190,3 @@ Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'd
 Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
-
-

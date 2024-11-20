@@ -15,10 +15,10 @@
         <br>
         <a><button id="dashboardBtn" class="btn btn-success">Attendance</button></a>
         <br>
-        <a><button id="dashboardBtn" class="btn btn-success">Enrollment</button></a>
+        <a href="{{ route('enrollment_dashboard') }}"><button id="dashboardBtn" class="btn btn-success">Enrollment</button></a>
         <br>
         <br>
-        <button id="logoutBtn" class="btn btn-danger">Logout</button>
+        <a href="{{ route('logout') }}"><button id="logoutBtn" class="btn btn-danger">Logout</button></a>
     </div>
     <div class="logoContainer">
         <br>
