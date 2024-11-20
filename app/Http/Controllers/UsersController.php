@@ -40,7 +40,7 @@ class UsersController extends Controller
 
         // Fetch the role by ID and save the role's name in role_id
         $role = Role::find($request->get('role_id'));
-        $users->role_id = $role ? $role->name : null; // Save role name if exists
+        $users->role_id = $role ? $role->id : null; // Save role name if exists
 
         $users->save();
 
@@ -92,7 +92,7 @@ class UsersController extends Controller
 
         // Fetch the role by ID and save the role's name in role_id
         $role = Role::find($req->role_id);
-        $users->role_id = $role ? $role->name : null; // Save role name if exists
+        $users->role_id = $role ? $role->id : null; // Save role name if exists
 
         $users->save();
 
