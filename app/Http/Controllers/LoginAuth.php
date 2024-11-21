@@ -38,13 +38,13 @@ class LoginAuth extends Controller
     {
 
         if ($role_id == 'admin') {
-            return redirect()->route('registrar');  // Admin or registrar
+            return redirect()->route('admin');  // Admin or registrar
         } elseif ($role_id == 'registrar') {
             return redirect()->route('registrar'); // Admin or registrar
         } elseif ($role_id == 'treasury') {
             return redirect()->route('course'); // Treasury
         } elseif ($role_id == 'program_head') {
-            return redirect()->route('course'); // Program Head
+            return redirect()->route('program_head'); // Program Head
         } elseif ($role_id == 'human_resource') {
             return redirect()->route('course'); // Human Resource
         } elseif ($role_id == 'professors') {

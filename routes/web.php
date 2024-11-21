@@ -47,6 +47,7 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
+Route::get('/program_head', [Professor::class, 'index'])->name('program_head');
 
 
 // Test routes
