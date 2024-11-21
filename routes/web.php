@@ -27,6 +27,7 @@ use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
 
@@ -90,6 +91,11 @@ Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
 // Students
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
 Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+
+Route::get('/gradecalculator', function () {
+    return view('professor.grade_calculator'); // Updated to match the new file name
+});
+
 
 // Enrollment
 Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
@@ -221,6 +227,28 @@ Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'd
 Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
+
+
+
+
+//Grade Calculator
+
+
+
+
+Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBreakdown'])->name('professor.grade_breakdown');
+Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
+Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
+
+
+    
+
+
+
+
+
+
+
 
 
 
