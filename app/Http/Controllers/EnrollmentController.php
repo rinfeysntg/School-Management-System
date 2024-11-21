@@ -10,28 +10,26 @@ class EnrollmentController extends Controller
 {
     public function enroll()
     {
-        
-        $users = User::where('role_id', 7)
+        $users = User::where('role_id', 'student')
             ->whereDoesntHave('enrollments', function ($query) {
                 $query->where('status', 'Enrolled');
             })
             ->get();
-        
+
         return view('enrollment.enrollment', compact('users'));
     }
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
-            'user_id' => 'required|integer|exists:users,id', 
+            'user_id' => 'required|integer|exists:users,id',
             'status' => 'required|string',
         ]);
 
         Enrollment::create([
-            'user_id' => $validated['user_id'], 
+            'user_id' => $validated['user_id'],
             'status' => $validated['status'],
-            'enrollment_date' => now(),       
+            'enrollment_date' => now(),
         ]);
 
         return redirect()->route('enrollDashboard')->with('success', 'Student enrolled successfully!');
@@ -39,8 +37,20 @@ class EnrollmentController extends Controller
 
     public function showEnrollmentTable()
     {
+        Enrollment::where('status', 'Not Enrolled')->delete();
+
         $enrollments = Enrollment::with('user')->get();
+
         return view('enrollment.enrollmentTable', compact('enrollments'));
+    }
+
+    public function showNotEnrollmentTable()
+    {
+        $users = User::where('role_id', 'student')
+            ->whereDoesntHave('enrollments')
+            ->get();
+
+        return view('enrollment.enrollmentTableNot', compact('users'));
     }
 
     public function edit(Enrollment $enrollment)
@@ -53,9 +63,8 @@ class EnrollmentController extends Controller
         $request->validate([
             'status' => 'required|string',
         ]);
+
         $enrollment->update($request->all());
         return redirect()->route('enrollmentTable')->with('success', 'Enrollment updated successfully!');
     }
-
-
 }

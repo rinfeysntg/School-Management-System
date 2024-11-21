@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('age');
+            $table->integer('age');  
             $table->string('address');
-            $table->string('username');
-            $table->string('email');
+            $table->string('username')->unique(); 
+            $table->string('email')->unique();    
             $table->string('password');
-            $table->integer('role_id');
+            $table->string('role_id'); 
+            $table->timestamps(); 
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('users'); // Drop the users table if rollback occurs
     }
 };

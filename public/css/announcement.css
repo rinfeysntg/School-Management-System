@@ -192,3 +192,42 @@ textarea::placeholder {
 .edit-button:focus, .delete-button:focus {
     outline: none; /* Removes default outline */
 }
+
+.marginfordelete {
+    margin-left: 1015px;
+}
+
+.marginforedit {
+    margin-left: 1015px;
+}
+
+.announcement-item p {
+    white-space: nowrap;      /* Prevents text from wrapping to the next line */
+    overflow: hidden;         /* Hides any text that overflows */
+    text-overflow: ellipsis;  /* Adds "..." when the text is cut off */
+    max-width: 300px;         /* Set the max width to control clipping (you can adjust this) */
+}
+
+.announcement-item a {
+    color: inherit;           /* Optional: Keeps the color same as text */
+    text-decoration: none;    /* Optional: Removes underline */
+}
+
+.announcement-item h3 {
+    display: inline-block;
+    max-width: 300px;         /* Adjust this width to suit your layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.announcement-item .flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.target-Id {
+    text-align: left;
+    margin-right: 0;
+}
+
