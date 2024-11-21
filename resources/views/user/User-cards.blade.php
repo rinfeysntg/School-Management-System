@@ -110,7 +110,7 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Password:</strong> {{ $user->password }}</p>
-                            <p><strong>Role:</strong> {{ $users->role_id = $role ? $role->name : null; }}</p>
+                            <p><strong>Role:</strong> {{ $user->role_id = $role ? $role->name : null; }}</p>
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\ProgramHead;
 
 Route::get('/', function () {
     return view('login');
@@ -47,7 +48,11 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
-Route::get('/program_head', [Professor::class, 'index'])->name('program_head');
+
+//program head
+Route::get('/program_head', [ProgramHead::class, 'index'])->name('program_head');
+Route::get('/program_head/curriculums', [CurriculumController::class, 'programheadIndex'])->name('curriculums_program_head');
+Route::get('/program_head/{id}', [CurriculumController::class, 'programheadShow'])->name('subjects_program_head');
 
 
 // Test routes

@@ -9,6 +9,6 @@ class ProgramHead extends Controller
     public function index()
     {
 
-        return view('program_head');
+        return view('programhead');
     }
 }
