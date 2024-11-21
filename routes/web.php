@@ -84,7 +84,7 @@ Route::post('/role/store', [RolesController::class, 'store'])->name('store_role'
 Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('delete_role');
 Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
 Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
-Route::get('/roles', [RoleController::class, 'index'])->name('roleController');
+Route::get('/roles', [RolesController::class, 'index'])->name('roleController');
 
 // Students
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
