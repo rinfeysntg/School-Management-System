@@ -232,10 +232,6 @@ Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name(
 
 
 //Grade Calculator
-
-
-
-
 Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBreakdown'])->name('professor.grade_breakdown');
 Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
 Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');

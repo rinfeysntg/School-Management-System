@@ -12,7 +12,7 @@ class Curriculum extends Model
     protected $fillable = [
         'code', 
         'name', 
-        'program_head',
+        'user_id',
         'course_id'
     ];
     protected $table = 'curriculums';
@@ -25,4 +25,9 @@ class Curriculum extends Model
     {
     return $this->belongsTo(Course::class);
     }   
+
+    public function user()                                             
+    {
+    return $this->belongsTo(Users::class, 'user_id');
+    } 
 }
