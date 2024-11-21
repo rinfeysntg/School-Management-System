@@ -40,8 +40,8 @@
                 <label for="building_id" class="RbuildingLbl">Professor:</label>
                 <select id="dropdown" name="building_id" required>
                     <option value="">Select a professor</option>
-                    @foreach ($employees as $employee)
-                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $employee->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
             </div>

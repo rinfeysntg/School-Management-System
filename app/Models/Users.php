@@ -10,4 +10,10 @@ class Users extends Model
 {
     use HasFactory;
     public $timestamps =false;
+
+    public function role()
+{
+    return $this->belongsTo(Role::class);
+}
+
 }

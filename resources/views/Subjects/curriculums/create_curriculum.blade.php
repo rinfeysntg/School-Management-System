@@ -19,8 +19,13 @@
             </div>
 
             <div class="form-group">
-                <label for="program_head">Program Head</label>
-                <input type="text" class="form-control" id="program_head" name="program_head" required>
+                <label for="user_id">Program Head</label>
+                <select name="user_id" id="user_id" class="form-control">
+                    <option value="">Select a program head</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}"> {{ $user->name }} </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
