@@ -42,29 +42,6 @@
                         </select>
                         <label for="role">Role</label>
                     </div>
-
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="description" placeholder="description" required>
-                        <label for="description">description</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="yearlevel" placeholder="yearlevel" required>
-                        <label for="yearlevel">yearlevel</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-    <select class="form-control" name="department_id" required>
-        @foreach ($departments as $department)
-            <option value="{{ $department->id }}">
-                {{ $department->name }}
-            </option>
-        @endforeach
-    </select>
-    <label for="department_id">Department</label>
-</div>
-
                     <button type="submit" class="btn btn-success">Add Role</button>
                 </form>
             </div>

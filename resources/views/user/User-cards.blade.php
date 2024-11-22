@@ -73,6 +73,32 @@
                         <label for="password">Password</label>
                     </div>
 
+                <!-- Department -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="department_id">
+                            <option value="">None</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}" {{ $user->department_id == $department->id ? 'selected' : '' }}>
+                                    {{ $department->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="department_id">Department (Optional)</label>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="course_id">
+                            <option value="">None</option>
+                            @foreach ($courses as $course)
+                                <option value="{{ $course->id }}" {{ $user->course_id == $course->id ? 'selected' : '' }}>
+                                    {{ $course->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="course_id">Course (Optional)</label>
+                    </div>
+
                     <!-- Role Dropdown -->
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
@@ -110,7 +136,9 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Password:</strong> {{ $user->password }}</p>
-                            <p><strong>Role:</strong> {{ $user->role_id = $role ? $role->name : null; }}</p>
+                            <p><strong>Department:</strong> {{ $user->department_id ? $departments->find($user->department_id)->name : 'None' }}</p>
+                            <p><strong>Course:</strong> {{ $user->course_id ? $courses->find($user->course_id)->name : 'None' }}</p>
+                            <p><strong>Role:</strong> {{ $user->role_id ? $roles->find($user->role_id)->name : 'None' }}</p>
                         </div>
                     </div>
                 </div>
