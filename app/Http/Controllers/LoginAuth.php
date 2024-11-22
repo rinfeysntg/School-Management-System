@@ -36,7 +36,7 @@ class LoginAuth extends Controller
 
     private function redirectToRolePage($role_id)
     {
-
+        //change role_id to what ur database has for roles
         if ($role_id == 1) {
             return redirect()->route('admin');  // Admin or registrar
         } elseif ($role_id == 2) {

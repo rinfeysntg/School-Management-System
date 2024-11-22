@@ -39,6 +39,7 @@ class CurriculumController extends Controller
 
         $user = session('user');
 
+        //change role_id to what ur database has for program_head
             if ($user->role_id == 5) {
                 $curriculums = Curriculum::where('user_id', $user->id)->get();
             } else {
