@@ -37,16 +37,30 @@ class CurriculumController extends Controller
 
     public function programheadIndex() {
 
-        $curriculums = Curriculum::with('user')->get();
+        $user = session('user');
 
-        return view('subjects.curriculums.index_program_head', compact('curriculums'));
+        //change role_id to what ur database has for program_head
+            if ($user->role_id == 5) {
+                $curriculums = Curriculum::where('user_id', $user->id)->get();
+            } else {
+                $curriculums = collect();
+            }
+
+            return view('subjects.curriculums.index_program_head', compact('curriculums'));
     }
 
     public function programheadShow($id)
-    {
-        $curriculum = Curriculum::with('subjects')->findOrFail($id);
-        return view('subjects.curriculums.show_programhead', compact('curriculum'));
-    }
+{
+    $user = session('user');
+
+    // Find the curriculum and ensure it belongs to the logged-in Program Head
+    $curriculum = Curriculum::where('id', $id)
+                            ->where('user_id', $user->id)  // Ensure the curriculum is assigned to the Program Head
+                            ->with('subjects')
+                            ->firstOrFail();
+
+    return view('subjects.curriculums.show_programhead', compact('curriculum'));
+}
     
     public function create()
     {

@@ -19,7 +19,11 @@ return new class extends Migration
             $table->string('username')->unique(); 
             $table->string('email')->unique();    
             $table->string('password');
-            $table->string('role_id'); 
+            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
+            $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('set null');
+            $table->string('year_level')->nullable();
+            $table->string('block')->nullable();
+            $table->foreignId('role_id')->constrained('roles')->onDelete('set null');
             $table->timestamps(); 
         });
     }

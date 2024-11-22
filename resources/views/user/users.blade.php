@@ -61,8 +61,31 @@
                         <label for="password">Password</label>
                     </div>
 
+                            <!-- Department -->
+                        <div class="form-floating mb-3">
+                            <select class="form-control" name="department_id">
+                                <option value="">None</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="department_id">Department</label>
+                        </div>
+
+                    <!-- Course -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="course_id">
+                            <option value="">None</option>
+                            @foreach ($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                        </select>
+                        <label for="course_id">Course</label>
+                    </div>
+
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
+                            <option value="">Select a role</option>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
