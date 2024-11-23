@@ -42,6 +42,6 @@
         </div>
         </div>
         <div>
-        <a href="{{ route('create_subject') }}" class="add-sub">Create Schedule</a>
+        <a href="{{ route('schedule.create', $curriculum->id) }}" class="add-sub">Create Schedule</a>
     </div>
 @endsection

@@ -102,6 +102,13 @@ Route::get('/gradecalculator', function () {
     return view('professor.grade_calculator'); // Updated to match the new file name
 });
 
+//schedule
+Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+Route::get('/schedule/create/{curriculumId}', [ScheduleController::class, 'create'])->name('schedule.create');
+Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
 // Enrollment
 Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
@@ -209,6 +216,7 @@ Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curric
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
 Route::post('/curriculums/store', [CurriculumController::class, 'store'])->name('curriculums_store');
 Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('curriculums_show');
+Route::get('/schedule/{id}', [CurriculumController::class, 'showSchedule'])->name('schedule.show');
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');

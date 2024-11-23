@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('set null');
             $table->string('year_level');
-            $table->integer('subject_id');
-            $table->integer('employee_id');
+            $table->string('block');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('set null');
+            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
             $table->string('days_time');
         });
     }

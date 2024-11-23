@@ -19,6 +19,7 @@
                             <td>{{ $curriculum->name }}</td>
 
                             <td><a href="{{ route('subjects_program_head', $curriculum->id) }}" class="btn btn-info btn-sm">View</a></td>
+                            <td><a href="{{ route('schedule.show', $curriculum->id) }}" class="btn btn-info btn-sm">View Schedule</a></td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -93,6 +93,13 @@ class CurriculumController extends Controller
         return view('subjects.curriculums.show', compact('curriculum'));
     }
 
+    public function showSchedule($id)
+    {
+        $curriculum = Curriculum::with('schedules')->findOrFail($id);
+        return view('schedule.index_sched', compact('curriculum'));
+    }
+
+
     public function edit($id)
     {
         $courses = Course::all();
