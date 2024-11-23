@@ -13,16 +13,7 @@ class CurriculumController extends Controller
    
     public function index(Request $request)
     {
-
-        //$user = auth()->user();
-
-        //$roleName = $user->role->name;
-
-        //if ($roleName == 'program_head') {
-        //    $curriculums = Curriculum::where('user_id', $user->id)->get();
-        //    return view('subjects.curriculums.index_program_head', compact('curriculums')); // Program Head specific view
-        //}
-        
+          
         $courses = Course::all();
         $curriculums = Curriculum::with('user')->get();
 
