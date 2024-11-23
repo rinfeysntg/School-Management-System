@@ -1,9 +1,9 @@
 @extends('layout') 
-@include('registrar.navbar_registrar')
+@include('navbar_programhead')
 @section('content')
 
 <div class="rec_dashboard">
-    <h1 class="createroomLbl">Schedules</h1>
+    <h1 class="createroomLbl">Schedules for {{ $curriculum->name }}</h1>
     <div class="rec_dashboard3">
         <table class="rooms-table">
             <thead>
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($schedules as $schedule)
+            @forelse ($curriculum->schedules as $schedule)
                     <tr>
                         <td>{{ $schedule->course->name }}</td>
                         <td>{{ $schedule->year_level }}</td>
@@ -39,13 +39,14 @@
                     <tr>
                         <td colspan="7" class="text-center">No schedules found.</td>
                     </tr>
-                @endforelse
+            @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="button-container">
-        <a href="{{ route('schedule.create') }}" class="createRoomBtn2">Create Schedule</a>
+        <a href="{{ route('schedule.create', ['curriculumId' => $curriculum->id]) }}" class="createRoomBtn2">Create Schedule</a>
+        
     </div>
 </div>
 

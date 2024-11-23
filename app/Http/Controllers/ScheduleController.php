@@ -7,15 +7,15 @@ use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Users;
 use App\Models\Subject;
+use App\Models\Curriculum;
 
 class ScheduleController extends Controller
 {
     public function create($curriculumId)
     {
-
         $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
         $courses = Course::all();
-        $users = User::where('role', 'professors')->get();
+        $users = Users::where('role_id', 6)->get();
 
         return view('schedule.create_sched', [
             'curriculum' => $curriculum,
@@ -35,6 +35,7 @@ class ScheduleController extends Controller
     {
         
         $validated = $request->validate([
+            'curriculum_id' => 'required|exists:curriculums,id',
             'course_id' => 'required|exists:courses,id',
             'year_level' => 'nullable|string',
             'block' => 'nullable|string',
@@ -45,6 +46,7 @@ class ScheduleController extends Controller
 
         
         Schedule::create([
+            'curriculum_id' => $validated['curriculum_id'],
             'course_id' => $validated['course_id'],
             'year_level' => $validated['year_level'],
             'block' => $validated['block'],
@@ -53,8 +55,10 @@ class ScheduleController extends Controller
             'days_time' => $validated['days_time'],
         ]);
 
-        return redirect()->route('subjects_program_head')->with('success', 'Schedule created successfully!');
+        return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
     }
+
+
 
     //EDIT//
 
@@ -63,7 +67,7 @@ class ScheduleController extends Controller
     $schedules = Schedule::findOrFail($id); 
     $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
     $courses = Course::all();
-    $users = User::where('role', 'professors')->get();
+    $users = Users::where('role_id', 6)->get();
 
     return view('schedule.edit_sched', compact('schedules', 'curriculum', 'courses', 'users')); 
 }

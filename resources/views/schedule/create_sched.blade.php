@@ -1,5 +1,5 @@
 @extends('layout')
-@include('registrar.navbar_registrar')
+@include('navbar_programhead')
 @section('content')
 
 <div class="rec_dashboard">
@@ -10,6 +10,8 @@
 
         <form class="cRoomsForm" action="{{ route('schedule.store') }}" method="POST">
             @csrf 
+            
+            <input type="hidden" name="curriculum_id" value="{{ $curriculum->id }}">
 
             <div class="mb-3">
                 <label for="course_id" class="RbuildingLbl">Course:</label>
@@ -58,7 +60,7 @@
                 <select id="dropdown" name="user_id" required>
                     <option value="">Select a professor</option>
                     @foreach ($users as $user)
-                        <option value="{{ $employee->id }}">{{ $user->name }}</option>
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
             </div>

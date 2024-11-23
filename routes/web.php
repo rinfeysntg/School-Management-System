@@ -31,6 +31,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\ProgramHead;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('login');
@@ -107,6 +108,7 @@ Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.in
 Route::get('/schedule/create/{curriculumId}', [ScheduleController::class, 'create'])->name('schedule.create');
 Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+Route::get('/schedule/show/{curriculumId}', [CurriculumController::class, 'showSchedule'])->name('schedule.show');
 Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
 Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
@@ -216,7 +218,6 @@ Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curric
 Route::get('/curriculums/create', [CurriculumController::class, 'create'])->name('curriculums_create');
 Route::post('/curriculums/store', [CurriculumController::class, 'store'])->name('curriculums_store');
 Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('curriculums_show');
-Route::get('/schedule/{id}', [CurriculumController::class, 'showSchedule'])->name('schedule.show');
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
