@@ -15,7 +15,8 @@ class Schedule extends Model
         'block', 
         'subject_id',
         'user_id',
-        'days_time'
+        'days_time',
+        'curriculum_id'
     ];
 
     public function course() {

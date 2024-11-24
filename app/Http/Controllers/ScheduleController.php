@@ -35,24 +35,24 @@ class ScheduleController extends Controller
     {
         
         $validated = $request->validate([
-            'curriculum_id' => 'required|exists:curriculums,id',
             'course_id' => 'required|exists:courses,id',
             'year_level' => 'nullable|string',
             'block' => 'nullable|string',
             'subject_id' => 'required|exists:subjects,id',
             'user_id' => 'required|exists:users,id',
             'days_time' => 'nullable|string',
+            'curriculum_id' => 'required|exists:curriculums,id',
         ]);
 
         
         Schedule::create([
-            'curriculum_id' => $validated['curriculum_id'],
             'course_id' => $validated['course_id'],
             'year_level' => $validated['year_level'],
             'block' => $validated['block'],
             'subject_id' => $validated['subject_id'],
             'user_id' => $validated['user_id'],
             'days_time' => $validated['days_time'],
+            'curriculum_id' => $validated['curriculum_id'],
         ]);
 
         return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
@@ -62,15 +62,16 @@ class ScheduleController extends Controller
 
     //EDIT//
 
-    public function edit($id, $curriculumId)
-{
-    $schedules = Schedule::findOrFail($id); 
-    $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
-    $courses = Course::all();
-    $users = Users::where('role_id', 6)->get();
-
-    return view('schedule.edit_sched', compact('schedules', 'curriculum', 'courses', 'users')); 
-}
+    public function edit($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $curriculum = Curriculum::with('subjects')->findOrFail($schedule->curriculum_id);
+        $subjects = $curriculum->subjects;
+        $courses = Course::all();
+        $users = Users::where('role_id', 6)->get();
+    
+        return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
+    }
 
 public function update(Request $request, $id)
 {
@@ -82,13 +83,14 @@ public function update(Request $request, $id)
         'subject_id' => 'required|exists:subjects,id',
         'user_id' => 'required|exists:users,id',
         'days_time' => 'nullable|string',
+        'curriculum_id' => 'required|exists:curriculums,id',
     ]);
 
    
     $schedule = Schedule::findOrFail($id);
     $schedule->update($request->all());
 
-    return redirect()->route('schedule.index')->with('success', 'Schedule updated successfully!');
+    return redirect()->route('curriculums_program_head')->with('success', 'Schedule updated successfully!');
 }
 
 
@@ -97,6 +99,6 @@ public function destroy($id)
     $schedule = Schedule::findOrFail($id); 
     $schedule->delete(); 
 
-    return redirect()->route('schedule.index')->with('success', 'Schedule deleted successfully!');
+    return redirect()->route('curriculums_program_head')->with('success', 'Schedule deleted successfully!');
 }
 }

@@ -10,6 +10,8 @@
             @csrf
             @method('PUT')
 
+            <input type="hidden" name="curriculum_id" value="{{ $curriculum->id }}">
+
             <div class="mb-3">
                 <label for="course_id" class="RbuildingLbl">Course:</label>
                 <select id="dropdown" name="course_id" required>
