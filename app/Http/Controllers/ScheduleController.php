@@ -13,9 +13,12 @@ class ScheduleController extends Controller
 {
     public function create($curriculumId)
     {
+        $user = session('user');
         $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
         $courses = Course::all();
-        $users = Users::where('role_id', 6)->get();
+        $users = Users::where('role_id', 6)
+                ->where('department_id', $user->department_id)
+                ->get();
 
         return view('schedule.create_sched', [
             'curriculum' => $curriculum,
