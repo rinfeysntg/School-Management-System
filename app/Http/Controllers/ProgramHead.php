@@ -80,21 +80,6 @@ class ProgramHead extends Controller
         return redirect()->route('students_index')->with('success', 'Student deleted successfully.');
     }
 
-    // Show the pre-edit form for a user
-    public function preEditStudent($id)
-    {
-        $users = Users::find($id);
-        $roles = Role::all();
-        $departments = Department::all();
-        $courses = Course::all(); 
-
-        if (!$users) {
-            return redirect()->route('students_index')->with('error', 'Student not found.');
-        }
-
-        return view('student.edit', compact('users', 'roles', 'departments', 'courses'));
-    }
-
     // Edit user details
     public function editStudent(Request $req)
     {

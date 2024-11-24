@@ -18,7 +18,7 @@
 
 <!-- User List Container -->
 <div class="user-list">
-    @include('user.User-cards') <!-- Assuming this dynamically includes user cards -->
+    @include('student.student-cards') <!-- Assuming this dynamically includes user cards -->
 </div>
 
 <!-- Modal to Add User -->
