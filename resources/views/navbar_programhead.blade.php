@@ -16,7 +16,7 @@
           <a class="nav-link" href="/departments">Rooms</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/coursedashboard">Students</a>
+          <a class="nav-link" href="/students_programhead">Students</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/program_head/curriculums">Schedule</a>

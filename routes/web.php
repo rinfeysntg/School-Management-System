@@ -54,6 +54,12 @@ Route::get('/professor', [Professor::class, 'index'])->name('professor');
 Route::get('/program_head', [ProgramHead::class, 'index'])->name('program_head');
 Route::get('/program_head/curriculums', [CurriculumController::class, 'programheadIndex'])->name('curriculums_program_head');
 Route::get('/program_head/{id}', [CurriculumController::class, 'programheadShow'])->name('subjects_program_head');
+    //students crud
+    Route::get('/students_programhead', [ProgramHead::class, 'createStudentIndex'])->name('students_index');
+    Route::post('/student/store', [ProgramHead::class, 'storeStudent'])->name('store_student');
+    Route::delete('/student/delete/{id}', [ProgramHead::class, 'deleteStudent'])->name('delete_student');
+    Route::get('/student/edit/{id}', [ProgramHead::class, 'preEditStudent'])->name('edit_user_page');
+    Route::post('/student/edit', [ProgramHead::class, 'editStudent'])->name('edit_user');
 
 
 // Test routes

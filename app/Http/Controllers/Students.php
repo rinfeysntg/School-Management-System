@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Users;
+use App\Models\Role;
+use App\Models\Department;
+use App\Models\Course;
 
 class Students extends Controller
 {
     public function index()
     {
-
         return view('student');
     }
 
+    
     public function enrollmentForm()
     {
 
         $currentUser = session('user');
     
 
-        $user = User::where('name', $currentUser->name)->first();
+        $user = Users::where('name', $currentUser->name)->first();
     
 
         $enrollment = $user->enrollments()->where('status', 'Enrolled')->first();

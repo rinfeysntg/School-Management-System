@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
-use App\Models\Role; // Include the Role model
+use App\Models\Role;
 use App\Models\Department;
 use App\Models\Course;
 use Illuminate\Http\Request;
