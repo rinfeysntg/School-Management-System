@@ -20,6 +20,11 @@ class Curriculum extends Model
     {
         return $this->hasMany(Subject::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
                                                 //                  for course
     public function course()                                             
     {

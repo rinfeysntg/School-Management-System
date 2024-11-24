@@ -7,88 +7,98 @@ use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Users;
 use App\Models\Subject;
+use App\Models\Curriculum;
 
 class ScheduleController extends Controller
 {
-    public function create()
+    public function create($curriculumId)
     {
-        $buildings = Building::all();
-        return view('department.create_dept', compact('buildings'));
+        $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
+        $courses = Course::all();
+        $users = Users::where('role_id', 6)->get();
+
+        return view('schedule.create_sched', [
+            'curriculum' => $curriculum,
+            'subjects' => $curriculum->subjects, // Pass only related subjects
+            'courses' => $courses,
+            'users' => $users,
+        ]);
     }
 
+    public function index()
+        {
+            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); // Include related models
+            return view('schedule.index_sched', compact('schedules'));
+        }
    
     public function store(Request $request)
     {
         
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'building_id' => 'required|exists:buildings,id' 
+            'course_id' => 'required|exists:courses,id',
+            'year_level' => 'nullable|string',
+            'block' => 'nullable|string',
+            'subject_id' => 'required|exists:subjects,id',
+            'user_id' => 'required|exists:users,id',
+            'days_time' => 'nullable|string',
+            'curriculum_id' => 'required|exists:curriculums,id',
         ]);
 
         
-        Department::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'building_id' => $validated['building_id'],
+        Schedule::create([
+            'course_id' => $validated['course_id'],
+            'year_level' => $validated['year_level'],
+            'block' => $validated['block'],
+            'subject_id' => $validated['subject_id'],
+            'user_id' => $validated['user_id'],
+            'days_time' => $validated['days_time'],
+            'curriculum_id' => $validated['curriculum_id'],
         ]);
 
-        return redirect()->route('department.index')->with('success', 'Department created successfully!');
+        return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
     }
 
-   
-    public function index(Request $request)
-    {
-        $departments = Department::all(); 
-        $buildings = Building::all();
 
-        if ($request->has('building_id') && $request->building_id != '') {
-            $departments = Department::where('building_id', $request->building_id)->get();
-        } else {
-            $departments = collect();
-        }
-
-        return view('department.view_dept', compact('departments', 'buildings')); 
-    }
-
-    public function show($id)
-    {
-        $buildings = Building::all();
-        $departments = Department::with('buildings')->findOrFail($id);
-        return view('department.view_dept', compact('departments'));
-    }
 
     //EDIT//
 
     public function edit($id)
-{
-    $department = Department::findOrFail($id); 
-    $buildings = Building::all();
-    return view('department.edit_dept', compact('department', 'buildings')); 
-}
+    {
+        $schedule = Schedule::findOrFail($id);
+        $curriculum = Curriculum::with('subjects')->findOrFail($schedule->curriculum_id);
+        $subjects = $curriculum->subjects;
+        $courses = Course::all();
+        $users = Users::where('role_id', 6)->get();
+    
+        return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
+    }
 
 public function update(Request $request, $id)
 {
     
     $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'building_id' => 'required|exists:buildings,id',
+        'course_id' => 'required|exists:courses,id',
+        'year_level' => 'nullable|string',
+        'block' => 'nullable|string',
+        'subject_id' => 'required|exists:subjects,id',
+        'user_id' => 'required|exists:users,id',
+        'days_time' => 'nullable|string',
+        'curriculum_id' => 'required|exists:curriculums,id',
     ]);
 
    
-    $department = Department::findOrFail($id);
-    $department->update($request->all());
+    $schedule = Schedule::findOrFail($id);
+    $schedule->update($request->all());
 
-    return redirect()->route('department.index')->with('success', 'Department updated successfully!');
+    return redirect()->route('curriculums_program_head')->with('success', 'Schedule updated successfully!');
 }
 
 
 public function destroy($id)
 {
-    $department = Department::findOrFail($id); 
-    $department->delete(); 
+    $schedule = Schedule::findOrFail($id); 
+    $schedule->delete(); 
 
-    return redirect()->route('department.index')->with('success', 'Department deleted successfully!');
+    return redirect()->route('curriculums_program_head')->with('success', 'Schedule deleted successfully!');
 }
 }

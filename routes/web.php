@@ -31,6 +31,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\ProgramHead;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('login');
@@ -102,6 +103,14 @@ Route::get('/gradecalculator', function () {
     return view('professor.grade_calculator'); // Updated to match the new file name
 });
 
+//schedule
+Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+Route::get('/schedule/create/{curriculumId}', [ScheduleController::class, 'create'])->name('schedule.create');
+Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+Route::get('/schedule/show/{curriculumId}', [CurriculumController::class, 'showSchedule'])->name('schedule.show');
+Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
 // Enrollment
 Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');

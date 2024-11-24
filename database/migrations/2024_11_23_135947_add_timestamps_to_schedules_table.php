@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule', function (Blueprint $table) {
-            $table->id();
-            $table->integer('course_id');
-            $table->string('year_level');
-            $table->integer('subject_id');
-            $table->integer('employee_id');
-            $table->string('days_time');
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
     }
 };

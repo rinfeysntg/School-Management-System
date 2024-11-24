@@ -42,6 +42,5 @@
         </div>
         </div>
         <div>
-        <a href="{{ route('create_subject') }}" class="add-sub">Create Schedule</a>
     </div>
 @endsection

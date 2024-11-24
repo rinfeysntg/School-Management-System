@@ -1,27 +1,30 @@
-@extends('layout')
-@include('registrar.navbar_registrar')
+@extends('layout') 
+@include('navbar_programhead')
 @section('content')
 
-
 <div class="rec_dashboard">
-    <h1 class="createroomLbl">Schedules</h1>
+    <h1 class="createroomLbl">Schedules for {{ $curriculum->name }}</h1>
     <div class="rec_dashboard3">
         <table class="rooms-table">
-        <thead>
+            <thead>
                 <tr>
                     <th scope="col">Course</th>
+                    <th scope="col">Year Level</th>
+                    <th scope="col">Block</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Professor</th>
                     <th scope="col">Days & Time</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($schedules as $schedule)
+            @forelse ($curriculum->schedules as $schedule)
                     <tr>
-                        <td><strong>{{ $schedule->course->name }}</strong><br>
-                        <span class="description">{{ $schedule->year_level }}</span></td>
+                        <td>{{ $schedule->course->name }}</td>
+                        <td>{{ $schedule->year_level }}</td>
+                        <td>{{ $schedule->block }}</td>
                         <td>{{ $schedule->subject->name }}</td>
-                        <td>{{ $schedule->employee->name }}</td>
+                        <td>{{ $schedule->user->name }}</td>
                         <td>{{ $schedule->days_time }}</td>
                         <td>
                             <a href="{{ route('schedule.edit', $schedule->id) }}" class="edit-btn">Edit</a>
@@ -32,15 +35,19 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">No schedules found.</td>
+                    </tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="button-container">
-        <a href="{{ route('schedule.create') }}" class="createRoomBtn2">Create Schedule</a>
+        <a href="{{ route('schedule.create', ['curriculumId' => $curriculum->id]) }}" class="createRoomBtn2">Create Schedule</a>
+        
     </div>
-
 </div>
 
 @endsection
