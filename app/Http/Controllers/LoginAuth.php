@@ -36,20 +36,20 @@ class LoginAuth extends Controller
 
     private function redirectToRolePage($role_id)
     {
-
-        if ($role_id == 'admin') {
-            return redirect()->route('registrar');  // Admin or registrar
-        } elseif ($role_id == 'registrar') {
+        //change role_id to what ur database has for roles
+        if ($role_id == 1) {
+            return redirect()->route('admin');  // Admin or registrar
+        } elseif ($role_id == 2) {
             return redirect()->route('registrar'); // Admin or registrar
-        } elseif ($role_id == 'treasury') {
+        } elseif ($role_id == 4) {
             return redirect()->route('course'); // Treasury
-        } elseif ($role_id == 'program_head') {
-            return redirect()->route('course'); // Program Head
+        } elseif ($role_id == 5) {
+            return redirect()->route('program_head'); // Program Head
         } elseif ($role_id == 'human_resource') {
             return redirect()->route('course'); // Human Resource
-        } elseif ($role_id == 'professors') {
-            return redirect()->route('course'); // Professors
-        } elseif ($role_id == 'student') {
+        } elseif ($role_id == 6) {
+            return redirect()->route('professor'); // Professors
+        } elseif ($role_id == 7) {
             return redirect()->route('student_dashboard'); // Students
         }
     

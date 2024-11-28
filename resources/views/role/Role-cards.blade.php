@@ -48,26 +48,6 @@
                                     </select>
                                     <label for="name">Role</label>
                                 </div>
-
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="description" id="description" placeholder="description" value="{{ $role->description }}" required>
-                                        <label for="description">Description</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="yearlevel" id="yearlevel" placeholder="yearlevel" value="{{ $role->yearlevel }}" required>
-                                        <label for="yearlevel">Year Level</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <!-- Role Dropdown with Departments -->
-                                        <select class="form-control" name="department_id" required>
-                                            @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}" {{ $role->department_id == $department->id ? 'selected' : '' }}>
-                                                    {{ $department->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <label for="department_id">Department</label>
-                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-success" id="submitButton">Edit Role</button>
                             </form>
@@ -87,11 +67,6 @@
                         <div style="color:white" class="modal-body">
                             <p><strong>ID:</strong> {{ $role->id }}</p>
                             <p><strong>Name:</strong> {{ $role->name }}</p>
-                            <p><strong>Description:</strong> {{ $role->description }}</p>
-                            <p><strong>Year Level:</strong> {{ $role->yearlevel }}</p>
-                            <p><strong>Department:</strong>
-                                {{ $departments->firstWhere('id', $role->department_id)?->name ?? 'Unknown Department' }}
-                            </p>
                         </div>
                     </div>
                 </div>

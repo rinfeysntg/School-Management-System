@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{ $curriculum->code }}</td>
                         <td>{{ $curriculum->name }}</td>
-                        <td>{{ $curriculum->program_head }}</td>
+                        <td>{{ $curriculum->user->name }}</td>
                         <td>
                             <a href="{{ route('curriculums_show', $curriculum->id) }}" class="btn btn-info btn-sm">View</a>
                             <a href="{{ route('curriculums_edit', $curriculum->id) }}" class="btn btn-success btn-sm">Edit</a>

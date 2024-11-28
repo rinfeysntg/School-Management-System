@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
 use App\Models\Course;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 
@@ -12,8 +13,9 @@ class CurriculumController extends Controller
    
     public function index(Request $request)
     {
-        $curriculums = Curriculum::all();
+          
         $courses = Course::all();
+        $curriculums = Curriculum::with('user')->get();
 
         if ($request->has('course_id') && $request->course_id != '') {
             $curriculums = Curriculum::where('course_id', $request->course_id)->get();
@@ -24,12 +26,41 @@ class CurriculumController extends Controller
         return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
     }
 
+    public function programheadIndex() {
+
+        $user = session('user');
+
+        //change role_id to what ur database has for program_head
+            if ($user->role_id == 5) {
+                $curriculums = Curriculum::where('user_id', $user->id)->get();
+            } else {
+                $curriculums = collect();
+            }
+
+            return view('subjects.curriculums.index_program_head', compact('curriculums'));
+    }
+
+    public function programheadShow($id)
+{
+    $user = session('user');
+
+    // Find the curriculum and ensure it belongs to the logged-in Program Head
+    $curriculum = Curriculum::where('id', $id)
+                            ->where('user_id', $user->id)  // Ensure the curriculum is assigned to the Program Head
+                            ->with('subjects')
+                            ->firstOrFail();
+
+    return view('subjects.curriculums.show_programhead', compact('curriculum'));
+}
     
     public function create()
     {
                                                                                  
         $courses = Course::all();
-        return view('subjects.curriculums.create_curriculum', compact('courses'));
+        $users = Users::whereHas('role', function ($query) {
+            $query->where('name', 'program_head');
+        })->get();
+        return view('subjects.curriculums.create_curriculum', compact('courses', 'users'));
     }
 
    
@@ -39,7 +70,7 @@ class CurriculumController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'program_head' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);
     
@@ -47,7 +78,7 @@ class CurriculumController extends Controller
         Curriculum::create([
             'code' => $validated['code'],
             'name' => $validated['name'],
-            'program_head' => $validated['program_head'],
+            'user_id' => $validated['user_id'],
             'course_id' => $validated['course_id'], 
         ]);
     
@@ -60,6 +91,12 @@ class CurriculumController extends Controller
         $courses = Course::all();
         $curriculum = Curriculum::with('subjects')->findOrFail($id);
         return view('subjects.curriculums.show', compact('curriculum'));
+    }
+
+    public function showSchedule($curriculumId)
+    {
+        $curriculum = Curriculum::with('schedules')->findOrFail($curriculumId);
+        return view('schedule.index_sched', compact('curriculum'));
     }
 
     public function edit($id)
@@ -75,7 +112,7 @@ class CurriculumController extends Controller
         $request->validate([
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'program_head' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);
 

@@ -27,8 +27,11 @@ use App\Http\Controllers\AnnouncementCreateController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\ProgramHead;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('login');
@@ -46,6 +49,16 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
+
+//program head
+Route::get('/program_head', [ProgramHead::class, 'index'])->name('program_head');
+Route::get('/program_head/curriculums', [CurriculumController::class, 'programheadIndex'])->name('curriculums_program_head');
+Route::get('/program_head/{id}', [CurriculumController::class, 'programheadShow'])->name('subjects_program_head');
+    //students crud
+    Route::get('/students_programhead', [ProgramHead::class, 'createStudentIndex'])->name('students_index');
+    Route::post('/student/store', [ProgramHead::class, 'storeStudent'])->name('store_student');
+    Route::delete('/student/delete/{id}', [ProgramHead::class, 'deleteStudent'])->name('delete_student');
+    Route::post('/student/edit', [ProgramHead::class, 'editStudent'])->name('edit_student');
 
 
 // Test routes
@@ -90,6 +103,19 @@ Route::get('/roles', [RolesController::class, 'index'])->name('roleController');
 // Students
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
 Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+
+Route::get('/gradecalculator', function () {
+    return view('professor.grade_calculator'); // Updated to match the new file name
+});
+
+//schedule
+Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+Route::get('/schedule/create/{curriculumId}', [ScheduleController::class, 'create'])->name('schedule.create');
+Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+Route::get('/schedule/show/{curriculumId}', [CurriculumController::class, 'showSchedule'])->name('schedule.show');
+Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
 // Enrollment
 Route::get('/enroll', [EnrollmentController::class, 'enroll'])->name('enrollStudents');
@@ -221,6 +247,24 @@ Route::delete('/announcement/{announcement}', [AnnouncementController::class, 'd
 Route::get('/announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
+
+
+
+
+//Grade Calculator
+Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBreakdown'])->name('professor.grade_breakdown');
+Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
+Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
+
+
+    
+
+
+
+
+
+
+
 
 
 

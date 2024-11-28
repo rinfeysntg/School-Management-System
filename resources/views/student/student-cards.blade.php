@@ -8,13 +8,13 @@
                         <h4 style="color:white" class="card-text">ID {{ $user->id }}</h4>
 
                         <!-- Edit Button -->
-                        <button type="button" class="btn btn-primary glass-button mb-2" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">EDIT</button>
+                        <button type="button" class="btn btn-primary glass-button mb-2" data-bs-toggle="modal" data-bs-target="#editStudentModal{{ $user->id }}">EDIT</button>
 
                         <!-- View Details Button -->
-                        <button type="button" class="btn btn-info glass-button mb-2" data-bs-toggle="modal" data-bs-target="#viewUserModal{{ $user->id }}">VIEW DETAILS</button>
+                        <button type="button" class="btn btn-info glass-button mb-2" data-bs-toggle="modal" data-bs-target="#viewStudentModal{{ $user->id }}">VIEW DETAILS</button>
 
                         <!-- Delete Button -->
-                        <form action="{{ route('delete_user', $user->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('delete_student', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger mb-2">DELETE</button>
@@ -24,15 +24,15 @@
             </div>
 
             <!-- Edit User Modal -->
-<div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" aria-labelledby="editUserModalLabel{{ $user->id }}" aria-hidden="true">
+<div class="modal fade" id="editStudentModal{{ $user->id }}" tabindex="-1" aria-labelledby="editStudentModalLabel{{ $user->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content glass-effect">
             <div class="modal-header">
-                <h5 style="color:white" class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User - {{ $user->name }}</h5>
+                <h5 style="color:white" class="modal-title" id="editStudentModalLabel{{ $user->id }}">Edit Student - {{ $user->name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('edit_user') }}" method="POST">
+                <form action="{{ route('edit_student') }}" method="POST">
                     @csrf
                     <!-- Include the User ID -->
                     <input type="hidden" name="id" value="{{ $user->id }}">
@@ -83,7 +83,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="department_id">Department (Optional)</label>
+                        <label for="department_id">Department</label>
                     </div>
 
                     <!-- Course -->
@@ -96,23 +96,35 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="course_id">Course (Optional)</label>
+                        <label for="course_id">Course</label>
                     </div>
 
-                    <!-- Role Dropdown -->
+                    <!-- Year Level -->
                     <div class="form-floating mb-3">
-                        <select class="form-control" name="role_id" required>
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
-                                    {{ $role->name }}
-                                </option>
-                            @endforeach
+                        <select class="form-control" name="year_level">
+                            <option value="">Select Year Level</option>
+                            <option value="1Y" {{ $user->year_level == '1Y' ? 'selected' : '' }}>1st Year</option>
+                            <option value="2Y" {{ $user->year_level == '2Y' ? 'selected' : '' }}>2nd Year</option>
+                            <option value="3Y" {{ $user->year_level == '3Y' ? 'selected' : '' }}>3rd Year</option>
+                            <option value="4Y" {{ $user->year_level == '4Y' ? 'selected' : '' }}>4th Year</option>
                         </select>
-                        <label for="role_id">Role</label>
+                        <label for="year_level">Year Level</label>
+                    </div>
+
+                    <!-- Block -->
+                    <div class="form-floating mb-3">
+                        <select class="form-control" name="block">
+                            <option value="">Select Block</option>
+                            <option value="B1" {{ $user->block == 'B1' ? 'selected' : '' }}>Block 1</option>
+                            <option value="B2" {{ $user->block == 'B2' ? 'selected' : '' }}>Block 2</option>
+                            <option value="B3" {{ $user->block == 'B3' ? 'selected' : '' }}>Block 3</option>
+                            <option value="B4" {{ $user->block == 'B4' ? 'selected' : '' }}>Block 4</option>
+                        </select>
+                        <label for="block">Block</label>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-success">Update User</button>
+                    <button type="submit" class="btn btn-success">Update Student</button>
                 </form>
             </div>
         </div>
@@ -121,11 +133,11 @@
 
 
             <!-- View User Modal -->
-            <div class="modal fade" id="viewUserModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewUserModalLabel{{ $user->id }}" aria-hidden="true">
+            <div class="modal fade" id="viewStudentModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewStudentModalLabel{{ $user->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content glass-effect">
                         <div class="modal-header">
-                            <h5 style="color:white" class="modal-title" id="viewUserModalLabel{{ $user->id }}">User Details - {{ $user->name }}</h5>
+                            <h5 style="color:white" class="modal-title" id="viewStudentModalLabel{{ $user->id }}">Student Details - {{ $user->name }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div style="color:white" class="modal-body">
@@ -138,6 +150,32 @@
                             <p><strong>Password:</strong> {{ $user->password }}</p>
                             <p><strong>Department:</strong> {{ $user->department_id ? $departments->find($user->department_id)->name : 'None' }}</p>
                             <p><strong>Course:</strong> {{ $user->course_id ? $courses->find($user->course_id)->name : 'None' }}</p>
+                            <p><strong>Year Level:</strong> 
+                            @if ($user->year_level)
+                                @switch($user->year_level)
+                                    @case('1Y') 1st Year @break
+                                    @case('2Y') 2nd Year @break
+                                    @case('3Y') 3rd Year @break
+                                    @case('4Y') 4th Year @break
+                                    @default {{ $user->year_level }}
+                                @endswitch
+                            @else
+                                Not Selected
+                            @endif
+                        </p>
+                            <p><strong>Block:</strong> 
+                                @if ($user->block)
+                                    @switch($user->block)
+                                        @case('B1') Block 1 @break
+                                        @case('B2') Block 2 @break
+                                        @case('B3') Block 3 @break
+                                        @case('B4') Block 4 @break
+                                        @default {{ $user->block }}
+                                    @endswitch
+                                @else
+                                    Not Selected
+                                @endif
+                            </p>
                             <p><strong>Role:</strong> {{ $user->role_id ? $roles->find($user->role_id)->name : 'None' }}</p>
                         </div>
                     </div>
