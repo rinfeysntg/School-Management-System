@@ -150,7 +150,7 @@
                 <a class="btn" id="add_function" href="{{ route('payrolls') }}">Add</a><br>
                 <a class="btn" id="update_function">Update</a><br>
                 <a class="btn" id="release_function">Release</a><br>
-                <a class="btn" onclick="confirmDeletion(event)" id="delete_function">Delete</a>
+                <a class="btn" onclick="confirmAction(event)" id="delete_function">Delete</a>
             </ul>
         </div>
     </div>

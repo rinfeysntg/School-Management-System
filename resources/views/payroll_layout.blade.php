@@ -267,9 +267,9 @@
             }       
           }
         }
-        function confirmDeletion(event) {
+        function confirmAction(event) {
             // Display the confirmation dialog
-            var confirmation = confirm("Are you sure you want to delete this user's payroll?");
+            var confirmation = confirm("Confirm action?");
             
             // If the user clicks "Cancel", prevent the form submission
             if (!confirmation) {
