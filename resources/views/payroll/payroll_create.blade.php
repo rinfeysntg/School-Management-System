@@ -33,15 +33,15 @@
             <P>Full Name: <span class="name_ps"></span></p>
             <P>Department: <span class="department_ps"></span></p>
             <P>Salary: <span class="salary_ps"></span></p>
-            <P>Deductions: <span class="deductions_ps"></span></p>
+            <P>Deductions/ Not Earned: <span class="deductions_ps"></span></p>
             <P>Total Payment: <span class="total_ps"></span></p>
         </div>
         <form action="{{ route('payroll.store') }}" method="POST" class="grid-info">
             @csrf
             <div class="info-first-column info-column">
                 <div class="input-box">
-                    <label for="date_start_create">Date Start:</label>
-                    <input id="date_start_create" name="date_start_create" required>
+                    <label for="date_start_create"><strong>Date Start:</strong></label>
+                    <input id="date_start_create" name="date_start_create"value="{{ old('date_start_create') }}" required>
                 </div>
 
                 <div class="input-box">
@@ -71,13 +71,13 @@
             </div>
             <div class="info-second-column info-column">
                 <div class="input-box">
-                    <label for="date_end_create">Date End:</label>
-                    <input id="date_end_create" name="date_end_create" required >
+                    <label for="date_end_create"><strong>Date End:</strong></label>
+                    <input id="date_end_create" name="date_end_create" value="{{ old('date_end_create') }}" required >
                 </div>
                 
                 <div class="input-box">
-                    <label for="user_id_create">User ID#:</label>
-                    <input id="user_id_create" name="user_id_create" required>
+                    <label for="user_id_create"><strong>User ID#:</strong></label>
+                    <input id="user_id_create" name="user_id_create" value="{{ old('user_id_create') }}" required>
                 </div>
                 
                 <div class="input-box">
@@ -96,7 +96,7 @@
                     <input id="salary_create" name="salary_create" value='0' readonly>
                 </div>
                 <div class="input-box">
-                    <label for="deductions_create">Deductions:</label>
+                    <label for="deductions_create">Deductions/ Not Earned:</label>
                     <input id="deductions_create" name="deductions_create" value='0' readonly>
                 </div>
                 <div class="input-box">
@@ -104,6 +104,9 @@
                     <input id="total_create" name="total_create" readonly>
                 </div>
                 <button type="submit" class="btn btn-success track">Track</button>
+                @error('user_id_create')
+                    <div class="alert alert-danger">User already in payroll/<br>User does not exist</div>
+                @enderror
             </div>
         </form>
         <div class="function-box">

@@ -32,7 +32,7 @@
             <P>Full Name: <span class="name_ps">{{$data[0]->user_name}}</span></p>
             <P>Department: <span class="department_ps">{{$data[0]->department}}</span></p>
             <P>Salary: <span class="salary_ps">{{$data[0]->amount}}</span></p>
-            <P>Deductions: <span class="deductions_ps">{{$data[0]->deductions}}</span></p>
+            <P>Deductions/Not Earned: <span class="deductions_ps">{{$data[0]->deductions}}</span></p>
             <P>Total Payment: <span class="total_ps"></span></p>
         </div>
         <form action="{{ route('payroll.release', $data[0]->payroll_id) }}"class="grid-info" method="POST">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="input-box">
                     <label for="purpose_release">Purpose:</label>
-                    <textarea id="purpose_release" rows="12" cols="27" name="purpose_release"></textarea>
+                    <textarea id="purpose_release" rows="12" cols="27" name="purpose_release" required></textarea>
                 </div>
             </div>
             <div class="info-second-column info-column">

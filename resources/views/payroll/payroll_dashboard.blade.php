@@ -122,6 +122,9 @@
                 <div class="input-box payroll_id">
                     <input id="payroll_id" name="payroll_id" readonly>
                 </div>
+                @error('user_id')
+                    <div class="alert alert-danger">User payroll has already<br>been released</div>
+                @enderror
             </div>
         </form>
         <div class="function-box">
@@ -147,7 +150,7 @@
                 <a class="btn" id="add_function" href="{{ route('payrolls') }}">Add</a><br>
                 <a class="btn" id="update_function">Update</a><br>
                 <a class="btn" id="release_function">Release</a><br>
-                <a class="btn" id="delete_function">Delete</a>
+                <a class="btn" onclick="confirmDeletion(event)" id="delete_function">Delete</a>
             </ul>
         </div>
     </div>
