@@ -63,6 +63,7 @@ Route::get('/program_head/{id}', [CurriculumController::class, 'programheadShow'
 //student
 Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
 Route::get('/profile', [Students::class, 'studentProfile'])->name('student.profile');
+Route::get('/student_schedule', [Students::class, 'studentSchedule'])->name('student.schedule');
 Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
 
 Route::get('/gradecalculator', function () {
