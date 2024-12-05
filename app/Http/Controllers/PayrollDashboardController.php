@@ -74,13 +74,18 @@ class PayrollDashboardController extends Controller
     public function store(Request $request)
     {
 
+        // Validate the request
+        $validated = $request->validate([
+            'user_id_create' => 'required|integer|unique:payrolls,user_id',
+        ]);
+
         Payroll::create([
             'user_id' => $request->get('user_id_create'),
             'date_start' => $request->get('date_start_create'),
             'date_end' => $request->get('date_end_create'),
             'deductions' => $request->get('deductions_create'),
             'amount' => $request->get('salary_create')
-        ])->save();
+        ]);
         return redirect()->route('payrollDashboard');
     }
 
@@ -161,6 +166,7 @@ class PayrollDashboardController extends Controller
     }
     public function pay(Request $request, $id)
     {
+
         $data = DB::table('payrolls')
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
@@ -220,6 +226,9 @@ class PayrollDashboardController extends Controller
             'receipt' => $request->get('receipt_release'),
             'user_id' => $request->get('user_id_release'),
         ])->save();
+
+        Payroll::where('user_id', $request->get('user_id_release'))
+        ->delete();
         return redirect()->route('payrollDashboard');
     }
 }

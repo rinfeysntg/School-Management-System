@@ -32,7 +32,7 @@
             <P>Full Name: <span class="name_ps"></span></p>
             <P>Department: <span class="department_ps"></span></p>
             <P>Salary: <span class="salary_ps"></span></p>
-            <P>Deductions: <span class="deductions_ps"></span></p>
+            <P>Deductions/ Not Earned: <span class="deductions_ps"></span></p>
             <P>Total Payment: <span class="total_ps"></span></p>
         </div>
         <form action="{{ route('payroll.update', $data[0]->payroll_id) }}"class="grid-info" method="POST">
