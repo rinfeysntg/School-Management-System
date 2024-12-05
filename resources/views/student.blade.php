@@ -4,7 +4,7 @@
 <div class="glass">
         <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
         <div class="button-container">
-        <a href="{{ route('enrollDashboard') }}"><button class="btn">Profile</button></a>
+        <a href="{{ route('student.profile') }}"><button class="btn">Profile</button></a>
         <a href="{{ route('department.index') }}"><button class="btn">Announcements</button></a>
         <a href="{{ route('courseDashboard') }}"><button class="btn">Academics</button></a>
         <a href="{{ route('curriculums_index') }}"><button class="btn">Schedule</button></a>

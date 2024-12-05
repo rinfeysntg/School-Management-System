@@ -33,6 +33,16 @@ class Students extends Controller
 
         return view('student.enrollment_students', compact('user', 'status'));
     }
+
+    public function studentProfile() 
+    {
+        $user = session('user');
+        $student = Users::with(['role', 'department', 'course'])
+                            ->where('id', $user->id)
+                            ->firstOrFail();
+
+        return view('student.profile', compact('student'));
+    }
     
     
 }

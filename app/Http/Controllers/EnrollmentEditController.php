@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enrollment;
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class EnrollmentEditController extends Controller
@@ -15,7 +15,7 @@ class EnrollmentEditController extends Controller
         $enrollment = Enrollment::findOrFail($id);
         
 
-        $users = User::all();
+        $users = Users::all();
         
 
         return view('enrollment.enrollmentEdit');

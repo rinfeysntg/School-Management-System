@@ -60,6 +60,15 @@ Route::get('/program_head/{id}', [CurriculumController::class, 'programheadShow'
     Route::delete('/student/delete/{id}', [ProgramHead::class, 'deleteStudent'])->name('delete_student');
     Route::post('/student/edit', [ProgramHead::class, 'editStudent'])->name('edit_student');
 
+//student
+Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
+Route::get('/profile', [Students::class, 'studentProfile'])->name('student.profile');
+Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+
+Route::get('/gradecalculator', function () {
+    return view('professor.grade_calculator'); // Updated to match the new file name
+});
+
 
 // Test routes
 Route::get('/student', function () {
@@ -68,10 +77,6 @@ Route::get('/student', function () {
 
 Route::get('/treasury', function () {
     return view('treasury.treasury_dashboard');
-});
-
-Route::get('/program-head', function () {
-    return view('program-head.program-head_dashboard');
 });
 
 // users
@@ -99,14 +104,6 @@ Route::delete('/role/delete/{id}', [RolesController::class, 'delete'])->name('de
 Route::get('/role/edit/{id}', [RolesController::class, 'preEdit'])->name('edit_role_page');
 Route::post('/role/edit', [RolesController::class, 'edit'])->name('edit_role');
 Route::get('/roles', [RolesController::class, 'index'])->name('roleController');
-
-// Students
-Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
-Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
-
-Route::get('/gradecalculator', function () {
-    return view('professor.grade_calculator'); // Updated to match the new file name
-});
 
 //schedule
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
