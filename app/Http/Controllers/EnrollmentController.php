@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Enrollment;
-use App\Models\User;
+use App\Models\Users;
 
 class EnrollmentController extends Controller
 {
     public function enroll()
     {
-        $users = User::where('role_id', 'student')
+        $users = Users::where('role_id', 7)
             ->whereDoesntHave('enrollments', function ($query) {
                 $query->where('status', 'Enrolled');
             })
@@ -46,7 +46,7 @@ class EnrollmentController extends Controller
 
     public function showNotEnrollmentTable()
     {
-        $users = User::where('role_id', 'student')
+        $users = Users::where('role_id', 7)
             ->whereDoesntHave('enrollments')
             ->get();
 
