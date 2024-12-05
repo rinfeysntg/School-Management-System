@@ -32,6 +32,7 @@ use App\Http\Controllers\Students;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\ProgramHead;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\Professor;
 
 Route::get('/', function () {
     return view('login');
@@ -48,7 +49,10 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 // dashboard sites
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
+
+//professor
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
+Route::get('/professor_schedule', [Professor::class, 'profSchedule'])->name('prof.schedule');
 
 //program head
 Route::get('/program_head', [ProgramHead::class, 'index'])->name('program_head');
