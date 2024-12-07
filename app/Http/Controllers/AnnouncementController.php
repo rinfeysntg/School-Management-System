@@ -39,7 +39,8 @@ class AnnouncementController extends Controller
         // Validate the incoming request data
         $request->validate([
             'title' => 'required|string|max:255',
-            'announcements_target_id' => 'required|exists:announcements_targets,id', // Ensure the target exists
+            'target_type' => 'required|in:department,course,subject,event,student', // Ensure target type is valid
+            'announcements_target_id' => 'required|exists:announcement_targets,id', // Ensure target exists in the appropriate table
             'message' => 'required|string',
         ]);
 
@@ -47,13 +48,15 @@ class AnnouncementController extends Controller
         $announcement = Announcement::findOrFail($id);
         $announcement->update([
             'title' => $request->input('title'),
-            'announcements_targets_id' => $request->input('announcements_targets_id'),
+            'target_type' => $request->input('target_type'), // Store the target type
+            'announcements_target_id' => $request->input('announcements_target_id'), // Store the ID of the target
             'message' => $request->input('message'),
         ]);
 
         // Redirect back to the announcements page with a success message
         return redirect()->route('announcements.announcement')->with('success', 'Announcement updated successfully.');
     }
+
 
     // Display announcements for students
     public function studentIndex()
