@@ -16,4 +16,9 @@ class Department extends Model
     return $this->belongsTo(Building::class);
     } 
 
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
+
 }

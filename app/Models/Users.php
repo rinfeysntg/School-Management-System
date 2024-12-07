@@ -44,5 +44,9 @@ class Users extends Model
 {
     return $this->hasMany(Enrollment::class);
 }
+    public function announcements()
+{
+    return $this->morphMany(Announcement::class, 'target');
+}
 
 }
