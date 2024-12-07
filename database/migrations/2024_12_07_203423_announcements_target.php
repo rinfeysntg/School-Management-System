@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('announcements_targets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onDelete('set null');
-            $table->foreignId('subject_id')->constrained('subjects')->onDelete('set null');
-            $table->foreignId('event_id')->constrained('events')->onDelete('set null');
-            $table->foreignId('room_id')->constrained('rooms')->onDelete('set null');
-            $table->foreignId('department_id')->constrained('departments')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->unsignedBigInteger('subject_id')->nullable();
+            $table->unsignedBigInteger('event_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+        
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('set null');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('set null');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('set null');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

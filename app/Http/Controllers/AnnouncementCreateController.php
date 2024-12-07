@@ -36,6 +36,8 @@ class AnnouncementCreateController extends Controller
     $type = $request->input('type');
     $search = $request->input('search', '');
 
+    \Log::info("Searching for $type with search term: $search");
+
     $results = match ($type) {
         'department' => Department::where('name', 'LIKE', "%$search%")->get(),
         'course' => Course::where('name', 'LIKE', "%$search%")->get(),
@@ -44,6 +46,8 @@ class AnnouncementCreateController extends Controller
         'student' => Users::where('name', 'LIKE', "%$search%")->get(),
         default => collect(),
     };
+
+    \Log::info("Found results: ", $results->toArray());
 
     return response()->json($results->map(function ($item) {
         return [
@@ -56,11 +60,13 @@ class AnnouncementCreateController extends Controller
 
 public function store(Request $request)
 {
+    \Log::info("Storing announcement with data: ", $request->all());
+
     $request->validate([
         'title' => 'required|string|max:255',
         'date' => 'required|date',
         'target_type' => 'required|in:department,course,subject,event,student',
-        'announcements_target_id' => 'required|exists:announcements_target,id',
+        'announcements_target_id' => 'required|exists:announcements_targets,id',
         'message' => 'required|string',
     ]);
 

@@ -39,7 +39,7 @@ class AnnouncementController extends Controller
         // Validate the incoming request data
         $request->validate([
             'title' => 'required|string|max:255',
-            'announcements_target_id' => 'required|exists:announcements_target,id', // Ensure the target exists
+            'announcements_target_id' => 'required|exists:announcements_targets,id', // Ensure the target exists
             'message' => 'required|string',
         ]);
 
@@ -47,7 +47,7 @@ class AnnouncementController extends Controller
         $announcement = Announcement::findOrFail($id);
         $announcement->update([
             'title' => $request->input('title'),
-            'announcements_target_id' => $request->input('announcement_target_id'),
+            'announcements_targets_id' => $request->input('announcements_targets_id'),
             'message' => $request->input('message'),
         ]);
 
