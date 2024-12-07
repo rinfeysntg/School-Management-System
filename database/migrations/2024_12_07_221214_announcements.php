@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('message');
             $table->date('date');
-            $table->unsignedBigInteger('announcements_target_id')->nullable();
-            $table->foreign('announcements_target_id')->references('id')->on('announcements_targets')->onDelete('set null');
+            $table->nullableMorphs('target');
             $table->timestamps(); 
         });
     }

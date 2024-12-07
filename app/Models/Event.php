@@ -131,4 +131,10 @@ class Event extends Model
     {
         return $this->event_date->isPast();
     }
+
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
+    
 }

@@ -20,5 +20,10 @@ class Subject extends Model
     {
         return $this->belongsTo(Curriculum::class);
     }
+
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
 }
 

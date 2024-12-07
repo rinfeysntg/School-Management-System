@@ -66,14 +66,15 @@ public function store(Request $request)
         'title' => 'required|string|max:255',
         'date' => 'required|date',
         'target_type' => 'required|in:department,course,subject,event,student',
-        'announcements_target_id' => 'required|exists:announcements_targets,id',
+        'target_id' => 'required|integer',
         'message' => 'required|string',
     ]);
 
     Announcement::create([
         'title' => $request->input('title'),
         'date' => $request->input('date'),
-        'announcements_target_id' => $request->input('announcements_target_id'),
+        'target_type' => $request->input('target_type'),
+        'target_id' => $request->input('target_id'),
         'message' => $request->input('message'),
     ]);
 

@@ -51,7 +51,7 @@
                 <!-- Target -->
                 <div class="d-flex flex-column w-50">
                     <label for="target_id" class="form-label">Target:</label>
-                    <select id="target_id" name="announcements_target_id" class="searchable-dropdown form-select" required>
+                    <select id="target_id" name="target_id" class="searchable-dropdown form-select" required>
                         <!-- Options dynamically loaded -->
                     </select>
                 </div>

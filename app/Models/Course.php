@@ -20,4 +20,9 @@ class Course extends Model
     {
     return $this->belongsTo(Department::class);
     } 
+
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
 }

@@ -13,7 +13,7 @@ class Announcement extends Model
 
     public function target()
     {
-    return $this->belongsTo(AnnouncementTarget::class, 'announcements_target_id');
+        return $this->morphTo();
     }
 
 }
