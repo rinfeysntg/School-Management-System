@@ -9,7 +9,7 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'date', 'announcements_target_id', 'message'];
+    protected $fillable = ['title', 'date', 'target_type', 'target_id', 'message'];
 
     public function target()
     {
