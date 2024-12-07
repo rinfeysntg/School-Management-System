@@ -10,7 +10,8 @@
                 <div class="announcement-item">
                     <div class="flex-row">
                         <h3 class="flex-grow">{{ $announcement->title }}</h3>
-                        <p class="target-Id"><strong>Target ID: </strong>{{ $announcement->announcement_target_id }}</p>
+                        <p>{{ $announcement->date }}</p>
+                        <p class="target-Id"><strong>Target ID: </strong>{{ $announcement->announcements_target_id }}</p>
                     </div>
                     <p>{{ $announcement->message }}</p>
 

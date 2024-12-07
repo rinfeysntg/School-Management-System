@@ -9,6 +9,11 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    // Allow mass assignment for these fields
-    protected $fillable = ['title', 'message'];
+    protected $fillable = ['title', 'date', 'announcements_target_id', 'message'];
+
+    public function target()
+    {
+    return $this->belongsTo(AnnouncementTarget::class, 'announcements_target_id');
+    }
+
 }
