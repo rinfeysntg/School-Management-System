@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('message');
-            $table->integer('announcement_target_id');
-            $table->timestamps();  // Add this to track created_at and updated_at
+            $table->date('date');
+            $table->foreignId('announcements_target_id')->constrained('announcements_target')->onDelete('set null');
+            $table->timestamps(); 
         });
     }
 
