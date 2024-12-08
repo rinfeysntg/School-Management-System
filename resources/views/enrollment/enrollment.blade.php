@@ -7,11 +7,8 @@
         <form id="enrollStudentForm" action="{{ route('enroll.store') }}" method="POST" onsubmit="return confirmCreate()">
             @csrf
             <h4>Student: 
-                <select id="dropdown" name="user_id" required>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
+            <select class="searchable-dropdown form-control" id="user_id" name="user_id" required>
+            </select>
             </h4>
             <br>
             <h4>Status: 
@@ -32,6 +29,31 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+        $('#user_id').select2({
+            ajax: {
+                url: '{{ route("enrollment.searchUsers") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return { id: item.id, text: item.name };
+                        })
+                    };
+                },
+            },
+            placeholder: 'Search for a student',
+            minimumInputLength: 1
+        });
+    });
+
     function confirmCreate() {
         if (confirm('Enroll Student?')) {
             setTimeout(() => {

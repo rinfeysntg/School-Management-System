@@ -42,7 +42,7 @@ class Users extends Model
 
     public function enrollments()
 {
-    return $this->hasMany(Enrollment::class);
+    return $this->hasMany(Enrollment::class, 'user_id');
 }
     public function announcements()
 {
