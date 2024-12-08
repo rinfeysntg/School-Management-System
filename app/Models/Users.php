@@ -54,4 +54,9 @@ public function schedule()
     return $this->hasMany(Schedule::class, 'user_id');
 }
 
+public function dtrs()
+{
+    return $this->hasMany(Dtr::class);
+}
+
 }

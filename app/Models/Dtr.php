@@ -19,6 +19,6 @@ class Dtr extends Model
     // Define the relationship with the Employee model
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Users::class);
     }
 }
