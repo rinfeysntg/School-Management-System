@@ -22,7 +22,7 @@ class ScheduleController extends Controller
 
         return view('schedule.create_sched', [
             'curriculum' => $curriculum,
-            'subjects' => $curriculum->subjects, // Pass only related subjects
+            'subjects' => $curriculum->subjects,
             'courses' => $courses,
             'users' => $users,
         ]);
@@ -30,7 +30,7 @@ class ScheduleController extends Controller
 
     public function index()
         {
-            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); // Include related models
+            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); 
             return view('schedule.index_sched', compact('schedules'));
         }
    

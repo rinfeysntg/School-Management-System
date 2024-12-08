@@ -21,9 +21,8 @@ class Professor extends Controller
     {
         $user = session('user'); 
 
-
         $schedules = Schedule::with(['course', 'subject'])
-        ->where('id', $user->id) 
+        ->where('user_id', $user->id) 
         ->get();
 
         return view('professor.professor_sched', compact('schedules'));

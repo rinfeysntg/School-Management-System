@@ -13,9 +13,6 @@
           <a class="nav-link" href="/announcement">Announcements</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/departments">Rooms</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/students_programhead">Students</a>
         </li>
         <li class="nav-item">

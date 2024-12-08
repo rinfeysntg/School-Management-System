@@ -59,7 +59,7 @@ class ProgramHead extends Controller
         $users->year_level = $request->get('year_level');
         $users->block = $request->get('block');
 
-        $users->role_id = 7;
+        $users->role_id = 6;
 
         $users->save();
 
@@ -105,7 +105,7 @@ class ProgramHead extends Controller
         $users->year_level = $req->get('year_level');
         $users->block = $req->get('block');
 
-        $users->role_id = 7;
+        $users->role_id = 6;
 
         $users->save();
 

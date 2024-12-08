@@ -46,7 +46,7 @@ class LoginAuth extends Controller
         } elseif ($role_id == 4) {
             return redirect()->route('program_head'); // Program Head
         } elseif ($role_id == 5) {
-            return redirect()->route('professor'); // Professors
+            return redirect()->route('professor'); 
         } elseif ($role_id == 6) {
             return redirect()->route('student_dashboard'); // Students
         }

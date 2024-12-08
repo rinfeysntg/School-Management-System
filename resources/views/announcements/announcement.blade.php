@@ -1,5 +1,4 @@
 @extends('announcements.announcementlayout')
-@include('navbar_professor')
 @section('announcements.announcementdashboard')
     <div class="full announcement-content">
         <h1>Announcements</h1>
