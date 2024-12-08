@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\ProgramHead;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Professor;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('login');
@@ -251,7 +252,14 @@ Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->nam
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
 Route::get('/search-targets', [AnnouncementCreateController::class, 'searchTargets'])->name('search.targets');
 
+//payments
 
+Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+Route::get('/payment/create', [PaymentController::class, 'create'])->name('payments.create');
+Route::post('/payment/store', [PaymentController::class, 'store'])->name('payments.store');
+Route::get('payment/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
+Route::put('payment/{id}', [PaymentController::class, 'update'])->name('payments.update');
+Route::delete('payment/delete/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
 
 
 //Grade Calculator

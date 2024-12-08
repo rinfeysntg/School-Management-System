@@ -59,4 +59,9 @@ public function dtrs()
     return $this->hasMany(Dtr::class);
 }
 
+public function payments()
+{
+    return $this->hasMany(Payment::class); // A user has many payments
+}
+
 }
