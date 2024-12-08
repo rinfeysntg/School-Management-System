@@ -17,7 +17,6 @@
             <h4>User: 
                 <select class="searchable-dropdown form-control" id="user_id" name="user_id" required>
             </select>
-            </select>
             </h4>         
             <br>
             <div class="button-container">

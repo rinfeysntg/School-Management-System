@@ -164,7 +164,7 @@ Route::post('/attendance/store', [AttendanceController::class, 'store'])->name('
 Route::get('/attendance/edit/{id}', [AttendanceController::class, 'edit'])->name('attendance.edit');
 Route::put('/attendance/update/{id}', [AttendanceController::class, 'update'])->name('attendance.update');
 Route::delete('/attendance/destroy/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
-
+Route::get('attendance/search-users', [AttendanceController::class, 'searchUsers'])->name('attendance.searchUsers');
 
 // DTR routes
 Route::get('/attendance/dtr/form', [DtrController::class, 'showForm'])->name('dtr.form');

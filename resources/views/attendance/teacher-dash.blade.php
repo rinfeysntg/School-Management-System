@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <style>
         body {
@@ -161,20 +161,14 @@
     </style>
 </head>
 <body>
-    <!-- Main Dashboard Container -->
     <div class="rec_dashboard">
-        <!-- Dashboard Header -->
         <div class="logoDashboard"></div>
         <h1 class="registrarLbl">Professor Dashboard</h1>
-
-        <!-- Manage Attendance Section -->
         <div class="attendance-section">
             <h2 class="createBldgLbl">Manage Attendance</h2>
-            <!-- Add Attendance Button -->
             <button onclick="window.location='{{ route('attendance.create') }}'" id="createBldgBtn" class="btn">Add Attendance</button>
         </div>
 
-        <!-- Attendance Table Section -->
         <div class="attendance-table-container">
             <h2 class="createBldgLbl">Student Attendance</h2>
             <div class="recgray2">
@@ -183,39 +177,45 @@
                         <tr>
                             <th>Student Name</th>
                             <th>Status</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($students as $student)
-                            <tr>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->attendance_status }}</td>
-                                <td>
-                                    <!-- Edit Button -->
-                                    <a href="{{ route('attendance.edit', $student->id) }}" class="btn" style="background-color: #4CAF50; color: white;">
-                                        Edit
-                                    </a>
-                                    
-                                    <!-- Delete Button -->
-                                    <form action="{{ route('attendance.destroy', $student->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn" style="background-color: #f44336; color: white;">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    @forelse($attendance as $attendanceRecord)
+                        <tr>
+                            <td>{{ $attendanceRecord->student->name }}</td>
+                            <td>{{ $attendanceRecord->status }}</td>
+                            <td>{{ $attendanceRecord->date }}</td>
+                            <td>
+                                <!-- Edit Button -->
+                                <a href="{{ route('attendance.edit', $attendanceRecord->id) }}" class="btn" style="background-color: #4CAF50; color: white;">
+                                    Edit
+                                </a>
+                                
+                                <!-- Delete Button -->
+                                <form action="{{ route('attendance.destroy', $attendanceRecord->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn" style="background-color: #f44336; color: white;">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">No students found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
                 </table>
             </div>
         </div>
 
         <!-- Navigation Buttons -->
         <div class="button-container">
-            <a href="/teacher-dashboard" id="dashboardBtn" class="btn">Dashboard</a>
+            <a href="/professor" id="dashboardBtn" class="btn">Dashboard</a>
             <a href="/profile" id="profileBtn" class="btn">Profile</a>
         </div>
     </div>

@@ -25,4 +25,9 @@ class Attendance extends Model
     {
         return $this->belongsTo(Subject::class, 'subject_id');
     }
+
+    public function students()
+    {
+    return $this->hasMany(Users::class);
+    }
 }
