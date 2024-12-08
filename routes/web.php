@@ -34,6 +34,7 @@ use App\Http\Controllers\ProgramHead;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Professor;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Treasury;
 
 Route::get('/', function () {
     return view('login');
@@ -50,6 +51,7 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 // dashboard sites
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
+Route::get('/treasury', [Treasury::class, 'index'])->name('treasury');
 
 //professor
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
@@ -73,16 +75,6 @@ Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('e
 
 Route::get('/gradecalculator', function () {
     return view('professor.grade_calculator'); // Updated to match the new file name
-});
-
-
-// Test routes
-Route::get('/student', function () {
-    return view('student.student_dashboard');
-});
-
-Route::get('/treasury', function () {
-    return view('treasury.treasury_dashboard');
 });
 
 // users
