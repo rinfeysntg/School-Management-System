@@ -11,15 +11,6 @@ use App\Models\Subject;
 
 class GradeController extends Controller
 {
-    // Show activities for a specific student
-    public function showStudentActivities($studentId)
-    {
-        $activities = Activity::where('user_id', $studentId)
-            ->with('activityGrades', 'subject')
-            ->get();
-
-        return view('academics.activities', compact('activities'));
-    }
 
     public function showAllActivities()
     {
@@ -28,7 +19,6 @@ class GradeController extends Controller
         return view('academics.activities', compact('activities'));
     }
 
-    // Show grade breakdown for a specific term and year
     public function showGradeBreakdown($term, $year)
     {
         $grades = Grade::where('term', $term)

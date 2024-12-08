@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All Activities')
+@include('navbar_professor')
 
 @section('content')
     <h1>All Activities</h1>
