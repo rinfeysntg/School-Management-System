@@ -19,10 +19,10 @@ class AttendanceController extends Controller
 
     public function studentDashboard()
     {
-        $studentId = auth()->id(); // Ensure a student is authenticated
-        $attendance = Attendance::where('student_id', $studentId)->get();
+        $user = session('user'); 
 
-        // Calculate attendance summary
+        $attendance = Attendance::where('student_id', $user->id)->get();
+
         $total = $attendance->count();
         $present = $attendance->where('status', 'present')->count();
         $absent = $attendance->where('status', 'absent')->count();

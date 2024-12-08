@@ -97,6 +97,8 @@
             margin-bottom: 40px;
             width: 80%;
             max-width: 900px;
+            overflow-x: auto; 
+            max-height:400px;
         }
 
         .attendance-table {
@@ -104,6 +106,7 @@
             border-collapse: collapse;
             margin-top: 20px;
             text-align: center;
+            table-layout: fixed; 
         }
 
         .attendance-table td {
@@ -212,6 +215,7 @@
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Subject</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -219,6 +223,7 @@
                     @foreach($attendance as $att)
                         <tr>
                             <td>{{ $att->date }}</td>
+                            <td>{{ $att->subject->name }}</td>
                             <td>{{ $att->status }}</td>
                         </tr>
                     @endforeach
@@ -228,8 +233,7 @@
 
         <!-- Dashboard Navigation Buttons -->
         <div class="button-container">
-            <a href="/student-dashboard" class="btn">Dashboard</a>
-            <a href="/profile" class="btn">Profile</a>
+            <a href="/students" class="btn">Dashboard</a>
         </div>
 
     </div>
