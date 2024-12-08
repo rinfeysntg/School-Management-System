@@ -8,9 +8,7 @@
             @csrf
             @method('PUT')
 
-            <!-- Row for Title and Date -->
             <div class="d-flex flex-row mb-3">
-                <!-- Title -->
                 <div class="input-group mb-3 flex-grow-1">
                     <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
                     <input 
@@ -23,7 +21,6 @@
                         aria-describedby="inputGroup-sizing-default">
                 </div>
 
-                <!-- Date -->
                 <div class="input-group mb-3 flex-grow-1">
                     <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
                     <input 
@@ -37,9 +34,7 @@
                 </div>
             </div>
 
-            <!-- Row for Target Type and Target -->
             <div class="d-flex flex-row mb-3">
-                <!-- Target Type -->
                 <div class="d-flex flex-column w-50">
                     <label for="target_type" class="form-label">Target Type:</label>
                     <select id="target_type" name="target_type" class="form-select" required>
@@ -51,11 +46,9 @@
                     </select>
                 </div>
 
-                <!-- Target -->
                 <div class="d-flex flex-column w-50">
                     <label for="target_id" class="form-label">Target:</label>
                     <select id="target_id" name="target_id" class="searchable-dropdown form-select" required>
-                        <!-- Options dynamically loaded -->
                         @if($announcement->target)
                             <option value="{{ $announcement->target->id }}" selected>{{ $announcement->target->name }}</option>
                         @endif
@@ -76,7 +69,6 @@
                 </div>
             </div>
 
-            <!-- Update Button -->
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>
@@ -91,8 +83,8 @@
                         delay: 250,
                         data: function (params) {
                             return {
-                                search: params.term, // Search query
-                                type: $('#target_type').val(), // Target type
+                                search: params.term, 
+                                type: $('#target_type').val(), 
                             };
                         },
                         processResults: function (data) {
@@ -107,7 +99,6 @@
                     minimumInputLength: 1,
                 });
 
-                // Clear and reload dropdown when target type changes
                 $('#target_type').on('change', function () {
                     $('#target_id').val(null).trigger('change');
                 });

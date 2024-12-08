@@ -5,7 +5,7 @@
         <img src="../images/wupLogo.png" alt="meh" class="dashboardLogo">
         <div class="button-container">
         <a href="{{ route('student.profile') }}"><button class="btn">Profile</button></a>
-        <a href="{{ route('department.index') }}"><button class="btn">Announcements</button></a>
+        <a href="{{ route('announcement.student') }}"><button class="btn">Announcements</button></a>
         <a href="{{ route('courseDashboard') }}"><button class="btn">Academics</button></a>
         <a href="{{ route('student.schedule') }}"><button class="btn">Schedule</button></a>
         <a href="{{ route('building.index') }}"><button class="btn">Attendance</button></a>
