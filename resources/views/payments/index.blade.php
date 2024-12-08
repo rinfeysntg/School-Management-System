@@ -37,8 +37,7 @@
         </table>
     </div>
     <div class="button-container">
-        <a href="{{ route('payments.create') }}" class="btn">Create Payment</a>
-        
+        <a href="{{ route('payments.create') }}" class="btn">Create Payment</a>      
     </div>
 </div>
 @endsection
