@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\Schedule;
 use App\Models\Announcement;
 use App\Models\Event;
+use App\Models\Activity;
 
 class Students extends Controller
 {
@@ -92,6 +93,17 @@ class Students extends Controller
     ->get();
 
     return view('announcements.studentview', compact('announcements'));
+}
+
+public function studentActivities()
+{
+    $user = session('user');
+
+    $activities = Activity::where('student_id', $user->id)
+        ->with(['subject']) 
+        ->get();
+
+    return view('student.activities', compact('activities'));
 }
     
 }
