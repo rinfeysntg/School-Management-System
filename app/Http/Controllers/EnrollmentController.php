@@ -19,6 +19,21 @@ class EnrollmentController extends Controller
         return view('enrollment.enrollment', compact('users'));
     }
 
+    public function searchUsers(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $users = Users::where('name', 'LIKE', "%$search%")
+                    ->orWhere('id', 'LIKE', "%{$search}%")->get();
+
+        return response()->json($users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+            ];
+        }));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

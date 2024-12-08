@@ -2,7 +2,7 @@
 
 @section('enrollment')
 <div class="glass">
-    <h1 class="heading">Enroll Students</h1>
+    <h1 class="heading">Enrollment</h1>
     <div class="frame">
 
         @if($user)

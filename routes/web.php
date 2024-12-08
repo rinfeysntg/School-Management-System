@@ -118,6 +118,7 @@ Route::get('/enrollments', [EnrollmentController::class, 'showEnrollmentTable'])
 Route::get('/enrollments/not', [EnrollmentController::class, 'showNotEnrollmentTable'])->name('enrollmentTableNot');
 Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollment.edit');
 Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollment.update');
+Route::get('enrollment/search-users', [EnrollmentController::class, 'searchUsers'])->name('enrollment.searchUsers');
 
 //Course
 Route::get('/coursedashboard', [CourseDashboard::class, 'index'])->name('courseDashboard');
