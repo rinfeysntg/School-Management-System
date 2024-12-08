@@ -15,7 +15,8 @@ class Activity extends Model
         'max_score',
         'subject_id',
         'student_id', // Student ID
-        'prof_id', // Professor ID
+        'prof_id',
+        'grade', // Professor ID
     ];
 
     public function activityGrades()

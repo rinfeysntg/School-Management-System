@@ -50,6 +50,8 @@ class GradeController extends Controller
             'prof_id' => 'required|exists:users,id', // Professor ID
         ]);
 
+        $grade = ($validated['score'] / $validated['max_score']) * 100;
+
         $activity = Activity::create([
             'name' => $validated['name'],
             'score' => $validated['score'],
@@ -57,6 +59,7 @@ class GradeController extends Controller
             'subject_id' => $validated['subject_id'],
             'student_id' => $validated['student_id'], // Student ID
             'prof_id' => $validated['prof_id'], // Professor ID
+            'grade' => $grade,
         ]);
 
         return redirect()->route('activities.index')->with('success', 'Activity created successfully.');

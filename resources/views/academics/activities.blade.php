@@ -13,7 +13,6 @@
                 <th>Subject</th>
                 <th>Student Name</th>
                 <th>Professor Name</th>
-                <th>Percentage</th>
                 <th>Grade Acquired</th>
             </tr>
         </thead>
@@ -26,8 +25,7 @@
                     <td>{{ $activity->subject->name ?? 'N/A' }}</td>
                     <td>{{ $activity->student->name ?? 'N/A' }}</td>
                     <td>{{ $activity->professor->name ?? 'N/A' }}</td>
-                    <td>{{ $activity->activityGrades->first()->percentage ?? 'N/A' }}%</td>
-                    <td>{{ $activity->activityGrades->first()->grade_acquired ?? 'N/A' }}</td>
+                    <td>{{ $activity->grade }}%</td>
                 </tr>
             @empty
                 <tr>

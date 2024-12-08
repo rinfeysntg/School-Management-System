@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('activity_id'); 
             $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
-            $table->unsignedBigInteger('grade_id'); 
-            $table->foreign('grade_id')->references('id')->on('grade')->onDelete('cascade');
+            $table->integer('grade');
             $table->decimal('percentage', 5, 2); // Percentage weight of this activity in the grade
             $table->decimal('grade_acquired', 5, 2); // Grade acquired for this activity
             $table->timestamps(); 
