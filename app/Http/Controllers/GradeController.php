@@ -14,7 +14,11 @@ class GradeController extends Controller
 
     public function showAllActivities()
     {
-        $activities = Activity::with(['activityGrades', 'subject', 'student', 'professor'])->get();
+        $professor = session('user');
+
+        $activities = Activity::where('prof_id', $professor->id)
+        ->with(['activityGrades', 'subject', 'student'])
+        ->get();
 
         return view('academics.activities', compact('activities'));
     }
@@ -31,13 +35,14 @@ class GradeController extends Controller
 
     public function storeActivity(Request $request)
     {
+        $professor = session('user');
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'score' => 'required|numeric|min:0',
             'max_score' => 'required|numeric|min:0',
             'subject_id' => 'required|exists:subjects,id',
-            'student_id' => 'required|exists:users,id', // Student ID
-            'prof_id' => 'required|exists:users,id', // Professor ID
+            'student_id' => 'required|exists:users,id',
         ]);
 
         $grade = ($validated['score'] / $validated['max_score']) * 100;
@@ -47,8 +52,8 @@ class GradeController extends Controller
             'score' => $validated['score'],
             'max_score' => $validated['max_score'],
             'subject_id' => $validated['subject_id'],
-            'student_id' => $validated['student_id'], // Student ID
-            'prof_id' => $validated['prof_id'], // Professor ID
+            'student_id' => $validated['student_id'], 
+            'prof_id' => $professor->id,
             'grade' => $grade,
         ]);
 
@@ -107,9 +112,23 @@ class GradeController extends Controller
 {
     $subjects = Subject::all(); 
     $students = Users::where('role_id', 7)->get(); 
-    $professors = Users::where('role_id', 6)->get(); 
 
-    return view('academics.create_activity', compact('subjects', 'students', 'professors'));
+    return view('academics.create_activity', compact('subjects', 'students'));
+}
+
+public function searchUsers(Request $request)
+{
+    $search = $request->input('search', '');
+
+    $students = Users::where('name', 'LIKE', "%$search%")
+                ->orWhere('id', 'LIKE', "%{$search}%")->get();
+
+    return response()->json($students->map(function ($student) {
+        return [
+            'id' => $student->id,
+            'name' => $student->name,
+        ];
+    }));
 }
 
 }
