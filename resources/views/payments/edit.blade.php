@@ -1,6 +1,6 @@
-@extends('layoutenrollment')
+@extends('layoutenrollmentEdit')
 
-@section('enrollment')
+@section('enrollmentEdit')
 <div class="glass">
     <h1 class="heading">Edit Payment</h1>
     <div class="frame">
@@ -13,7 +13,7 @@
             </h4>
             <br>
 
-            <h4>Amount: 
+            <h4>Amount: ₱ 
                 <input type="number" class="form-control" id="amount" name="amount" value="{{ old('amount', $payment->amount) }}" required>
             </h4>    
 

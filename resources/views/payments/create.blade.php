@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="purpose" name="purpose" required>
             </h4>
             <br>
-            <h4>Amount: 
+            <h4>Amount: ₱ 
                 <input type="number" class="form-control" id="amount" name="amount" required>
             </h4>    
             <h4>User: 

@@ -19,11 +19,11 @@
                     <tr>
                         <td>{{ $payment->id }}</td>
                         <td>{{ $payment->purpose }}</td>
-                        <td>{{ $payment->amount }}</td>
+                        <td>₱ {{ $payment->amount }}</td>
                         <td>{{ $payment->user->name }}</td>
                         
                         <td>
-                            <a href="{{ route('payments.edit', $payment->id) }}">Edit</a>
+                            <a href="{{ route('payments.edit', $payment->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -36,7 +36,7 @@
         </table>
     </div>
     <div class="button-container">
-        <a href="{{ route('payments.create') }}" class="createRoomBtn2">Create Payment</a>
+        <a href="{{ route('payments.create') }}" class="btn">Create Payment</a>
         
     </div>
 </div>
