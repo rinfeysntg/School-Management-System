@@ -3,61 +3,113 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\GradeBreakdown;
+use App\Models\Activity;
+use App\Models\ActivityGrade;
+use App\Models\Grade;
+use App\Models\Users;
+use App\Models\Subject;
 
 class GradeController extends Controller
 {
-    // Show the grade breakdown for all students
-    public function showGradeBreakdown()
-    {
-        // Fetch all grade breakdown records from the database
-        $gradeBreakdowns = GradeBreakdown::all();
 
-        // Return the view with the data
-        return view('professor.grade_breakdown', compact('gradeBreakdowns'));
+    public function showAllActivities()
+    {
+        $activities = Activity::with(['activityGrades', 'subject', 'student', 'professor'])->get();
+
+        return view('academics.activities', compact('activities'));
     }
 
-    // Show the form to calculate grade
-    public function showCalculateGradeForm()
+    public function showGradeBreakdown($term, $year)
     {
-        return view('professor.calculate_grade');
+        $grades = Grade::where('term', $term)
+            ->where('year', $year)
+            ->with(['student', 'professor', 'activities.activityGrades'])
+            ->get();
+
+        return view('academics.grade_breakdown', compact('grades'));
     }
 
-    // Store grade breakdown data
-    public function storeGradeBreakdown(Request $request)
+    public function storeActivity(Request $request)
     {
-        // Validate incoming data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'attendance' => 'required|numeric|min:0|max:100',
-            'quizzes' => 'required|numeric|min:0|max:100',
-            'assignments' => 'required|numeric|min:0|max:100',
-            'exams' => 'required|numeric|min:0|max:100',
+            'score' => 'required|numeric|min:0',
+            'max_score' => 'required|numeric|min:0',
+            'subject_id' => 'required|exists:subjects,id',
+            'student_id' => 'required|exists:users,id', // Student ID
+            'prof_id' => 'required|exists:users,id', // Professor ID
         ]);
 
-        // Create a new grade breakdown entry
-        $gradeBreakdown = GradeBreakdown::create([
+        $grade = ($validated['score'] / $validated['max_score']) * 100;
+
+        $activity = Activity::create([
             'name' => $validated['name'],
-            'attendance' => $validated['attendance'],
-            'quizzes' => $validated['quizzes'],
-            'assignments' => $validated['assignments'],
-            'exams' => $validated['exams'],
+            'score' => $validated['score'],
+            'max_score' => $validated['max_score'],
+            'subject_id' => $validated['subject_id'],
+            'student_id' => $validated['student_id'], // Student ID
+            'prof_id' => $validated['prof_id'], // Professor ID
+            'grade' => $grade,
         ]);
 
-        // Calculate the final grade (you can adjust the calculation as needed)
-        $gradeBreakdown->final_grade = $this->calculateFinalGrade($gradeBreakdown);
-        $gradeBreakdown->save();
-
-        return redirect()->route('professor.grade_breakdown')->with('success', 'Grade Breakdown created successfully');
+        return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
     }
 
-    // Calculate the final grade based on attendance, quizzes, assignments, and exams
-    private function calculateFinalGrade(GradeBreakdown $gradeBreakdown)
+    // Link activity grade to a student
+    public function storeActivityGrade(Request $request)
     {
-        // Example calculation: Adjust weights based on your requirements
-        return ($gradeBreakdown->attendance * 0.2) + 
-               ($gradeBreakdown->quizzes * 0.3) + 
-               ($gradeBreakdown->assignments * 0.2) + 
-               ($gradeBreakdown->exams * 0.3);
+        $validated = $request->validate([
+            'activity_id' => 'required|exists:activities,id',
+            'grade_id' => 'required|exists:grades,id',
+            'percentage' => 'required|numeric|min:0|max:100',
+            'grade_acquired' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $activityGrade = ActivityGrade::create([
+            'activity_id' => $validated['activity_id'],
+            'grade_id' => $validated['grade_id'],
+            'percentage' => $validated['percentage'],
+            'grade_acquired' => $validated['grade_acquired'],
+        ]);
+
+        return redirect()->back()->with('success', 'Activity grade added successfully.');
     }
+
+    // Calculate final grade for a student based on activities
+    public function calculateFinalGrade($userId, $term, $year)
+    {
+        $grades = Grade::where('user_id', $userId)
+            ->where('term', $term)
+            ->where('year', $year)
+            ->with('activities.activityGrades')
+            ->get();
+
+        foreach ($grades as $grade) {
+            $totalWeightedScore = 0;
+            $totalWeight = 0;
+
+            foreach ($grade->activities as $activity) {
+                $activityGrade = $activity->activityGrades->first();
+                if ($activityGrade) {
+                    $totalWeightedScore += $activityGrade->grade_acquired * ($activityGrade->percentage / 100);
+                    $totalWeight += $activityGrade->percentage;
+                }
+            }
+
+            $grade->final_grade = $totalWeight > 0 ? $totalWeightedScore / $totalWeight : 0;
+            $grade->save();
+        }
+
+        return redirect()->back()->with('success', 'Final grades calculated successfully.');
+    }
+
+    public function createActivity()
+{
+    $subjects = Subject::all(); 
+    $students = Users::where('role_id', 7)->get(); 
+    $professors = Users::where('role_id', 6)->get(); 
+
+    return view('academics.create_activity', compact('subjects', 'students', 'professors'));
+}
+
 }

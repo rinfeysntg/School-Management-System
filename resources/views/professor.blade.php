@@ -7,7 +7,7 @@
         <a href="/{{ route('announcements.announcement') }}"><button class="btn">Announcements</button></a>
         <a href="{{ route('prof.schedule') }}"><button class="btn">Schedule</button></a>
         <a href="{{ route('department.index') }}"><button class="btn">Academics</button></a>
-        <a href="{{ route('courseDashboard') }}"><button class="btn">Attendance</button></a>
+        <a href="{{ route('teacher.dashboard') }}"><button class="btn">Attendance</button></a>
         <br>
         <div class="button-container-red">
         <a href="{{ route('logout') }}"><button class="btn">Log Out</button></a>

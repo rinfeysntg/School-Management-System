@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    public $timestamps = false;
+
     use HasFactory;
     protected $fillable = [
         'id',
         'purpose',
         'amount',
-        'receipt',
         'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(Users::class); 
+    }
 }

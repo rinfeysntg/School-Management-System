@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\ProgramHead;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Professor;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Treasury;
 
 Route::get('/', function () {
     return view('login');
@@ -49,6 +51,7 @@ Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
 // dashboard sites
 Route::get('/registrar', [Registrar::class, 'index'])->name('registrar');
 Route::get('/admin', [Admin::class, 'index'])->name('admin');
+Route::get('/treasury', [Treasury::class, 'index'])->name('treasury');
 
 //professor
 Route::get('/professor', [Professor::class, 'index'])->name('professor');
@@ -72,16 +75,6 @@ Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('e
 
 Route::get('/gradecalculator', function () {
     return view('professor.grade_calculator'); // Updated to match the new file name
-});
-
-
-// Test routes
-Route::get('/student', function () {
-    return view('student.student_dashboard');
-});
-
-Route::get('/treasury', function () {
-    return view('treasury.treasury_dashboard');
 });
 
 // users
@@ -171,7 +164,7 @@ Route::post('/attendance/store', [AttendanceController::class, 'store'])->name('
 Route::get('/attendance/edit/{id}', [AttendanceController::class, 'edit'])->name('attendance.edit');
 Route::put('/attendance/update/{id}', [AttendanceController::class, 'update'])->name('attendance.update');
 Route::delete('/attendance/destroy/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
-
+Route::get('attendance/search-users', [AttendanceController::class, 'searchUsers'])->name('attendance.searchUsers');
 
 // DTR routes
 Route::get('/attendance/dtr/form', [DtrController::class, 'showForm'])->name('dtr.form');
@@ -251,7 +244,16 @@ Route::put('/announcement/{id}', [AnnouncementController::class, 'update'])->nam
 Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcements.show');
 Route::get('/search-targets', [AnnouncementCreateController::class, 'searchTargets'])->name('search.targets');
 
+//payments
 
+Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+Route::get('/payment/create', [PaymentController::class, 'create'])->name('payments.create');
+Route::post('/payment/store', [PaymentController::class, 'store'])->name('payments.store');
+Route::get('payment/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
+Route::put('payment/{id}', [PaymentController::class, 'update'])->name('payments.update');
+Route::delete('payment/delete/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+Route::get('payment/receipt/{id}', [PaymentController::class, 'showReceipt'])->name('payments.receipt');
+Route::get('payments/search-users', [PaymentController::class, 'searchUsers'])->name('payments.searchUsers');
 
 
 //Grade Calculator
@@ -259,9 +261,27 @@ Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBrea
 Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
 Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
 
+Route::get('/students/{id}/activities', [GradeController::class, 'showStudentActivities'])
+    ->name('students.activities'); // e.g., /students/1/activities
 
-    
+// Show grade breakdown for a specific term and year
+Route::get('/grades/{term}/{year}', [GradeController::class, 'showGradeBreakdown'])
+    ->name('grades.breakdown'); // e.g., /grades/1/2023
 
+// Add a new activity
+Route::post('/activities/store', [GradeController::class, 'storeActivity'])
+    ->name('activities.store'); // e.g., POST /activities/store
+
+// Link activity grade to a student
+Route::post('/activities/grade/store', [GradeController::class, 'storeActivityGrade'])
+    ->name('activities.grade.store'); // e.g., POST /activities/grade/store
+
+// Calculate the final grade for a student in a specific term and year
+Route::get('/grades/calculate/{userId}/{term}/{year}', [GradeController::class, 'calculateFinalGrade'])
+    ->name('grades.calculate'); // e.g., /grades/calculate/1/1/2023
+
+Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
+Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');
 
 
 

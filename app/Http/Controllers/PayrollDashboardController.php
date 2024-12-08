@@ -20,8 +20,8 @@ class PayrollDashboardController extends Controller
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->select(
                     'users.id as user_id',
                     'users.address as address',
@@ -39,7 +39,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id', 
@@ -95,8 +95,8 @@ class PayrollDashboardController extends Controller
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -115,7 +115,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id',
@@ -171,8 +171,8 @@ class PayrollDashboardController extends Controller
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -191,7 +191,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id', 

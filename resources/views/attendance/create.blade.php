@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Attendance</title>
@@ -149,10 +152,7 @@
                 @csrf
                 <div>
                     <label for="student_id">Student:</label>
-                    <select name="student_id" id="student_id" required>
-                        @foreach($students as $student)
-                            <option value="{{ $student->id }}">{{ $student->name }}</option>
-                        @endforeach
+                    <select class="searchable-dropdown form-control" id="student_id" name="student_id" required>
                     </select>
                 </div>
                 <div>
@@ -181,5 +181,30 @@
 
         <button onclick="window.location='{{ route('teacher.dashboard') }}'" class="back-btn">Back</button>
     </div>
+    <script>
+    $(document).ready(function () {
+        $('#student_id').select2({
+            ajax: {
+                url: '{{ route("attendance.searchUsers") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return { id: item.id, text: item.name };
+                        })
+                    };
+                },
+            },
+            placeholder: 'Search for a student',
+            minimumInputLength: 1
+        });
+    });
+</script>
 </body>
 </html>
