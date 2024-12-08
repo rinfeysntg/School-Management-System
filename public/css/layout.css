@@ -513,3 +513,15 @@ body {
     background-color: #FF7F7F; 
     color: #fff;
 }
+
+.loginbtn-container {
+    display: flex;
+    justify-content: center; /* Centers buttons horizontally */
+    gap: 20px; /* Adds space between buttons */
+    margin-top: 10px;
+}
+
+.loginbtn-container button {
+    padding: 10px 50px;
+    font-size: 16px;
+}

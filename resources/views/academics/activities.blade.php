@@ -1,40 +1,52 @@
-@extends('layouts.app')
+@extends('layout')
 
 @include('navbar_professor')
 
 @section('content')
-    <h1>All Activities</h1>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Activity Name</th>
-                <th>Score</th>
-                <th>Max Score</th>
-                <th>Subject</th>
-                <th>Student Name</th>
-                <th>Professor Name</th>
-                <th>Grade Acquired</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($activities as $activity)
+
+<div class="rec_dashboard">
+    <h1 class="createroomLbl">All Activities</h1>
+    <div class="rec_dashboard3">
+        <table class="rooms-table">
+            <thead>
                 <tr>
-                    <td>{{ $activity->name }}</td>
-                    <td>{{ $activity->score }}</td>
-                    <td>{{ $activity->max_score }}</td>
-                    <td>{{ $activity->subject->name ?? 'N/A' }}</td>
-                    <td>{{ $activity->student->name ?? 'N/A' }}</td>
-                    <td>{{ $activity->professor->name ?? 'N/A' }}</td>
-                    <td>{{ $activity->grade }}%</td>
+                    <th scope="col">Activity Name</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Grade Acquired</th>
+                    <th scope="col">Actions</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="8">No activities found.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-    <div class="button-container">
-        <a href="{{ route('activities.create') }}" class="btn">Add</a>      
+            </thead>
+            <tbody>
+                @forelse($activities as $activity)
+                    <tr>
+                        <td>{{ $activity->name }}</td>
+                        <td>{{ $activity->score }}/{{ $activity->max_score }}</td>
+                        <td>{{ $activity->subject->name ?? 'N/A' }}</td>
+                        <td>{{ $activity->student->name ?? 'N/A' }}</td>
+                        <td>{{ $activity->grade }}%</td>
+                        <td>
+                            <a href="{{ route('activities.edit', $activity->id) }}" class="edit-btn">Edit</a>
+                            <form action="{{ route('activities.destroy', $activity->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this activity?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">No activities found.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    <div class="button-container">
+        <a href="{{ route('activities.create') }}" class="createRoomBtn2">Add Activity</a>
+    </div>
+</div>
+
 @endsection

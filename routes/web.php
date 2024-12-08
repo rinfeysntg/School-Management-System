@@ -72,10 +72,8 @@ Route::get('/students', [Students::class, 'index'])->name('student_dashboard');
 Route::get('/profile', [Students::class, 'studentProfile'])->name('student.profile');
 Route::get('/student_schedule', [Students::class, 'studentSchedule'])->name('student.schedule');
 Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('enrollment_dashboard');
+Route::get('/student/activities', [Students::class, 'studentActivities'])->name('student.activities');
 
-Route::get('/gradecalculator', function () {
-    return view('professor.grade_calculator'); // Updated to match the new file name
-});
 
 // users
 Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
@@ -282,6 +280,9 @@ Route::get('/grades/calculate/{userId}/{term}/{year}', [GradeController::class, 
 
 Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
 Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');
+Route::get('/activities/{id}/edit', [GradeController::class, 'editActivity'])->name('activities.edit');
+Route::put('/activities/{id}', [GradeController::class, 'updateActivity'])->name('activities.update');
+Route::delete('/activities/{id}', [GradeController::class, 'destroyActivity'])->name('activities.destroy');
 
 
 

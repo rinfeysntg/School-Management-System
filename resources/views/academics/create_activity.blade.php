@@ -28,20 +28,35 @@
         </div>
         <div class="mb-3">
             <label for="student_id" class="form-label">Student</label>
-            <select class="form-control" id="student_id" name="student_id" required>
-                @foreach($students as $student)
-                    <option value="{{ $student->id }}">{{ $student->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="prof_id" class="form-label">Professor</label>
-            <select class="form-control" id="prof_id" name="prof_id" required>
-                @foreach($professors as $professor)
-                    <option value="{{ $professor->id }}">{{ $professor->name }}</option>
-                @endforeach
+            <select class="searchable-dropdown form-control" id="student_id" name="student_id" required>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Save Activity</button>
+        <a href="{{ route('activities.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
+    <script>
+    $(document).ready(function () {
+        $('#student_id').select2({
+            ajax: {
+                url: '{{ route("attendance.searchUsers") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return { id: item.id, text: item.name };
+                        })
+                    };
+                },
+            },
+            placeholder: 'Search for a student',
+            minimumInputLength: 1
+        });
+    });
+</script>
 @endsection

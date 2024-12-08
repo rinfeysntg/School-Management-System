@@ -13,13 +13,13 @@
           <a class="nav-link" href="/announcement">Announcements</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/departments">Schedule</a>
+          <a class="nav-link" href="/professor_schedule">Schedule</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/activities">Academics</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/program_head/curriculums">Attendance</a>
+          <a class="nav-link" href="/attendance/teacher">Attendance</a>
         </li>
       </ul>
     </div>
