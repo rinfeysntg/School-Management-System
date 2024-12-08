@@ -33,7 +33,7 @@ class AnnouncementController extends Controller
         $departments = Department::all();
         $courses = Course::all();
         $subjects = Subject::all();
-        $students = Users::where('role_id', 7)->get(); // Assuming role_id 7 is for students
+        $students = Users::where('role_id', 6)->get(); // Assuming role_id 7 is for students
 
         return view('announcements.editannouncement', compact('announcement', 'departments', 'courses', 'subjects', 'students'));
     }

@@ -22,7 +22,7 @@ class AnnouncementCreateController extends Controller
         $courses = Course::all();
         $subjects = Subject::all();
         $events = Event::all();
-        $students = Users::where('role_id', 7)
+        $students = Users::where('role_id', 6)
                 ->get();
         
 

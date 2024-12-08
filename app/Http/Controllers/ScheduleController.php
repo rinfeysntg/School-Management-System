@@ -16,13 +16,13 @@ class ScheduleController extends Controller
         $user = session('user');
         $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
         $courses = Course::all();
-        $users = Users::where('role_id', 6)
+        $users = Users::where('role_id', 5)
                 ->where('department_id', $user->department_id)
                 ->get();
 
         return view('schedule.create_sched', [
             'curriculum' => $curriculum,
-            'subjects' => $curriculum->subjects, // Pass only related subjects
+            'subjects' => $curriculum->subjects,
             'courses' => $courses,
             'users' => $users,
         ]);
@@ -30,7 +30,7 @@ class ScheduleController extends Controller
 
     public function index()
         {
-            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); // Include related models
+            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); 
             return view('schedule.index_sched', compact('schedules'));
         }
    
@@ -71,7 +71,7 @@ class ScheduleController extends Controller
         $curriculum = Curriculum::with('subjects')->findOrFail($schedule->curriculum_id);
         $subjects = $curriculum->subjects;
         $courses = Course::all();
-        $users = Users::where('role_id', 6)->get();
+        $users = Users::where('role_id', 5)->get();
     
         return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
     }
