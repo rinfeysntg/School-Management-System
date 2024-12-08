@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Student;
+use App\Models\Users;
 use App\Models\Subject;
+use App\Models\Schedule;
 use App\Models\Event;
 use App\Models\EventAttendance;
 
@@ -32,32 +34,73 @@ class AttendanceController extends Controller
         return view('attendance.student-dash', compact('attendance', 'total', 'present', 'absent', 'late'));
     }
 
-    // Show the teacher dashboard (with CRUD functionality)
     public function teacherDashboard()
     {
-        // Fetch all students and attendance records
-        $students = Student::all();
-        $attendance = Attendance::with('student')->get(); // Include student info
+        $user = session('user'); 
 
-        return view('attendance.teacher-dash', compact('students', 'attendance'));
+    // Fetch the professor's assigned schedules (including course, year_level, block)
+    $schedules = Schedule::where('user_id', $user->id)->get();
+
+    $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
+
+    // Retrieve the course_id, year_level, and block for each schedule
+    $courseIds = $schedules->pluck('course_id');
+    $yearLevels = $schedules->pluck('year_level');
+    $blocks = $schedules->pluck('block');
+    $subjectIds = $schedules->pluck('subject_id'); // Retrieve the subject IDs the professor is assigned to
+
+    // Retrieve students who are enrolled in the same course_id, year_level, block, and subject(s)
+    $students = Users::whereHas('schedule', function ($query) use ($subjectIds, $courseIds, $yearLevels, $blocks) {
+        $query->whereIn('subject_id', $subjectIds)   // Match the professor's subjects
+              ->whereIn('course_id', $courseIds)     // Match the course
+              ->whereIn('year_level', $yearLevels)   // Match the year level
+              ->whereIn('block', $blocks);           // Match the block
+    })
+    ->where('role_id', 7) // Only fetch students (role_id = 7 for students)
+    ->get();
+
+    // Fetch attendance records (if needed)
+    $attendance = Attendance::with('student')->get();  // Include student info
+
+    // Pass the students, attendance, and schedules to the view
+    return view('attendance.teacher-dash', compact('students', 'attendance', 'schedules','subjects'));
     }
-
-    // Display the form for creating a new attendance record
+    
     public function create()
-    {
-        $students = Student::all(); // Fetch all students
-        $subjects = Subject::all(); // Fetch all subjects
+{
+    $user = session('user');
 
-        return view('attendance.create', compact('students', 'subjects')); // Pass subjects to the view
-    }
+    // Fetch the professor's assigned schedules (including course, year_level, block)
+    $schedules = Schedule::where('user_id', $user->id)->get();
 
+    $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
+
+    // Retrieve the course_id, year_level, block, and subject_id for each schedule
+    $courseIds = $schedules->pluck('course_id');
+    $yearLevels = $schedules->pluck('year_level');
+    $blocks = $schedules->pluck('block');
+    $subjectIds = $schedules->pluck('subject_id'); // Retrieve the subject IDs the professor is assigned to
+
+    // Retrieve the students who match the professor's course_id, year_level, block, and subject
+    $students = Users::whereHas('schedule', function ($query) use ($subjectIds, $courseIds, $yearLevels, $blocks) {
+        $query->whereIn('subject_id', $subjectIds)   // Match the professor's subjects
+              ->whereIn('course_id', $courseIds)     // Match the course
+              ->whereIn('year_level', $yearLevels)   // Match the year level
+              ->whereIn('block', $blocks);           // Match the block
+    })
+    ->where('role_id', 7) // Only fetch students (role_id = 7 for students)
+    ->get();
+
+    // Pass the students and subjects to the view
+    return view('attendance.create', compact('students', 'schedules', 'subjects'));
+}
     // Store a new attendance record
     public function store(Request $request)
     {
         // Validate the incoming request
         $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'subject_id' => 'required|exists:subjects,id', // Validate subject selection
+            'student_id' => 'required|exists:users,id',
+            'subject_id' => 'required|exists:subjects,id', 
             'date' => 'required|date',
             'status' => 'required|in:present,absent,late',
         ]);
@@ -71,7 +114,7 @@ class AttendanceController extends Controller
         ]);
 
         // Redirect to teacher dashboard with success message
-        return redirect()->route('attendance.teacherDashboard')->with('success', 'Attendance record created successfully!');
+        return redirect()->route('teacher.dashboard')->with('success', 'Attendance record created successfully!');
     }
 
     // Edit an attendance record
@@ -89,7 +132,7 @@ class AttendanceController extends Controller
     {
         // Validate the incoming request
         $request->validate([
-            'student_id' => 'required|exists:students,id',
+            'student_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id', // Validate subject selection
             'date' => 'required|date',
             'status' => 'required|in:present,absent,late',
@@ -105,7 +148,7 @@ class AttendanceController extends Controller
         ]);
 
         // Redirect to teacher dashboard with success message
-        return redirect()->route('attendance.teacherDashboard')->with('success', 'Attendance record updated successfully!');
+        return redirect()->route('teacher.dashboard')->with('success', 'Attendance record updated successfully!');
     }
 
     // Delete an attendance record
@@ -114,7 +157,7 @@ class AttendanceController extends Controller
         $attendance = Attendance::findOrFail($id);
         $attendance->delete();
 
-        return redirect()->route('attendance.teacherDashboard')->with('success', 'Attendance record deleted successfully!');
+        return redirect()->route('teacher.dashboard')->with('success', 'Attendance record deleted successfully!');
     }
 
     // Show the form for creating a new event (Teacher view)

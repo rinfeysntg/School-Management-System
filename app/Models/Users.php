@@ -49,4 +49,9 @@ class Users extends Model
     return $this->morphMany(Announcement::class, 'target');
 }
 
+public function schedule()
+{
+    return $this->hasMany(Schedule::class, 'user_id');
+}
+
 }
