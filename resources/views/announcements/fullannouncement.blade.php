@@ -1,10 +1,17 @@
-<!-- resources/views/announcements/fullannouncement.blade.php -->
 @extends('announcements.announcementlayout')
 
 @section('announcements.announcementdashboard')
     <div class="announcement-content">
+        <br>
         <h1>{{ $announcement->title }}</h1>
-        <p><strong>Target ID: </strong>{{ $announcement->announcement_target_id }}</p>
-        <p>{{ $announcement->message }}</p>  <!-- Show the full message -->
+        <p>{{ $announcement->date }}</p>
+        <p class="target-Id"><strong>To: </strong>
+                            @if ($announcement->target)
+                                {{ $announcement->target->name }}
+                            @else
+                                None
+                            @endif
+                        </p>
+        <p>{{ $announcement->message }}</p> 
     </div>
 @endsection

@@ -41,7 +41,8 @@ class AnnouncementCreateController extends Controller
     $results = match ($type) {
         'department' => Department::where('name', 'LIKE', "%$search%")->get(),
         'course' => Course::where('name', 'LIKE', "%$search%")->get(),
-        'subject' => Subject::where('name', 'LIKE', "%$search%")->get(),
+        'subject' => Subject::where('name', 'LIKE', "%$search%")
+                            ->orWhere('code', 'LIKE', "%{$search}%")->get(),
         'event' => Event::where('name', 'LIKE', "%$search%")->get(),
         'student' => Users::where('name', 'LIKE', "%$search%")->get(),
         default => collect(),
@@ -80,6 +81,8 @@ public function store(Request $request)
 
     return redirect()->route('announcements.announcement')->with('success', 'Announcement created successfully.');
 }
+
+
 }
 
 

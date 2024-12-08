@@ -7,9 +7,7 @@
         <form class="announcement-content" action="{{ route('announcement.store') }}" method="POST">
             @csrf
 
-            <!-- Row for Title and Date -->
             <div class="d-flex flex-row mb-3">
-                <!-- Title -->
                 <div class="input-group mb-3 flex-grow-1">
                     <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
                     <input 
@@ -21,7 +19,6 @@
                         aria-describedby="inputGroup-sizing-default">
                 </div>
 
-                <!-- Date -->
                 <div class="input-group mb-3 flex-grow-1">
                     <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
                     <input 
@@ -34,9 +31,7 @@
                 </div>
             </div>
 
-            <!-- Row for Target Type and Target -->
             <div class="d-flex flex-row mb-3">
-                <!-- Target Type -->
                 <div class="d-flex flex-column w-50">
                     <label for="target_type" class="form-label">Target Type:</label>
                     <select id="target_type" name="target_type" class="form-select" required>
@@ -48,16 +43,13 @@
                     </select>
                 </div>
 
-                <!-- Target -->
                 <div class="d-flex flex-column w-50">
                     <label for="target_id" class="form-label">Target:</label>
                     <select id="target_id" name="target_id" class="searchable-dropdown form-select" required>
-                        <!-- Options dynamically loaded -->
                     </select>
                 </div>
             </div>
 
-            <!-- Message -->
             <div class="fullwidth fullheight mb-4">
                 <div class="form-floating h-100">
                     <textarea 
@@ -70,7 +62,6 @@
                 </div>
             </div>
 
-            <!-- Create Button -->
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>

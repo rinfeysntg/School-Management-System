@@ -8,6 +8,8 @@ use App\Models\Role;
 use App\Models\Department;
 use App\Models\Course;
 use App\Models\Schedule;
+use App\Models\Announcement;
+use App\Models\Event;
 
 class Students extends Controller
 {
@@ -60,5 +62,36 @@ class Students extends Controller
 
     return view('student.student_sched', compact('schedules'));
     }
+
+    public function studentAnnouncement()
+{
+    $user = session('user'); 
+
+    $announcements = Announcement::where(function ($query) use ($user) {
+        $query->where(function ($subQuery) use ($user) {
+            $subQuery->where('target_type', 'student')
+                ->where('target_id', $user->id);
+        })
+        ->orWhere(function ($subQuery) use ($user) {
+            $subQuery->where('target_type', 'course')
+                ->where('target_id', $user->course_id);
+        })
+        ->orWhere(function ($subQuery) use ($user) {
+            $subQuery->where('target_type', 'department')
+                ->where('target_id', $user->department_id);
+        })
+        ->orWhere(function ($subQuery) use ($user) {
+            $subQuery->where('target_type', 'subject')
+                ->whereIn('target_id', function ($scheduleQuery) use ($user) {
+                    $scheduleQuery->select('subject_id') 
+                        ->from('schedules')
+                        ->where('user_id', $user->id);
+                });
+        });
+    })
+    ->get();
+
+    return view('announcements.studentview', compact('announcements'));
+}
     
 }

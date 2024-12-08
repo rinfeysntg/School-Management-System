@@ -241,7 +241,7 @@ Route::post('/payroll/release', [PayrollDashboardController::class, 'release'])-
 
 
 // Announcement
-Route::get('/student-announcements', [AnnouncementController::class, 'studentIndex'])->name('announcement.student');
+Route::get('/student-announcements', [Students::class, 'studentAnnouncement'])->name('announcement.student');
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcements.announcement');
 Route::get('/announcement/create', [AnnouncementCreateController::class, 'create'])->name('announcement.create');
 Route::post('/announcement/store', [AnnouncementCreateController::class, 'store'])->name('announcement.store');
