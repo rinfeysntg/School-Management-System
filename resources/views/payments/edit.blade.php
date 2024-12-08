@@ -16,12 +16,10 @@
             <h4>Amount: ₱ 
                 <input type="number" class="form-control" id="amount" name="amount" value="{{ old('amount', $payment->amount) }}" required>
             </h4>    
-
+            <br>
             <h4>User: 
-                <select class="dropdown" id="user_id" name="user_id" required>
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}" {{ $user->id == $payment->user_id ? 'selected' : '' }}>{{ $user->name }}</option>
-                @endforeach
+            <select class="searchable-dropdown form-control" id="user_id" name="user_id" required>
+                    <option value="{{ $payment->user_id }}" selected>{{ $payment->user->name }}</option>
                 </select>
             </h4>         
             <br>
@@ -33,4 +31,31 @@
         <br>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#user_id').select2({
+            ajax: {
+                url: '{{ route("payments.searchUsers") }}',  // The route to search for users
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term, // The search query
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return { id: item.id, text: item.name };
+                        })
+                    };
+                },
+            },
+            placeholder: 'Search for a user',
+            minimumInputLength: 1
+        });
+    });
+</script>
+
 @endsection

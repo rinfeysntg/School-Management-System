@@ -78,4 +78,19 @@ class PaymentController extends Controller
         return view('payments.receipt', compact('payment'));
     }
 
+    public function searchUsers(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $users = Users::where('name', 'LIKE', "%$search%")
+                    ->orWhere('id', 'LIKE', "%{$search}%")->get();
+
+        return response()->json($users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+            ];
+        }));
+    }
+
 }
