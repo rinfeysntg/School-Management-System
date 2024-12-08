@@ -29,8 +29,10 @@
         <div class="mb-3">
             <label for="student_id" class="form-label">Student</label>
             <select class="searchable-dropdown form-control" id="student_id" name="student_id" required>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Save Activity</button>
+        <a href="{{ route('activities.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
     <script>
     $(document).ready(function () {

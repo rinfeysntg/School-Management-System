@@ -282,6 +282,9 @@ Route::get('/grades/calculate/{userId}/{term}/{year}', [GradeController::class, 
 
 Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
 Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');
+Route::get('/activities/{id}/edit', [GradeController::class, 'editActivity'])->name('activities.edit');
+Route::put('/activities/{id}', [GradeController::class, 'updateActivity'])->name('activities.update');
+Route::delete('/activities/{id}', [GradeController::class, 'destroyActivity'])->name('activities.destroy');
 
 
 
