@@ -169,6 +169,17 @@
             <button onclick="window.location='{{ route('attendance.create') }}'" id="createBldgBtn" class="btn">Add Attendance</button>
         </div>
 
+        <div class="attendance-filter">
+        <form action="{{ route('teacher.dashboard') }}" method="GET">
+        <select name="subject_id" id="subject_id" class="btn" style="padding: 12px;" onchange="this.form.submit()">
+            <option value="">Subjects</option>
+            @foreach($subjects as $subject)
+                <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
+            @endforeach
+        </select>
+    </form>
+    </div>
+
         <div class="attendance-table-container">
             <h2 class="createBldgLbl">Student Attendance</h2>
             <div class="recgray2">
@@ -176,6 +187,7 @@
                     <thead>
                         <tr>
                             <th>Student Name</th>
+                            <th>Subject</th>
                             <th>Status</th>
                             <th>Date</th>
                             <th>Actions</th>
@@ -185,6 +197,7 @@
                     @forelse($attendance as $attendanceRecord)
                         <tr>
                             <td>{{ $attendanceRecord->student->name }}</td>
+                            <td>{{ $attendanceRecord->subject->name }}</td>
                             <td>{{ $attendanceRecord->status }}</td>
                             <td>{{ $attendanceRecord->date }}</td>
                             <td>

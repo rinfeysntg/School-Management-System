@@ -31,7 +31,7 @@ class AttendanceController extends Controller
         return view('attendance.student-dash', compact('attendance', 'total', 'present', 'absent', 'late'));
     }
 
-    public function teacherDashboard()
+    public function teacherDashboard(Request $request)
     {
         $user = session('user'); 
 
@@ -41,7 +41,16 @@ class AttendanceController extends Controller
 
         $students = Users::where('role_id', 7)->get();
 
-        $attendance = Attendance::with('student')->get(); 
+        if ($request->has('subject_id') && $request->subject_id != '') {
+            $attendance = Attendance::with('student')
+                ->where('subject_id', $request->subject_id) // Filter by the selected subject
+                ->whereIn('subject_id', $schedules->pluck('subject_id'))
+                ->get();
+        } else {
+            $attendance = Attendance::with('student')
+                ->whereIn('subject_id', $schedules->pluck('subject_id'))
+                ->get();
+        }    
 
         return view('attendance.teacher-dash', compact('students', 'attendance', 'schedules','subjects'));
     }
