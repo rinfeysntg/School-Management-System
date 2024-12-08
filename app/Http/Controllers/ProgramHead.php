@@ -23,7 +23,7 @@ class ProgramHead extends Controller
         
         $users = Users::with(['role', 'department', 'course'])
         ->where('department_id', $user->department_id)
-        ->where('role_id', 7)
+        ->where('role_id', 6)
         ->when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%")

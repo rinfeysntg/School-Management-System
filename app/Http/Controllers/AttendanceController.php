@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 
         $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
 
-        $students = Users::where('role_id', 7)->get();
+        $students = Users::where('role_id', 6)->get();
 
         if ($request->has('subject_id') && $request->subject_id != '') {
             $attendance = Attendance::with('student')
@@ -63,7 +63,7 @@ class AttendanceController extends Controller
 
         $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
 
-        $students = Users::where('role_id', 7) 
+        $students = Users::where('role_id', 6) 
                         ->get();
 
         return view('attendance.create', compact('students', 'schedules', 'subjects'));
@@ -106,7 +106,7 @@ class AttendanceController extends Controller
     public function edit($id)
     {
         $attendance = Attendance::findOrFail($id);
-        $students = Users::where('role_id', 7)->get();
+        $students = Users::where('role_id', 6)->get();
         $subjects = Subject::all(); 
 
         return view('attendance.edit', compact('attendance', 'students', 'subjects')); 

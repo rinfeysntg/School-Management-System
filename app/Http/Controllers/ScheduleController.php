@@ -16,7 +16,7 @@ class ScheduleController extends Controller
         $user = session('user');
         $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
         $courses = Course::all();
-        $users = Users::where('role_id', 6)
+        $users = Users::where('role_id', 5)
                 ->where('department_id', $user->department_id)
                 ->get();
 
@@ -71,7 +71,7 @@ class ScheduleController extends Controller
         $curriculum = Curriculum::with('subjects')->findOrFail($schedule->curriculum_id);
         $subjects = $curriculum->subjects;
         $courses = Course::all();
-        $users = Users::where('role_id', 6)->get();
+        $users = Users::where('role_id', 5)->get();
     
         return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
     }
