@@ -28,13 +28,14 @@ class PaymentController extends Controller
             'user_id' => 'required|exists:users,id', 
         ]);
 
-        Payment::create([
+        $payment = Payment::create([
             'purpose' => $request->purpose,
             'amount' => $request->amount,
             'user_id' => $request->user_id,
         ]);
-
-        return redirect()->route('payments.index')->with('success', 'Payment added successfully!');
+    
+        return redirect()->route('payments.receipt', ['id' => $payment->id])
+                     ->with('success', 'Payment added successfully!');
     }
 
     public function edit($id)
@@ -68,6 +69,13 @@ class PaymentController extends Controller
         $payment->delete(); 
 
         return redirect()->route('payments.index')->with('success', 'Payment deleted successfully!');
+    }
+
+    public function showReceipt($id)
+    {
+        $payment = Payment::with('user')->findOrFail($id);
+
+        return view('payments.receipt', compact('payment'));
     }
 
 }

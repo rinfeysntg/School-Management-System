@@ -260,6 +260,7 @@ Route::post('/payment/store', [PaymentController::class, 'store'])->name('paymen
 Route::get('payment/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
 Route::put('payment/{id}', [PaymentController::class, 'update'])->name('payments.update');
 Route::delete('payment/delete/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+Route::get('payment/receipt/{id}', [PaymentController::class, 'showReceipt'])->name('payments.receipt');
 
 
 //Grade Calculator

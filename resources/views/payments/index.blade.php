@@ -19,10 +19,11 @@
                     <tr>
                         <td>{{ $payment->id }}</td>
                         <td>{{ $payment->purpose }}</td>
-                        <td>₱ {{ $payment->amount }}</td>
+                        <td>₱{{ number_format($payment->amount, 2) }}</td>
                         <td>{{ $payment->user->name }}</td>
                         
                         <td>
+                            <a href="{{ route('payments.receipt', $payment->id) }}" class="view-btn">View Receipt</a>
                             <a href="{{ route('payments.edit', $payment->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" style="display: inline;">
                                 @csrf

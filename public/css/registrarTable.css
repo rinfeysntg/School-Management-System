@@ -79,6 +79,11 @@ body {
     padding: 120px; 
   }
 
+  .receipt-content {
+    padding: 20px;
+    text-align: center;
+}
+
   .button-container {
     display: flex;
     flex-direction: column;
@@ -86,6 +91,16 @@ body {
     gap: 10px;
     padding-top: 10px; 
 }
+
+.button-container-receipt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 100px;
+    padding-top: 10px; 
+}
+
+
 
 .button-container .btn {
     background-color: #BDCB95;
@@ -167,5 +182,25 @@ body {
     outline: none; /* Removes default outline */
 }
 
+.edit-btn, .view-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+.edit-btn {
+    background-color: #7da17d;
+    color: #fff;
+}
+
+.view-btn {
+    background-color: #3f588b;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #FF7F7F; 
+    color: #fff;
+}
 
