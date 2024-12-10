@@ -20,12 +20,12 @@ class Grade extends Model
 
     public function student()
     {
-        return $this->belongsTo(Users::class, 'user_id');
+        return $this->belongsTo(Users::class, 'student_id');
     }
 
     public function professor()
     {
-        return $this->belongsTo(Users::class, 'user_id');
+        return $this->belongsTo(Users::class, 'prof_id');
     }
 
     public function activities()

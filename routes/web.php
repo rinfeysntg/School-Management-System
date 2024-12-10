@@ -35,6 +35,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\Professor;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Treasury;
+use App\Http\Controllers\GradePercentageController;
 
 Route::get('/', function () {
     return view('login');
@@ -259,18 +260,21 @@ Route::get('payment/receipt/{id}', [PaymentController::class, 'showReceipt'])->n
 Route::get('payments/search-users', [PaymentController::class, 'searchUsers'])->name('payments.searchUsers');
 
 
-//Grade Calculator
-Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBreakdown'])->name('professor.grade_breakdown');
-Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
-Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
-   
-
+//Grade Calculator   
 Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
 Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');
 Route::get('/activities/{id}/edit', [GradeController::class, 'editActivity'])->name('activities.edit');
 Route::put('/activities/{id}', [GradeController::class, 'updateActivity'])->name('activities.update');
 Route::delete('/activities/{id}', [GradeController::class, 'destroyActivity'])->name('activities.destroy');
+Route::post('/activities/store', [GradeController::class, 'storeActivity'])->name('activities.store');
+Route::get('/students-list', [GradeController::class, 'showStudents'])->name('students.show');
 
+Route::get('/grade-percentages', [GradePercentageController::class, 'index'])->name('grade_percentages.index');
+Route::get('/grade-percentages/create', [GradePercentageController::class, 'showForm'])->name('grade_percentages.create');
+Route::get('/grade-percentages/{subjectId}/edit', [GradePercentageController::class, 'edit'])->name('grade_percentages.edit');
+Route::post('/grade_percentages', [GradePercentageController::class, 'store'])->name('grade_percentages.store');
+Route::put('/grade-percentages/{subjectId}', [GradePercentageController::class, 'update'])->name('grade_percentages.update');
+Route::delete('/grade-percentages/{subjectId}', [GradePercentageController::class, 'destroy'])->name('grade_percentages.destroy');
 
 
 

@@ -9,6 +9,7 @@ use App\Models\Grade;
 use App\Models\Users;
 use App\Models\Schedule;
 use App\Models\Subject;
+use App\Models\GradePercentage;
 
 class GradeController extends Controller
 {
@@ -124,6 +125,85 @@ public function destroyActivity($id)
     $activity->delete();
 
     return redirect()->route('activities.index')->with('success', 'Activity deleted successfully.');
+}
+
+public function showStudents(Request $request)
+{
+    $professor = session('user');
+
+    $schedules = Schedule::where('user_id', $professor->id)->get();
+    $subjectIds = $schedules->pluck('subject_id');
+    $subjects = Subject::whereIn('id', $subjectIds)->get();
+
+    $students = collect(); 
+
+    if ($request->filled('subject_id') && $request->filled('block')) {
+        $selectedSubjectId = $request->input('subject_id');
+        $selectedBlock = $request->input('block');
+
+        $scheduleForSubject = $schedules->where('subject_id', $selectedSubjectId)
+            ->where('block', $selectedBlock)
+            ->first();
+
+        if ($scheduleForSubject) {
+            $students = Users::where('course_id', $scheduleForSubject->course_id)
+                ->where('year_level', $scheduleForSubject->year_level)
+                ->where('block', $scheduleForSubject->block)
+                ->get();
+        }
+    } else {
+        $students = Users::whereIn('course_id', $schedules->pluck('course_id'))
+            ->whereIn('year_level', $schedules->pluck('year_level'))
+            ->whereIn('block', $schedules->pluck('block'))
+            ->get();
+    }
+
+    $finalGrades = [];
+    foreach ($students as $student) {
+        $gradePercentage = GradePercentage::where('subject_id', $request->input('subject_id'))->first();
+
+        if ($gradePercentage) {
+            $activities = Activity::where('student_id', $student->id)
+                ->where('subject_id', $request->input('subject_id'))
+                ->get();
+
+            // Initialize variables to calculate the grades
+            $totalQuizGrade = 0;
+            $totalExamGrade = 0;
+            $totalAssignmentGrade = 0;
+            $quizCount = 0;
+
+            // Loop through each activity and categorize them by type
+            foreach ($activities as $activity) {
+                if (str_contains(strtolower($activity->name), 'quiz')) {
+                    $quizCount++;
+                    $totalQuizGrade += $activity->grade;
+                } elseif (str_contains(strtolower($activity->name), 'exam')) {
+                    $totalExamGrade += $activity->grade;
+                } elseif (str_contains(strtolower($activity->name), 'assignment')) {
+                    $totalAssignmentGrade += $activity->grade;
+                }
+            }
+
+            // Average quiz grade if multiple quizzes
+            if ($quizCount > 0) {
+                $totalQuizGrade /= $quizCount;
+            }
+
+            // Multiply by respective percentages
+            $finalQuizGrade = $totalQuizGrade * ($gradePercentage->quiz_percentage / 100);
+            $finalExamGrade = $totalExamGrade * ($gradePercentage->exam_percentage / 100);
+            $finalAssignmentGrade = $totalAssignmentGrade * ($gradePercentage->assignment_percentage / 100);
+
+            // Calculate final grade
+            $finalGrade = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
+
+            // Store the final grade
+            $finalGrades[$student->id] = $finalGrade;
+        }
+    }
+
+    return view('academics.students', compact('students', 'subjects', 'finalGrades', 'schedules'));
 }
 
 

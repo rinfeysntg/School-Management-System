@@ -6,7 +6,11 @@
 
 <div class="rec_dashboard">
     <h1 class="createroomLbl">All Activities</h1>
-    <div class="rec_dashboard3">
+    <div class="button-container-group">
+        <a href="{{ route('students.show') }}" class="createRoomBtn3">Student List</a>
+        <a href="{{ route('grade_percentages.index') }}" class="createRoomBtn3">Grade Breakdown</a>
+    </div>
+    <div class="rec_dashboard3" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
         <table class="rooms-table">
             <thead>
                 <tr>
