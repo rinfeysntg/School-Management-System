@@ -3,15 +3,11 @@
 @include('navbar_professor')
 
 @section('content')
-    <div class="container">
-        <h1 class="my-4">Student List</h1>
 
-        @if($students->isEmpty())
-            <div class="alert alert-info">
-                No students found for your subjects.
-            </div>
-        @else
-        <div class="student-filter mb-4">
+<div class="rec_dashboard">
+    <h1 class="createroomLbl">Student List</h1>
+
+    <div class="student-filter mb-4" style="padding: 10px;  display: flex; justify-content: center; align-items: center;">
         <form action="{{ route('students.show') }}" method="GET">
             <div class="row">
                 <div class="col-md-6">
@@ -40,7 +36,14 @@
             </div>
         </form>
     </div>
-            <table class="table table-bordered table-hover">
+
+    @if($students->isEmpty())
+        <div class="alert alert-info">
+            No students found for your subjects.
+        </div>
+    @else
+        <div class="rec_dashboard4" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+            <table class="rooms-table">
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -54,20 +57,22 @@
                         <tr>
                             <td>{{ $student->id }}</td>
                             <td>{{ $student->name }}</td>
-                            <td><strong>{{ $student->course->name}}</strong><br>
+                            <td><strong>{{ $student->course->name }}</strong><br>
                                 <span class="year_level">{{ $student->year_level }} - {{ $student->block }}</span>
                             </td>
                             <td>
-                                    @if (isset($finalGrades[$student->id]))
+                                @if (isset($finalGrades[$student->id]))
                                     {{ number_format($finalGrades[$student->id], 2) }} %
-                                    @else
+                                @else
                                     Not Graded
-                                    @endif
+                                @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @endif
-    </div>
+        </div>
+    @endif
+</div>
+
 @endsection

@@ -267,6 +267,7 @@ Route::get('/activities/{id}/edit', [GradeController::class, 'editActivity'])->n
 Route::put('/activities/{id}', [GradeController::class, 'updateActivity'])->name('activities.update');
 Route::delete('/activities/{id}', [GradeController::class, 'destroyActivity'])->name('activities.destroy');
 Route::post('/activities/store', [GradeController::class, 'storeActivity'])->name('activities.store');
+Route::get('/search-students', [GradeController::class, 'searchUsers'])->name('activities.searchUsers');
 Route::get('/students-list', [GradeController::class, 'showStudents'])->name('students.show');
 
 Route::get('/grade-percentages', [GradePercentageController::class, 'index'])->name('grade_percentages.index');
