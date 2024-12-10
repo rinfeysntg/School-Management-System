@@ -25,5 +25,10 @@ class Subject extends Model
     {
         return $this->morphMany(Announcement::class, 'target');
     }
+
+    public function gradePercentage()
+    {
+        return $this->hasMany(GradePercentage::class, 'subject_id');
+    }
 }
 
