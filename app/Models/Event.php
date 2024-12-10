@@ -152,8 +152,9 @@ class Event extends Model
     }
 
     public function attendees()
-    {
-    return $this->belongsToMany(Users::class);
-    }
-    
+{
+    return $this->belongsToMany(Users::class, 'event_students', 'event_id', 'user_id')
+                ->withPivot('status')  
+                ->withTimestamps();
+}
 }

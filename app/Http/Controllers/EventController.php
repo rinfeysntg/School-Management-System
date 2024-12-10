@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -16,7 +17,16 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::with(['course', 'department'])->paginate(10);
+        $user = session('user');
+    
+        if ($user && isset($user->department_id)) {
+            $events = Event::with(['course', 'department'])
+                ->where('department_id', $user->department_id) // Filter by user's department
+                ->paginate(10);
+        } else {
+            $events = Event::with(['course', 'department'])->paginate(10);
+        }
+    
         return view('attendance.events.list', compact('events'));
     }
 
@@ -139,34 +149,38 @@ class EventController extends Controller
     {
         $event = Event::with(['course', 'department'])->findOrFail($eventId);
 
-        // Assuming an 'Attendance' model that links events and students
-        $attendees = $event->attendees()->with('department', 'course')->paginate(10);
+        $attendees = Users::where('course_id', $event->course->id) 
+            ->where('department_id', $event->department->id) 
+            ->where('year_level', $event->year_level)
+            ->where('block', $event->block) 
+            ->get();
     
         return view('attendance.events.attendees', compact('event', 'attendees'));
     }
 
-    /**
-     * Show the form to mark attendance for a specific event (Student view).
-     *
-     * @param  int  $eventId
-     * @return \Illuminate\Http\Response
-     */
-    public function eventAttendanceForm($eventId)
+    public function markAttendance(Request $request, $eventId, $userId)
     {
-        $event = Event::findOrFail($eventId);
-        return view('attendance.events.attend', compact('event'));
+    // Fetch the event and user
+    $event = Event::findOrFail($eventId);
+    $user = Users::findOrFail($userId);
+
+     // Check if the user is already attending the event
+     if ($user->events()->wherePivot('event_id', $eventId)->exists()) {
+        // Update the attendance status if already exists
+        $user->events()->updateExistingPivot($eventId, [
+            'status' => $request->status,
+        ]);
+    } else {
+        // If not, attach the user with the correct event_id and user_id
+        $user->events()->attach($eventId, [
+            'status' => $request->status,
+        ]);
     }
 
-    /**
-     * Store the event attendance (POST request).
-     *
-     * @param  int  $eventId
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeEventAttendance(Request $request, $eventId)
-    {
-        // Handle storing event attendance logic here
-        return redirect()->route('attendance.event.attendees', $eventId)->with('success', 'Attendance recorded successfully!');
+    session()->flash('success', 'Attendance marked successfully.');
+
+    // Redirect back with success message
+    return redirect()->route('attendance.event.attendees', $eventId);
     }
+
 }

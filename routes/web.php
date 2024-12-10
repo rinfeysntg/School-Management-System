@@ -200,7 +200,11 @@ Route::prefix('attendance/events')->group(function () {
 
     // Store Event Attendance (POST request)
     Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store');
+
+    Route::post('{eventId}/mark/{userId}', [EventController::class, 'markAttendance'])->name('attendance.event.mark');
 });
+
+
 
 
 // Subjects
