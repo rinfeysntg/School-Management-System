@@ -1,16 +1,20 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
 
-        <h1 class="my-4">Attendees for Event: {{ $event->name }}</h1>
+<div class="rec_dashboard">
+    <h1 class="createroomLbl">Attendees for Event: {{ $event->name }}</h1>
 
-        @if($attendees->isEmpty())
-            <div class="alert alert-info">
-                No attendees found for this event.
-            </div>
-        @else
-            <table class="table table-bordered table-hover">
+    <button onclick="window.location='{{ route('attendance.events.list') }}'" id="backBtn" class="btn btn-secondary back-btn">Back to Events</button>
+    <!-- No Attendees Found Message -->
+    @if($attendees->isEmpty())
+        <div class="alert alert-info">
+            No attendees found for this event.
+        </div>
+    @else
+        <!-- Attendees Table -->
+        <div class="rec_dashboard3">
+            <table class="rooms-table table table-bordered table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>Name</th>
@@ -30,8 +34,8 @@
                             <td>{{ $attendee->year_level }}</td>
                             <td>{{ $attendee->block }}</td>
                             <td>
-                            @php
-                                $attendance = $attendee->events->where('pivot.event_id', $event->id)->first();
+                                @php
+                                    $attendance = $attendee->events->where('pivot.event_id', $event->id)->first();
                                 @endphp
 
                                 @if($attendance && $attendance->pivot->status === 'attended')
@@ -55,10 +59,13 @@
                     @endforeach
                 </tbody>
             </table>
-        @endif
+        </div>
+    @endif
 
-        <button onclick="window.location='{{ route('attendance.events.list') }}'" class="btn btn-secondary back-btn">Back to Events</button>
-    </div>
+    <!-- Back to Events Button -->
+    
+</div>
+
 @endsection
 
 @section('styles')

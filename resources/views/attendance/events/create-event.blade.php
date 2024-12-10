@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="rec_dashboard">
+    <div class="rec_dashboard" style="max-height: 400px; overflow-y: auto; padding: 10px;">
         <div class="logoDashboard"></div>
         <h1 class="registrarLbl">Create New Event</h1>
 

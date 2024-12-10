@@ -1,19 +1,20 @@
-@extends('attendance.events.app') <!-- Updated layout file path -->
+@extends('layout') <!-- Updated layout file path -->
 @include('navbar_programhead')
 @section('content')
-    <div class="container">
-        <h1 class="my-4">List of Events</h1>
-        <div class="button-container">
-        <button><a href="{{ route('attendance.events.create') }}" class="createRoomBtn2">Add Event</a></button>
+
+<div class="rec_dashboard">
+    <h1 class="createroomLbl">List of Events</h1>
+    
+    <!-- Button Container for Add Event -->
+    <div class="button-container">
+        <a href="{{ route('attendance.events.create') }}" class="createRoomBtn3">Add Event</a>
     </div>
-        <br>
-        @if($events->isEmpty())
-            <div class="alert alert-info">
-                No events found. <a href="{{ route('attendance.events.create') }}" class="alert-link">Create an event</a> to get started!
-            </div>
-        @else
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
+    
+    <br>
+        <!-- Events Table -->
+        <div class="rec_dashboard3">
+            <table class="rooms-table table table-bordered table-hover">
+                <thead>
                     <tr>
                         <th>Event Name</th>
                         <th>Event Date</th>
@@ -30,7 +31,8 @@
                             <td>{{ $event->event_date ? $event->event_date->format('F j, Y') : 'Not Set' }}</td>
                             <td>{{ $event->event_time ? $event->event_time->format('H:i') : 'Not Set' }}</td>
                             <td><strong>{{ $event->course->name ?? 'N/A' }}</strong><br>
-                            <span class="year_level">{{ $event->year_level }} - {{ $event->block }}</span></td>
+                                <span class="year_level">{{ $event->year_level }} - {{ $event->block }}</span>
+                            </td>
                             <td>{{ $event->department->name ?? 'N/A' }}</td>
                             <td>
                                 <!-- View Attendees -->
@@ -50,10 +52,12 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
 
-            <div class="d-flex justify-content-center">
-                {{ $events->links() }}
-            </div>
-        @endif
-    </div>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-center">
+            {{ $events->links() }}
+        </div>
+</div>
+
 @endsection

@@ -3,7 +3,7 @@
     <div class="full announcement-content">
         <h1>Announcements</h1>
 
-        <div class="flex-grow announcement-container fullwidth">
+        <div class="flex-grow announcement-container fullwidth" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
             @foreach ($announcements as $announcement)
                 <div class="announcement-item">
                     <div class="flex-row">

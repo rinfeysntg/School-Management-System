@@ -43,7 +43,7 @@ class AttendanceController extends Controller
 
         if ($request->has('subject_id') && $request->subject_id != '') {
             $attendance = Attendance::with('student')
-                ->where('subject_id', $request->subject_id) // Filter by the selected subject
+                ->where('subject_id', $request->subject_id)
                 ->whereIn('subject_id', $schedules->pluck('subject_id'))
                 ->get();
         } else {
