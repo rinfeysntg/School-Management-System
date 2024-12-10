@@ -260,24 +260,6 @@ Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBrea
 Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
 Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
 
-Route::get('/students/{id}/activities', [GradeController::class, 'showStudentActivities'])
-    ->name('students.activities'); // e.g., /students/1/activities
-
-// Show grade breakdown for a specific term and year
-Route::get('/grades/{term}/{year}', [GradeController::class, 'showGradeBreakdown'])
-    ->name('grades.breakdown'); // e.g., /grades/1/2023
-
-// Add a new activity
-Route::post('/activities/store', [GradeController::class, 'storeActivity'])
-    ->name('activities.store'); // e.g., POST /activities/store
-
-// Link activity grade to a student
-Route::post('/activities/grade/store', [GradeController::class, 'storeActivityGrade'])
-    ->name('activities.grade.store'); // e.g., POST /activities/grade/store
-
-// Calculate the final grade for a student in a specific term and year
-Route::get('/grades/calculate/{userId}/{term}/{year}', [GradeController::class, 'calculateFinalGrade'])
-    ->name('grades.calculate'); // e.g., /grades/calculate/1/1/2023
 
 Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
 Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');
