@@ -1,5 +1,5 @@
 @extends('attendance.events.app') <!-- Updated layout file path -->
-
+@include('navbar_programhead')
 @section('content')
     <div class="container">
         <h1 class="my-4">List of Events</h1>

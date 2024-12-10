@@ -160,26 +160,19 @@ class EventController extends Controller
 
     public function markAttendance(Request $request, $eventId, $userId)
     {
-    // Fetch the event and user
     $event = Event::findOrFail($eventId);
     $user = Users::findOrFail($userId);
 
-     // Check if the user is already attending the event
      if ($user->events()->wherePivot('event_id', $eventId)->exists()) {
-        // Update the attendance status if already exists
         $user->events()->updateExistingPivot($eventId, [
             'status' => $request->status,
         ]);
     } else {
-        // If not, attach the user with the correct event_id and user_id
         $user->events()->attach($eventId, [
             'status' => $request->status,
         ]);
     }
 
-    session()->flash('success', 'Attendance marked successfully.');
-
-    // Redirect back with success message
     return redirect()->route('attendance.event.attendees', $eventId);
     }
 
