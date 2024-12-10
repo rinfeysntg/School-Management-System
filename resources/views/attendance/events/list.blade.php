@@ -15,6 +15,8 @@
                         <th>Event Name</th>
                         <th>Event Date</th>
                         <th>Event Time</th>
+                        <th>Course</th>
+                        <th>Department</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -24,6 +26,9 @@
                             <td>{{ $event->name }}</td>
                             <td>{{ $event->event_date ? $event->event_date->format('F j, Y') : 'Not Set' }}</td>
                             <td>{{ $event->event_time ? $event->event_time->format('H:i') : 'Not Set' }}</td>
+                            <td><strong>{{ $ $event->course->name ?? 'N/A' }}</strong><br>
+                            <span class="year_level">{{ $event->year_level }} - {{ $event->block }}</span></td>
+                            <td>{{ $event->department->name ?? 'N/A' }}</td>
                             <td>
                                 <!-- View Attendees -->
                                 <a href="{{ route('attendance.event.attendees', $event->id) }}" class="btn btn-sm btn-primary">View Attendees</a>

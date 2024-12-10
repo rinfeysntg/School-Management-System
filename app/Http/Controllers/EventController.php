@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Course;
 use App\Models\Department;
-use App\Models\Users;
-
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -18,8 +16,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        // Paginate events, 10 per page
-        $events = Event::paginate(10);
+        $events = Event::with(['course', 'department'])->paginate(10);
         return view('attendance.events.list', compact('events'));
     }
 
@@ -30,7 +27,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('attendance.events.create'); // A view to create new events
+        $courses = Course::all();
+        $departments = Department::all();
+        return view('attendance.events.create-event', compact('courses', 'departments'));
     }
 
     /**
@@ -41,21 +40,28 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the form input
         $request->validate([
             'event_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'event_date' => 'required|date',
-            'event_time' => 'required|date_format:H:i', // Ensure correct time format
+            'event_time' => 'nullable|date_format:H:i',
+            'year_level' => 'required|string',
+            'block' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
-        // Store the new event
         Event::create([
             'name' => $request->event_name,
+            'description' => $request->description,
             'event_date' => $request->event_date,
             'event_time' => $request->event_time,
+            'year_level' => $request->year_level,
+            'block' => $request->block,
+            'course_id' => $request->course_id,
+            'department_id' => $request->department_id,
         ]);
 
-        // Redirect back to the event list with success message
         return redirect()->route('attendance.events.list')->with('success', 'Event created successfully!');
     }
 
@@ -67,9 +73,10 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        // Find the event by its ID
         $event = Event::findOrFail($id);
-        return view('attendance.events.edit', compact('event'));
+        $courses = Course::all();
+        $departments = Department::all();
+        return view('attendance.events.edit', compact('event', 'courses', 'departments'));
     }
 
     /**
@@ -81,24 +88,30 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Find the event by ID
         $event = Event::findOrFail($id);
 
-        // Validate the form input
         $request->validate([
             'event_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'event_date' => 'required|date',
-            'event_time' => 'required|date_format:H:i', // Ensure correct time format
+            'event_time' => 'nullable|date_format:H:i',
+            'year_level' => 'required|string',
+            'block' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
-        // Update the event with the new data
         $event->update([
             'name' => $request->event_name,
+            'description' => $request->description,
             'event_date' => $request->event_date,
             'event_time' => $request->event_time,
+            'year_level' => $request->year_level,
+            'block' => $request->block,
+            'course_id' => $request->course_id,
+            'department_id' => $request->department_id,
         ]);
 
-        // Redirect back to the event list with success message
         return redirect()->route('attendance.events.list')->with('success', 'Event updated successfully!');
     }
 
@@ -110,11 +123,9 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        // Find the event by ID and delete it
         $event = Event::findOrFail($id);
         $event->delete();
 
-        // Redirect back with success message
         return redirect()->route('attendance.events.list')->with('success', 'Event deleted successfully!');
     }
 
@@ -126,9 +137,12 @@ class EventController extends Controller
      */
     public function eventAttendees($eventId)
     {
-        // Find the event and its attendees (if any)
-        $event = Event::findOrFail($eventId);
-        return view('attendance.events.attendees', compact('event'));
+        $event = Event::with(['course', 'department'])->findOrFail($eventId);
+
+        // Assuming an 'Attendance' model that links events and students
+        $attendees = $event->attendees()->with('department', 'course')->paginate(10);
+    
+        return view('attendance.events.attendees', compact('event', 'attendees'));
     }
 
     /**
@@ -139,7 +153,6 @@ class EventController extends Controller
      */
     public function eventAttendanceForm($eventId)
     {
-        // Find the event
         $event = Event::findOrFail($eventId);
         return view('attendance.events.attend', compact('event'));
     }
@@ -153,10 +166,7 @@ class EventController extends Controller
      */
     public function storeEventAttendance(Request $request, $eventId)
     {
-        // Handle storing event attendance logic here (e.g., mark a student as attended)
-        // Example: Mark attendance for a student
-
-        // Redirect with success message
+        // Handle storing event attendance logic here
         return redirect()->route('attendance.event.attendees', $eventId)->with('success', 'Attendance recorded successfully!');
     }
 }
