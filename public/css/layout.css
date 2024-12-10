@@ -127,6 +127,21 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
 }
 
+.rec_dashboard13 {
+    position: relative;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    top: 50px;
+    left:-50px; 
+    width: 900px;
+    height: 330px; 
+    max-height: 400px;
+    margin: 0 auto; 
+    overflow: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+
 .rec_dashboard4 {
     position: relative;
     background-color: #ffffff; 
