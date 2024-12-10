@@ -15,6 +15,7 @@ return new class extends Migration
             $table->decimal('quiz_percentage', 5, 2);  
             $table->decimal('exam_percentage', 5, 2); 
             $table->decimal('assignment_percentage', 5, 2);  
+            $table->foreignId('prof_id')->constrained('users')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

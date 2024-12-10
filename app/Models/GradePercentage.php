@@ -10,7 +10,7 @@ class GradePercentage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'subject_id', 'quiz_percentage', 'exam_percentage', 'assignment_percentage'
+        'subject_id', 'quiz_percentage', 'exam_percentage', 'assignment_percentage', 'prof_id'
     ];
 
     public function subject()
