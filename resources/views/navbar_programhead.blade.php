@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/program_head/curriculums">Schedule</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attendance/events">Events</a>
+        </li>
       </ul>
     </div>
   </div>

@@ -43,7 +43,7 @@ class AttendanceController extends Controller
 
         if ($request->has('subject_id') && $request->subject_id != '') {
             $attendance = Attendance::with('student')
-                ->where('subject_id', $request->subject_id) // Filter by the selected subject
+                ->where('subject_id', $request->subject_id)
                 ->whereIn('subject_id', $schedules->pluck('subject_id'))
                 ->get();
         } else {
@@ -135,64 +135,4 @@ class AttendanceController extends Controller
         return redirect()->route('teacher.dashboard')->with('success', 'Attendance record deleted successfully!');
     }
 
-    public function createEventForm()
-    {
-        return view('attendance.events.create-event');  
-    }
-
-    public function storeEvent(Request $request)
-    {
-        $request->validate([
-            'event_name' => 'required|string|max:255',
-            'event_date' => 'required|date', 
-            'event_time' => 'required|date_format:H:i', 
-        ]);
-
-        Event::create([
-            'name' => $request->event_name,
-            'event_date' => $request->event_date, 
-            'event_time' => $request->event_time,  
-        ]);
-
-        return redirect()->route('attendance.events.list')->with('success', 'Event created successfully!');
-    }
-
-    public function eventAttendanceForm($eventId)
-    {
-        $event = Event::findOrFail($eventId); 
-        return view('attendance.events.create-event', compact('event')); 
-    }
-
-    public function storeEventAttendance(Request $request, $eventId)
-    {
-        $request->validate([
-            'attended_at' => 'required|date',
-            'time_in' => 'required|date_format:H:i',
-            'time_out' => 'nullable|date_format:H:i|after:time_in',
-        ]);
-
-        EventAttendance::create([
-            'event_id' => $eventId,
-            'student_id' => auth()->id(), 
-            'attended_at' => $request->attended_at,
-            'time_in' => $request->time_in,
-            'time_out' => $request->time_out,
-        ]);
-
-        return redirect()->route('attendance.events.create')->with('success', 'Event attendance logged successfully!');
-    }
-
-    public function eventAttendees($eventId)
-    {
-        $event = Event::findOrFail($eventId); 
-        $attendees = EventAttendance::where('event_id', $eventId)->get();  
-
-        return view('attendance.events.attendees', compact('event', 'attendees'));  
-    }
-
-    public function eventList()
-    {
-        $events = Event::all();  
-        return view('attendance.events.list', compact('events'));  
-    }
 }

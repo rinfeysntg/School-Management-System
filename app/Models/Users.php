@@ -64,4 +64,11 @@ class Users extends Model
     return $this->hasMany(Payment::class); 
 }
 
+public function events()
+{
+    return $this->belongsToMany(Event::class, 'event_students', 'user_id' , 'event_id',)
+                ->withPivot('status') 
+                ->withTimestamps();
+}
+
 }

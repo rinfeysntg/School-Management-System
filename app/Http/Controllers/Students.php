@@ -90,6 +90,17 @@ class Students extends Controller
                 });
         });
     })
+    
+        ->orWhere(function ($subQuery) use ($user) {
+        $subQuery->where('target_type', 'event')
+            ->whereIn('target_id', function ($eventQuery) use ($user) {
+                // Assuming the user is attending events through the 'event_students' pivot table
+                $eventQuery->select('event_id')
+                    ->from('event_students')
+                    ->where('user_id', $user->id)
+                    ->where('status', 'attended'); // Only consider events they are attending
+            });
+        })
     ->get();
 
     return view('announcements.studentview', compact('announcements'));

@@ -1,7 +1,7 @@
-@extends('layout') <!-- Assuming layout is already set to work -->
+@extends('layout')
 
-@section('content') <!-- Section to inject into layout -->
-    <div class="rec_dashboard">
+@section('content')
+    <div class="rec_dashboard" style="max-height: 400px; overflow-y: auto; padding: 10px;">
         <div class="logoDashboard"></div>
         <h1 class="registrarLbl">Create New Event</h1>
 
@@ -9,6 +9,7 @@
             <!-- Create Event Form -->
             <form action="{{ route('attendance.events.store') }}" method="POST">
                 @csrf
+                
                 <div class="form-group">
                     <label for="event_name" class="form-label">Event Name</label>
                     <input type="text" id="event_name" name="event_name" class="form-control" required>
@@ -21,7 +22,49 @@
 
                 <div class="form-group">
                     <label for="event_time" class="form-label">Event Time</label>
-                    <input type="time" id="event_time" name="event_time" class="form-control" required>
+                    <input type="time" id="event_time" name="event_time" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="course_id" class="form-label">Course</label>
+                    <select id="course_id" name="course_id" class="form-control" required>
+                        <option value="" disabled selected>Select a course</option>
+                        @foreach($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                        <label for="year_level">Year Level</label>
+                        <select class="form-control" name="year_level">
+                            <option value="">Select Year Level</option>
+                            <option value="1Y">1st year</option>
+                            <option value="2Y">2nd year</option>
+                            <option value="3Y">3rd year</option>
+                            <option value="4Y">4th year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="block">Block</label>
+                        <select class="form-control" name="block">
+                        <option value="">Select Block</option>
+                        <option value="B1">Block 1</option>
+                        <option value="B2">Block 2</option>
+                        <option value="B3">Block 3</option>
+                        <option value="B4">Block 4</option>
+                        </select>    
+                    </div>
+
+                <div class="form-group">
+                    <label for="department_id" class="form-label">Department</label>
+                    <select id="department_id" name="department_id" class="form-control" required>
+                        <option value="" disabled selected>Select a department</option>
+                        @foreach($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary create-btn">Create Event</button>

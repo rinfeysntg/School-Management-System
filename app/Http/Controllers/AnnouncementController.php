@@ -33,9 +33,10 @@ class AnnouncementController extends Controller
         $departments = Department::all();
         $courses = Course::all();
         $subjects = Subject::all();
-        $students = Users::where('role_id', 6)->get(); // Assuming role_id 7 is for students
+        $events = Event::all();
+        $students = Users::where('role_id', 6)->get();
 
-        return view('announcements.editannouncement', compact('announcement', 'departments', 'courses', 'subjects', 'students'));
+        return view('announcements.editannouncement', compact('announcement', 'departments', 'courses', 'subjects', 'students', 'events'));
     }
 
     public function update(Request $request, $id)
@@ -55,7 +56,7 @@ class AnnouncementController extends Controller
             'date' => $request->input('date'),
             'message' => $request->input('message'),
             'target_type' => $request->input('target_type'),
-            'target_id' => $request->input('target_id'), // Set the target ID
+            'target_id' => $request->input('target_id'), 
         ]);
 
         return redirect()->route('announcements.announcement')->with('success', 'Announcement updated successfully.');

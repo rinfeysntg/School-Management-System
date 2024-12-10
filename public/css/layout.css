@@ -110,7 +110,9 @@ body {
     top: 50px; 
     width: 900px;
     height: 330px; 
+    max-height: 400px;
     margin: 0 auto; 
+    overflow: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
 }
 
@@ -302,6 +304,25 @@ body {
 }
 
 .createRoomBtn2:hover {
+    background-color: #4c8c4c; /* Darker shade of green */
+}
+
+.createRoomBtn3 {
+    position: relative;
+    left: 100px;
+    float: left;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set text color to white */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.createRoomBtn3:hover {
     background-color: #4c8c4c; /* Darker shade of green */
 }
 
@@ -524,4 +545,9 @@ body {
 .loginbtn-container button {
     padding: 10px 50px;
     font-size: 16px;
+}
+
+#backBtn {
+    position: relative;
+    left: 50px;
 }

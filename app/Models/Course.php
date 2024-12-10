@@ -25,4 +25,9 @@ class Course extends Model
     {
         return $this->morphMany(Announcement::class, 'target');
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

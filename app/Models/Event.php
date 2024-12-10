@@ -57,7 +57,7 @@ class Event extends Model
     public function students()
     {
         return $this->belongsToMany(Users::class, 'event_attendances')
-                    ->withTimestamps(); // Using a pivot table with timestamps
+                    ->withTimestamps(); 
     }
 
     /**
@@ -150,5 +150,11 @@ class Event extends Model
     {
         return $this->morphMany(Announcement::class, 'target');
     }
-    
+
+    public function attendees()
+{
+    return $this->belongsToMany(Users::class, 'event_students', 'event_id', 'user_id')
+                ->withPivot('status')  
+                ->withTimestamps();
+}
 }
