@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Course;
+use App\Models\Department;
+use App\Models\Users;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller

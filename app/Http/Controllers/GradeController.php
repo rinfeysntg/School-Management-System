@@ -24,16 +24,6 @@ class GradeController extends Controller
         return view('academics.activities', compact('activities'));
     }
 
-    public function showGradeBreakdown($term, $year)
-    {
-        $grades = Grade::where('term', $term)
-            ->where('year', $year)
-            ->with(['student', 'professor', 'activities.activityGrades'])
-            ->get();
-
-        return view('academics.grade_breakdown', compact('grades'));
-    }
-
     public function storeActivity(Request $request)
     {
         $professor = session('user');
@@ -59,54 +49,6 @@ class GradeController extends Controller
         ]);
 
         return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
-    }
-
-    // Link activity grade to a student
-    public function storeActivityGrade(Request $request)
-    {
-        $validated = $request->validate([
-            'activity_id' => 'required|exists:activities,id',
-            'grade_id' => 'required|exists:grades,id',
-            'percentage' => 'required|numeric|min:0|max:100',
-            'grade_acquired' => 'required|numeric|min:0|max:100',
-        ]);
-
-        $activityGrade = ActivityGrade::create([
-            'activity_id' => $validated['activity_id'],
-            'grade_id' => $validated['grade_id'],
-            'percentage' => $validated['percentage'],
-            'grade_acquired' => $validated['grade_acquired'],
-        ]);
-
-        return redirect()->back()->with('success', 'Activity grade added successfully.');
-    }
-
-    // Calculate final grade for a student based on activities
-    public function calculateFinalGrade($userId, $term, $year)
-    {
-        $grades = Grade::where('user_id', $userId)
-            ->where('term', $term)
-            ->where('year', $year)
-            ->with('activities.activityGrades')
-            ->get();
-
-        foreach ($grades as $grade) {
-            $totalWeightedScore = 0;
-            $totalWeight = 0;
-
-            foreach ($grade->activities as $activity) {
-                $activityGrade = $activity->activityGrades->first();
-                if ($activityGrade) {
-                    $totalWeightedScore += $activityGrade->grade_acquired * ($activityGrade->percentage / 100);
-                    $totalWeight += $activityGrade->percentage;
-                }
-            }
-
-            $grade->final_grade = $totalWeight > 0 ? $totalWeightedScore / $totalWeight : 0;
-            $grade->save();
-        }
-
-        return redirect()->back()->with('success', 'Final grades calculated successfully.');
     }
 
     public function createActivity()

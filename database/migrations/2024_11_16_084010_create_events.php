@@ -13,8 +13,19 @@ return new class extends Migration
         $table->string('name');
         $table->text('description')->nullable();
         $table->date('date');
+        $table->string('year_level');
+        $table->string('block');
+        $table->unsignedBigInteger('course_id');
+        $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+        $table->unsignedBigInteger('department_id');
+        $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         $table->timestamps();
     });
+}
+
+public function down(): void
+{
+    Schema::dropIfExists('events');
 }
 
 };
