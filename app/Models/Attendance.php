@@ -30,4 +30,5 @@ class Attendance extends Model
     {
     return $this->hasMany(Users::class);
     }
+
 }
