@@ -259,7 +259,7 @@ Route::get('payments/search-users', [PaymentController::class, 'searchUsers'])->
 Route::get('/professor/grade-breakdown', [GradeController::class, 'showGradeBreakdown'])->name('professor.grade_breakdown');
 Route::get('/professor/calculate-grade', [GradeController::class, 'showCalculateGradeForm'])->name('professor.calculate_grade');
 Route::post('/professor/store-grade-breakdown', [GradeController::class, 'storeGradeBreakdown'])->name('professor.store_grade_breakdown');
-
+   
 
 Route::get('/activities', [GradeController::class, 'showAllActivities'])->name('activities.index');
 Route::get('/activities/create', [GradeController::class, 'createActivity'])->name('activities.create');

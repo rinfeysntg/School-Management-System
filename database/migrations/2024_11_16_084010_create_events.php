@@ -12,7 +12,8 @@ return new class extends Migration
         $table->id();
         $table->string('name');
         $table->text('description')->nullable();
-        $table->date('date');
+        $table->date('event_date');
+        $table->time('event_time')->nullable();
         $table->string('year_level');
         $table->string('block');
         $table->unsignedBigInteger('course_id');
