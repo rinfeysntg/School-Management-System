@@ -2,10 +2,9 @@
 @include('registrar.navbar_registrar')
 @section('content')
 
-<div class="rec_dashboard">
-<h1 class="createroomLbl">Edit Subject</h1>
-
-<form class="rec_dashboard2" action="{{ route('subjects_update', $subject->id) }}" method="POST">
+<div class="sub_dashboard">
+<h1 class="subh1">Edit Subject</h1>
+<form class="subform1" action="{{ route('subjects_update', $subject->id) }}" method="POST">
     @csrf
     @method('PUT')
 
