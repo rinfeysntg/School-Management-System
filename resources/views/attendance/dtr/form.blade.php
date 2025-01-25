@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Time</title>
-    <link rel="stylesheet" href="{{ asset('css/theme.css') }}"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
 </head>
 <body>
-    <!-- Dashboard Section -->
     <div class="rec_dashboard">
-        <!-- Logo Section -->
         <div class="logoContainer">
-            <div class="logoDashboard"></div> <!-- Logo from your CSS -->
+            <div class="logoDashboard"></div>
         </div>
 
-        <!-- Title Section -->
         <h1 class="registrarLbl">Log Your Time</h1>
 
         <!-- Success Message -->
@@ -31,29 +28,22 @@
             </ul>
         @endif
 
-        <!-- Form Section for DTR -->
         <div class="recgray2">
             <form action="{{ route('dtr.store') }}" method="POST">
                 @csrf
                 <label for="employee_id" class="registrarLbl">Employee ID:</label>
-                <input type="text" name="employee_id" value="{{ old('employee_id') }}" required id="bldgName" class="form-input"><br>
+                <input type="text" name="employee_id" value="{{ old('employee_id') }}" required id="employee_id" class="form-input"><br>
 
-                <label for="date" class="registrarLbl">Date:</label>
-                <input type="date" name="date" value="{{ old('date') }}" required id="bldgDesc" class="form-input"><br>
+                <!-- Date and Time will be automatically set -->
+                <input type="hidden" name="date" value="{{ now()->toDateString() }}">
+                <input type="hidden" name="time_in" value="{{ now()->toTimeString() }}">
 
-                <label for="time_in" class="registrarLbl">Time In:</label>
-                <input type="time" name="time_in" value="{{ old('time_in') }}" required id="bldgName" class="form-input"><br>
-
-                <label for="time_out" class="registrarLbl">Time Out:</label>
-                <input type="time" name="time_out" value="{{ old('time_out') }}" id="bldgDesc" class="form-input"><br>
-
-                <!-- Submit Button (Save Record) -->
+                <!-- Submit Button -->
                 <button type="submit" class="custom-btn save-btn">Save Record</button>
             </form>
         </div>
     </div>
 
-    <!-- Inline CSS -->
     <style>
         body {
             position: relative;
@@ -100,7 +90,7 @@
             text-align: center;
             font-family: "Tiro Tamil", serif;
             font-weight: 400;
-            font-size: 30px; /* Reduced font size for a more balanced look */
+            font-size: 30px;
             color: white;
             margin-bottom: 15px;
         }
@@ -116,20 +106,18 @@
             box-sizing: border-box;
         }
 
-        /* Styling for Smaller Input Fields */
         .form-input {
             width: 100%;
-            max-width: 350px; /* Set a max width for better control */
-            padding: 8px 12px; /* Reduced padding */
-            margin: 8px 0; /* Reduced margin for less space between fields */
+            max-width: 350px;
+            padding: 8px 12px;
+            margin: 8px 0;
             border: 2px solid #ccc;
             border-radius: 5px;
-            font-size: 14px; /* Smaller font size */
+            font-size: 14px;
             background-color: #fff;
             transition: border-color 0.3s ease;
         }
 
-        /* Focus Effect */
         .form-input:focus {
             border-color: #1E3A32;
             outline: none;

@@ -21,19 +21,14 @@ class DtrController extends Controller
         // Validate the incoming request data
         $request->validate([
             'employee_id' => 'required|exists:employees,id', // Ensure the employee exists in the database
-            'date' => 'required|date', // Validate date format
-            'time_in' => 'required|date_format:H:i', // Validate time_in format
-            'time_out' => 'nullable|date_format:H:i|after:time_in', // Validate time_out format, if provided, and ensure it's after time_in
         ]);
 
-        // Store the new DTR record
+        // Store the new DTR record with the current date and time_in
         Dtr::create([
             'employee_id' => $request->employee_id,
-            'date' => $request->date,
-            'time_in' => $request->time_in,
-            'time_out' => $request->time_out,
+            'date' => now()->toDateString(),  // Automatically set the current date
+            'time_in' => now()->toTimeString(),  // Automatically set the current time
         ]);
-        
 
         // Redirect to the DTR index page with a success message
         return redirect()->route('dtr.index')->with('success', 'DTR record saved successfully!');

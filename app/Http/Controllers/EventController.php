@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Attendance;
+use App\Models\Student; // Assuming you have a Student model for managing students
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -122,9 +124,11 @@ class EventController extends Controller
      */
     public function eventAttendees($eventId)
     {
-        // Find the event and its attendees (if any)
+        // Find the event and its attendees
         $event = Event::findOrFail($eventId);
-        return view('attendance.events.attendees', compact('event'));
+        $attendees = $event->attendees; // Assuming you have a relationship with students or attendance model
+
+        return view('attendance.events.attendees', compact('event', 'attendees'));
     }
 
     /**
@@ -149,10 +153,44 @@ class EventController extends Controller
      */
     public function storeEventAttendance(Request $request, $eventId)
     {
-        // Handle storing event attendance logic here (e.g., mark a student as attended)
-        // Example: Mark attendance for a student
+        // Validate the student ID
+        $request->validate([
+            'student_id' => 'required|exists:students,id', // Ensure the student exists in the database
+        ]);
 
-        // Redirect with success message
+        // Check if the student has already marked attendance
+        $existingAttendance = Attendance::where('event_id', $eventId)
+                                        ->where('student_id', $request->student_id)
+                                        ->first();
+
+        if ($existingAttendance) {
+            return redirect()->route('attendance.event.attendees', $eventId)->with('error', 'You have already marked your attendance.');
+        }
+
+        // Create new attendance record
+        Attendance::create([
+            'event_id' => $eventId,
+            'student_id' => $request->student_id,
+        ]);
+
+        // Redirect back with success message
         return redirect()->route('attendance.event.attendees', $eventId)->with('success', 'Attendance recorded successfully!');
+    }
+
+    /**
+     * Show the event attendance record for a specific student.
+     *
+     * @param  int  $eventId
+     * @param  int  $studentId
+     * @return \Illuminate\Http\Response
+     */
+    public function showStudentAttendance($eventId, $studentId)
+    {
+        // Find the event and student attendance record
+        $event = Event::findOrFail($eventId);
+        $student = Student::findOrFail($studentId);
+        $attendance = Attendance::where('event_id', $eventId)->where('student_id', $studentId)->first();
+
+        return view('attendance.events.studentAttendance', compact('event', 'student', 'attendance'));
     }
 }

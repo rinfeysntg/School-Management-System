@@ -1,6 +1,7 @@
-@extends('layout') <!-- Assuming layout is already set to work -->
+@extends('attendance.events.app') <!-- Extending your theme layout -->
 
-@section('content') <!-- Section to inject into layout -->
+@section('content')
+    <!-- Main Content Section -->
     <div class="rec_dashboard">
         <div class="logoDashboard"></div>
         <h1 class="registrarLbl">Create New Event</h1>
@@ -24,16 +25,62 @@
                     <input type="time" id="event_time" name="event_time" class="form-control" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary create-btn">Create Event</button>
+                <button type="submit" class="btn create-btn">Create Event</button>
             </form>
         </div>
 
-        <button onclick="window.location='{{ route('teacher.dashboard') }}'" class="btn btn-secondary back-btn">Back</button>
+        <button onclick="window.location='{{ route('teacher.dashboard') }}'" class="btn back-btn">Back</button>
     </div>
 @endsection
 
 @section('styles')
     <style>
+        body {
+            position: relative;
+            background-image: url('{{ asset('images/bg.png') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            font-family: "Tiro Tamil", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rec_dashboard {
+            background-image: url('{{ asset('images/rec.png') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 80%;
+            max-width: 1200px;
+            height: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logoDashboard {
+            background-image: url('{{ asset('images/logo.png') }}');
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .registrarLbl {
+            text-align: center;
+            font-size: 40px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
         .form-container {
             margin: 20px;
             background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
@@ -60,18 +107,20 @@
         }
 
         .create-btn {
-            background-color: #4CAF50;
+            background-color: #BDCB95;
+            color: black;
+            padding: 12px 25px;
             border: none;
-            color: white;
-            padding: 12px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
+            cursor: pointer;
             border-radius: 5px;
+            margin: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         .create-btn:hover {
-            background-color: #45a049;
+            background-color: #1E3A32;
+            color: white;
         }
 
         .back-btn {
@@ -88,6 +137,37 @@
 
         .back-btn:hover {
             background-color: #444;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .rec_dashboard {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .logoDashboard {
+                width: 120px;
+                height: 120px;
+            }
+
+            .registrarLbl {
+                font-size: 30px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .create-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .back-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
         }
     </style>
 @endsection

@@ -60,12 +60,15 @@ Route::prefix('attendance/events')->group(function () {
     // Show Event Attendees List (Teacher view)
     Route::get('{event}/attendees', [EventController::class, 'eventAttendees'])->name('attendance.event.attendees');
     
-    // Store Event Attendance Form (Student view)
-    Route::get('{event}/attend', [EventController::class, 'eventAttendanceForm'])->name('attendance.event.create');
+    // Event Attendance Form (Student view)
+    Route::get('{event}/attend', [EventController::class, 'eventAttendanceForm'])->name('attendance.event.attend');
     
     // Store Event Attendance (POST request)
-    Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store');
+    Route::post('{event}/attend', [EventController::class, 'storeEventAttendance'])->name('attendance.event.store.attendance'); // Renamed route name for clarity
 });
+
+
+
 
 // Subjects
 Route::get('/subjects', [SubjectsController::class, 'AdminIndex'])->name('subjects');
