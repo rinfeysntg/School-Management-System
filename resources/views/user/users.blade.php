@@ -56,11 +56,6 @@
                         <label for="email">Email</label>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                        <label for="password">Password</label>
-                    </div>
-
                             <!-- Department -->
                         <div class="form-floating mb-3">
                             <select class="form-control" name="department_id">

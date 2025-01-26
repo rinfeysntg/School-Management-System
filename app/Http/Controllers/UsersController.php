@@ -41,7 +41,9 @@ class UsersController extends Controller
         $users->address = $request->get('address');
         $users->username = $request->get('username');
         $users->email = $request->get('email');
-        $users->password = $request->get('password'); // Do not encrypt the password
+    
+    // Set the default password
+        $users->password = 'SCHOOL-AUTOMATE';  // Default password
 
         $department = Department::find($request->get('department_id'));
         $users->department_id = $department ? $department->id : null; 
@@ -49,7 +51,7 @@ class UsersController extends Controller
         $course = Course::find($request->get('course_id'));
         $users->course_id = $course ? $course->id : null; 
 
-        // Fetch the role by ID and save the role's name in role_id
+    // Fetch the role by ID and save the role's name in role_id
         $role = Role::find($request->get('role_id'));
         $users->role_id = $role ? $role->id : null; // Save role name if exists
 
