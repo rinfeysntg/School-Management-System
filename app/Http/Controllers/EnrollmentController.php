@@ -10,7 +10,7 @@ class EnrollmentController extends Controller
 {
     public function enroll()
     {
-        $users = Users::where('role_id', 6)
+        $users = Users::where('role_id', 7)
             ->whereDoesntHave('enrollments', function ($query) {
                 $query->where('status', 'Enrolled');
             })
@@ -68,7 +68,7 @@ class EnrollmentController extends Controller
 
     public function searchNotEnrolledUsers($search)
     {
-        return Users::where('role_id', 6)
+        return Users::where('role_id', 7)
             ->whereDoesntHave('enrollments')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%$search%");
@@ -85,7 +85,7 @@ class EnrollmentController extends Controller
         if ($search) {
             $users = $this->searchNotEnrolledUsers($search);
         } else {
-            $users = Users::where('role_id', 6)
+            $users = Users::where('role_id', 7)
                 ->whereDoesntHave('enrollments')
                 ->get();
         }

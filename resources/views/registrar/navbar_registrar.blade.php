@@ -22,6 +22,9 @@
           <a class="nav-link" href="/curriculums">Curriculums</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/subjects">Subjects</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/buildings">Buildings</a>
         </li>
       </ul>

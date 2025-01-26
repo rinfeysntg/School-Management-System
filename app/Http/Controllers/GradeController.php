@@ -60,7 +60,7 @@ class GradeController extends Controller
 
     $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
     
-    $students = Users::where('role_id', 6)->get(); 
+    $students = Users::where('role_id', 7)->get(); 
 
     return view('academics.create_activity', compact('subjects', 'students'));
 }
@@ -86,7 +86,7 @@ public function editActivity($id)
     $schedules = Schedule::where('user_id', $professor->id)->get();
     $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
     $activity = Activity::findOrFail($id);
-    $students = Users::where('role_id', 6)->get();
+    $students = Users::where('role_id', 7)->get();
 
     return view('academics.edit_activity', compact('activity', 'subjects', 'students'));
 }
