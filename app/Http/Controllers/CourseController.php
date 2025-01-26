@@ -10,37 +10,36 @@ class CourseController extends Controller
 {
     public function index()
     {
-
         return view('course.course');
     }
 
-    //see dropdown
+    // See dropdown
     public function createCourse()
     {
         $departments = Department::all(); 
         return view('course.course', compact('departments'));
     }
 
-
-    // submmit to courses table
+    // Submit to courses table
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'department_id' => 'required|exists:departments,id',
-    ]);
+    {
+        // Validate input
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'department_id' => 'required|exists:departments,id',
+        ]);
 
-    Course::create([
-        'name' => $validated['name'],
-        'description' => $validated['description'],
-        'department_id' => $validated['department_id'],
-    ]);
+        if (Course::where('name', $validated['name'])->exists()) {
+            return redirect()->back()->withErrors(['name' => 'This course already exists.']);
+        }
 
-    return redirect()->route('courseDashboard')->with('success', 'Course Created!');
-}
+        Course::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'department_id' => $validated['department_id'],
+        ]);
 
-
-
-
+        return redirect()->route('courseDashboard')->with('success', 'Course Created!');
+    }
 }
