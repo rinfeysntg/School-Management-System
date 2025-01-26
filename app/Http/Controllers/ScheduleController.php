@@ -54,24 +54,7 @@ class ScheduleController extends Controller
                 'curriculum_id' => 'required|exists:curriculums,id',
             ]);
 
-            $overlappingProfSchedule = Schedule::where('user_id', $validated['user_id'])
-            ->where(function ($query) use ($validated) {
-                $query->whereRaw("FIND_IN_SET(days, ?)", [implode(',', $validated['days'] ?? [])])
-                      ->where(function ($q) use ($validated) {
-                          $q->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
-                            ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
-                            ->orWhere(function ($subQuery) use ($validated) {
-                                $subQuery->where('start_time', '<', $validated['start_time'])
-                                         ->where('end_time', '>', $validated['end_time']);
-                            });
-                      });
-            })
-            ->exists();
-    
-        if ($overlappingProfSchedule) {
-            return back()->withErrors(['time' => 'The selected time overlaps with another schedule for the same professor.']);
-        }
-
+           
             $duplicateSchedule = Schedule::where('course_id', $validated['course_id'])
                         ->where('year_level', $validated['year_level'])
                         ->where('block', $validated['block'])
@@ -83,18 +66,7 @@ class ScheduleController extends Controller
                 return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
             }
 
-            $overlappingSchedule = Schedule::where('room_id', $validated['room_id'])
-                ->whereRaw("FIND_IN_SET(days, ?)", [implode(',', $validated['days'] ?? [])])
-                ->where(function ($query) use ($validated) {
-                    $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
-                        ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']]);
-                })
-                ->exists();
 
-            if ($overlappingSchedule) {
-                return back()->withErrors(['time' => 'The selected time and days overlap with another schedule in the same room.']);
-            }
-            
             Schedule::create([
                 'course_id' => $validated['course_id'],
                 'year_level' => $validated['year_level'],
@@ -138,6 +110,8 @@ class ScheduleController extends Controller
         'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun',
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i|after:start_time',
+        'building_id' => 'required|exists:buildings,id',
+        'room_id' => 'required|exists:rooms,id',
         'curriculum_id' => 'required|exists:curriculums,id',
     ]);
 
@@ -155,29 +129,6 @@ class ScheduleController extends Controller
         return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
     }
 
-    // Prevent overlapping times on the same days
-    $overlappingSchedule = Schedule::where('room_id', $validated['room_id'])
-        ->whereRaw("FIND_IN_SET(days, ?)", [implode(',', $validated['days'] ?? [])])
-        ->where(function ($query) use ($validated) {
-            $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
-                  ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']]);
-        })
-        ->where('id', '!=', $schedule->id)
-        ->exists();
-
-    if ($overlappingSchedule) {
-        return back()->withErrors(['time' => 'The selected time and days overlap with another schedule in the same room.']);
-    }
-
-    // Prevent duplicate subjects in the same curriculum
-    $duplicateSubject = Schedule::where('curriculum_id', $validated['curriculum_id'])
-        ->where('subject_id', $validated['subject_id'])
-        ->where('id', '!=', $schedule->id)
-        ->exists();
-
-    if ($duplicateSubject) {
-        return back()->withErrors(['subject_id' => 'This subject is already assigned to the curriculum.']);
-    }
 
     $schedule->update([
         'course_id' => $validated['course_id'],
@@ -188,6 +139,8 @@ class ScheduleController extends Controller
         'days' => implode(',', $validated['days'] ?? []),
         'start_time' => $validated['start_time'],
         'end_time' => $validated['end_time'],
+        'building_id' => $validated['building_id'],
+        'room_id' => $validated['room_id'],
         'curriculum_id' => $validated['curriculum_id'],
     ]);
 
