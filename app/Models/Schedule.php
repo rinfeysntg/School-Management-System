@@ -15,7 +15,9 @@ class Schedule extends Model
         'block', 
         'subject_id',
         'user_id',
-        'days_time',
+        'days',
+        'start_time',
+        'end_time',
         'curriculum_id'
     ];
 

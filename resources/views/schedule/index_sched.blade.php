@@ -13,7 +13,7 @@
                     <th scope="col">Block</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Professor</th>
-                    <th scope="col">Days & Time</th>
+                    <th scope="col">Days & Time</th> 
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -25,7 +25,10 @@
                         <td>{{ $schedule->block }}</td>
                         <td>{{ $schedule->subject->name }}</td>
                         <td>{{ $schedule->user->name }}</td>
-                        <td>{{ $schedule->days_time }}</td>
+                        <td>
+                            {{ implode(', ', explode(',', $schedule->days)) }} <br>
+                            {{ date('h:i A', strtotime($schedule->start_time)) }} - {{ date('h:i A', strtotime($schedule->end_time)) }}
+                        </td>
                         <td>
                             <a href="{{ route('schedule.edit', $schedule->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('schedule.destroy', $schedule->id) }}" method="POST" style="display: inline;">

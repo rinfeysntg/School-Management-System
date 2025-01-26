@@ -19,7 +19,10 @@
             <tr>
                 <td>{{ $schedule->subject->name }}</td>
                 <td>{{ $schedule->user->name }}</td>
-                <td>{{ $schedule->days_time }}</td>
+                <td>
+                            {{ implode(', ', explode(',', $schedule->days)) }} <br>
+                            {{ date('h:i A', strtotime($schedule->start_time)) }} - {{ date('h:i A', strtotime($schedule->end_time)) }}
+                </td>
             </tr>
             @empty
                 <tr>

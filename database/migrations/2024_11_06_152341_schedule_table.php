@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('block');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('set null');
             $table->foreignId('user_id')->constrained('users')->onDelete('set null');
-            $table->string('days_time');
+            $table->string('days');
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
         });
     }
 
