@@ -21,18 +21,37 @@ class DtrController extends Controller
         // Validate the incoming request data
         $request->validate([
             'employee_id' => 'required|exists:users,id', // Ensure the employee exists in the database
-            'date' => 'required|date', // Validate date format
-            'time_in' => 'required|date_format:H:i', // Validate time_in format
-            'time_out' => 'nullable|date_format:H:i|after:time_in', // Validate time_out format, if provided, and ensure it's after time_in
+            // 'date' => 'required|date', // Validate date format
+            // 'time_in' => 'required|date_format:H:i', // Validate time_in format
+            // 'time_out' => 'nullable|date_format:H:i|after:time_in', // Validate time_out format, if provided, and ensure it's after time_in
         ]);
+        
+        
+        $currentDate = now()->format('Y-m-d');
+        $currentTime = now()->format('H:i:s');
+
+        $data = Dtr::where('employee_id', $request->input('employee_id'))
+                    ->whereDate('created_at', $currentDate)
+                    ->first();
+
+        if ($data) {
+            $data->time_out = $currentTime;
+            $data->save();
+        } else {
+            $newData = new Dtr();
+            $newData->employee_id = $request->input('employee_id');
+            $newData->date = $currentDate;
+            $newData->time_in = $currentTime;
+            $newData->save();
+        }
 
         // Store the new DTR record
-        Dtr::create([
-            'employee_id' => $request->employee_id,
-            'date' => $request->date,
-            'time_in' => $request->time_in,
-            'time_out' => $request->time_out,
-        ]);
+        // Dtr::create([
+        //     'employee_id' => $request->employee_id,
+        //     'date' => $request->date,
+        //     'time_in' => $request->time_in,
+        //     'time_out' => $request->time_out,
+        // ]);
         
 
         // Redirect to the DTR index page with a success message

@@ -38,14 +38,14 @@
                 <label for="employee_id" class="registrarLbl">Employee ID:</label>
                 <input type="text" name="employee_id" value="{{ old('employee_id') }}" required id="bldgName" class="form-input"><br>
 
-                <label for="date" class="registrarLbl">Date:</label>
+                {{-- <label for="date" class="registrarLbl">Date:</label>
                 <input type="date" name="date" value="{{ old('date') }}" required id="bldgDesc" class="form-input"><br>
 
                 <label for="time_in" class="registrarLbl">Time In:</label>
                 <input type="time" name="time_in" value="{{ old('time_in') }}" required id="bldgName" class="form-input"><br>
 
                 <label for="time_out" class="registrarLbl">Time Out:</label>
-                <input type="time" name="time_out" value="{{ old('time_out') }}" id="bldgDesc" class="form-input"><br>
+                <input type="time" name="time_out" value="{{ old('time_out') }}" id="bldgDesc" class="form-input"><br> --}}
 
                 <!-- Submit Button (Save Record) -->
                 <button type="submit" class="custom-btn save-btn">Save Record</button>
