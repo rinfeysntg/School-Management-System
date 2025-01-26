@@ -7,25 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/registrar">Dashboard</a>
+          <a class="nav-link active" aria-current="page" href="/admin">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/announcement">Announcements</a>
+          <a class="nav-link" href="/userController">Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/departments">Departments</a>
+          <a class="nav-link" href="/roleController">Roles</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/coursedashboard">Courses</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/curriculums">Curriculums</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/subjects">Subjects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/buildings">Buildings</a>
+          <a class="nav-link" href="/PositionsController">Position</a>
         </li>
       </ul>
     </div>

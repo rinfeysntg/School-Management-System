@@ -1,4 +1,6 @@
 @extends('layoutuser')
+@include('navbar_admin')
+
 
 <div class="pad">
 <form action="{{ route('usersController') }}" method="GET" class="mb-3">

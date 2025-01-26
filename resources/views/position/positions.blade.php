@@ -1,4 +1,6 @@
 @extends('layoutposition')
+@include('navbar_admin')
+
 
 <div class="pad">
 <form action="{{ route('positionsController') }}" method="GET" class="mb-3">

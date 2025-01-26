@@ -1,9 +1,12 @@
 @extends('layout')
-
+@include('navbar_student')
 @section('content')
 
 <div class="rec_dashboard">
-    <h1 class="createroomLbl">My Activities</h1>
+    <h1 class="createroomLbl">Activities</h1>
+    <div class="button-container-group">
+        <a href="{{ route('student.grades') }}" class="createRoomBtn3">View Final Grades</a>
+    </div>
     <div class="rec_dashboard3">
     <div class="table-container" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd;">
         <table class="rooms-table" style="width: 100%; border-collapse: collapse;">

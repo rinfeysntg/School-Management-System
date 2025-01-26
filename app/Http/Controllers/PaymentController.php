@@ -93,4 +93,19 @@ class PaymentController extends Controller
         }));
     }
 
+    public function paymentSearch(Request $request)
+    {
+        $search = $request->input('search');
+
+        $payments = Payment::with('user')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%");
+                });
+            })
+            ->paginate(10);
+
+        return view('payments.index', compact('payments'));
+    }
+
 }

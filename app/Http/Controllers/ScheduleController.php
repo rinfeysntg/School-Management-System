@@ -16,7 +16,7 @@ class ScheduleController extends Controller
         $user = session('user');
         $curriculum = Curriculum::with('subjects')->findOrFail($curriculumId);
         $courses = Course::all();
-        $users = Users::where('role_id', 5)
+        $users = Users::where('role_id', 6)
                 ->where('department_id', $user->department_id)
                 ->get();
 
@@ -35,33 +35,34 @@ class ScheduleController extends Controller
         }
    
     public function store(Request $request)
-    {
+        {
+            $validated = $request->validate([
+                'course_id' => 'required|exists:courses,id',
+                'year_level' => 'nullable|string',
+                'block' => 'nullable|string',
+                'subject_id' => 'required|exists:subjects,id',
+                'user_id' => 'required|exists:users,id',
+                'days' => 'nullable|array', // Validate as an array
+                'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun', // Ensure valid day values
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i|after:start_time',
+                'curriculum_id' => 'required|exists:curriculums,id',
+            ]);
         
-        $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'year_level' => 'nullable|string',
-            'block' => 'nullable|string',
-            'subject_id' => 'required|exists:subjects,id',
-            'user_id' => 'required|exists:users,id',
-            'days_time' => 'nullable|string',
-            'curriculum_id' => 'required|exists:curriculums,id',
-        ]);
-
+            Schedule::create([
+                'course_id' => $validated['course_id'],
+                'year_level' => $validated['year_level'],
+                'block' => $validated['block'],
+                'subject_id' => $validated['subject_id'],
+                'user_id' => $validated['user_id'],
+                'days' => implode(',', $validated['days'] ?? []), // Convert array to string
+                'start_time' => $validated['start_time'],
+                'end_time' => $validated['end_time'],
+                'curriculum_id' => $validated['curriculum_id'],
+            ]);
         
-        Schedule::create([
-            'course_id' => $validated['course_id'],
-            'year_level' => $validated['year_level'],
-            'block' => $validated['block'],
-            'subject_id' => $validated['subject_id'],
-            'user_id' => $validated['user_id'],
-            'days_time' => $validated['days_time'],
-            'curriculum_id' => $validated['curriculum_id'],
-        ]);
-
-        return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
-    }
-
-
+            return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
+        }
 
     //EDIT//
 
@@ -71,27 +72,38 @@ class ScheduleController extends Controller
         $curriculum = Curriculum::with('subjects')->findOrFail($schedule->curriculum_id);
         $subjects = $curriculum->subjects;
         $courses = Course::all();
-        $users = Users::where('role_id', 5)->get();
+        $users = Users::where('role_id', 6)->get();
     
         return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
     }
 
-public function update(Request $request, $id)
+    public function update(Request $request, $id)
 {
-    
-    $request->validate([
+    $validated = $request->validate([
         'course_id' => 'required|exists:courses,id',
         'year_level' => 'nullable|string',
         'block' => 'nullable|string',
         'subject_id' => 'required|exists:subjects,id',
         'user_id' => 'required|exists:users,id',
-        'days_time' => 'nullable|string',
+        'days' => 'nullable|array',
+        'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i|after:start_time',
         'curriculum_id' => 'required|exists:curriculums,id',
     ]);
 
-   
     $schedule = Schedule::findOrFail($id);
-    $schedule->update($request->all());
+    $schedule->update([
+        'course_id' => $validated['course_id'],
+        'year_level' => $validated['year_level'],
+        'block' => $validated['block'],
+        'subject_id' => $validated['subject_id'],
+        'user_id' => $validated['user_id'],
+        'days' => implode(',', $validated['days'] ?? []),
+        'start_time' => $validated['start_time'],
+        'end_time' => $validated['end_time'],
+        'curriculum_id' => $validated['curriculum_id'],
+    ]);
 
     return redirect()->route('curriculums_program_head')->with('success', 'Schedule updated successfully!');
 }

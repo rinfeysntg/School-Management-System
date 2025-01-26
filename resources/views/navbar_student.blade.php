@@ -7,25 +7,25 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/registrar">Dashboard</a>
+          <a class="nav-link active" aria-current="page" href="/students">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/announcement">Announcements</a>
+          <a class="nav-link" href="{{ route('student.profile') }}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/departments">Departments</a>
+          <a class="nav-link" href="{{ route('announcement.student') }}">Announcements</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/coursedashboard">Courses</a>
+          <a class="nav-link" href="{{ route('student.activities') }}">Academics</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/curriculums">Curriculums</a>
+          <a class="nav-link" href="{{ route('student.schedule') }}">Schedule</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/subjects">Subjects</a>
+          <a class="nav-link" href="{{ route('student.dashboard') }}">Attendance</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/buildings">Buildings</a>
+          <a class="nav-link" href="{{ route('enrollment_dashboard') }}">Enrollment</a>
         </li>
       </ul>
     </div>
