@@ -115,6 +115,34 @@
                 required>
             </div>
 
+            <div class="mb-3">
+                <label for="building_id" class="RbuildingLbl">Building:</label>
+                <select id="building_id" name="building_id" class="form-control" required>
+                <option value="">Select Building</option>
+                    @foreach($buildings as $building)
+                <option value="{{ $building->id }}" {{ old('building_id') == $building->id ? 'selected' : '' }}>
+                    {{ $building->name }}
+                </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="room_id" class="RbuildingLbl">Room:</label>
+                <select id="room_id" name="room_id" class="form-control" required>
+                <option value="">Select Room</option>
+                @foreach($buildings as $building)
+                    <optgroup label="{{ $building->name }}">
+                        @foreach($building->rooms as $room)
+                            <option value="{{ $room->id }}" {{ old('room_id') == $room->id ? 'selected' : '' }}>
+                                {{ $room->name }}
+                            </option>
+                        @endforeach
+                    </optgroup>
+                @endforeach
+                </select>
+            </div>
+
 
             <div class="button-container">
                 <button type="submit" class="createRoomBtn">Update</button>
