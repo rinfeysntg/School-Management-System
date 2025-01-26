@@ -18,13 +18,14 @@ return new class extends Migration
             $table->string('address');
             $table->string('username')->unique(); 
             $table->string('email')->unique();    
-            $table->string('password');
+            $table->string('password')->default('SCHOOL-AUTOMATE');
             $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
             $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('set null');
             $table->string('year_level')->nullable();
             $table->string('block')->nullable();
             $table->foreignId('role_id')->constrained('roles')->onDelete('set null');
             $table->timestamps(); 
+            $table->integer('first_time_log_in')->default(1);
         });
     }
 
