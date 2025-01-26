@@ -6,7 +6,9 @@
         <form id="editCourseForm" action="{{ route('courses.update', $course->id) }}" method="POST" onsubmit="return confirmUpdate()">
             @csrf
             @method('PUT') 
-            
+            @error('name')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <label for="name" class="form-label">Course Name:</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name', $course->name) }}" required>
@@ -38,16 +40,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    function confirmUpdate() {
-        if (confirm('Update Course?')) {
-            setTimeout(() => {
-                alert('Course Updated');
-            }, 100);
-            return true;
-        }
-        return false;
-    }
-</script>
 @endsection
