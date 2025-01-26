@@ -18,7 +18,7 @@ class Curriculum extends Model
     protected $table = 'curriculums';
     public function subjects()
     {
-        return $this->hasMany(Subject::class);
+        return $this->belongsToMany(Subject::class, 'curriculum_subject');
     }
 
     public function schedules()

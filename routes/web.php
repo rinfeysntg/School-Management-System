@@ -229,6 +229,11 @@ Route::get('/curriculums/{id}', [CurriculumController::class, 'show'])->name('cu
 Route::get('/curriculums/{id}/edit', [CurriculumController::class, 'edit'])->name('curriculums_edit');
 Route::put('/curriculums/{id}', [CurriculumController::class, 'update'])->name('curriculums_update');
 Route::delete('/curriculums/{id}', [CurriculumController::class, 'destroy'])->name('curriculums_destroy');
+Route::get('/curriculums/{curriculumId}/subjects/list', [CurriculumController::class, 'listSubjects'])->name('subjects_list');
+Route::post('/curriculums/{curriculumId}/attach-subjects', [CurriculumController::class, 'attachSubjects'])->name('attach_subjects');
+Route::post('/curriculums/{curriculumId}/subjects/{subjectId}/detach', [CurriculumController::class, 'detachSubject'])->name('subjects.detach');
+
+
 
 // Payroll
 Route::get('/payroll', [PayrollDashboardController::class, 'index'])->name('payrollDashboard');

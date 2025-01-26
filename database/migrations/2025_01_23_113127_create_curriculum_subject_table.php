@@ -10,21 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('subjects', function (Blueprint $table) {
+    {
+        Schema::create('curriculum_subject', function (Blueprint $table) {
         $table->id();
-        $table->string('code')->unique();
-        $table->string('name')->unique();
-        $table->longText('description')->nullable();
+        $table->foreignId('curriculum_id')->constrained('curriculums')->onDelete('cascade');
+        $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
         $table->timestamps();
-    });
-}
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('subject');
+        Schema::dropIfExists('curriculum_subject');
     }
 };

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Curriculum;
 use App\Models\Course;
 use App\Models\Users;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 
@@ -12,19 +13,19 @@ class CurriculumController extends Controller
 {
    
     public function index(Request $request)
-    {
-          
-        $courses = Course::all();
-        $curriculums = Curriculum::with('user')->get();
-
-        if ($request->has('course_id') && $request->course_id != '') {
-            $curriculums = Curriculum::where('course_id', $request->course_id)->get();
-        } else {
-            $curriculums = collect();
-        }
-
-        return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
+{
+    $courses = Course::all();
+    
+    $curriculums = Curriculum::with('user');
+    if ($request->has('course_id') && $request->course_id != '') {
+        $curriculums = $curriculums->where('course_id', $request->course_id);
     }
+
+    
+    $curriculums = $curriculums->get();
+
+    return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
+}
 
     public function programheadIndex() {
 
@@ -91,7 +92,18 @@ class CurriculumController extends Controller
         $courses = Course::all();
         $curriculum = Curriculum::with('subjects')->findOrFail($id);
         return view('subjects.curriculums.show', compact('curriculum'));
+
+        
     }
+
+    public function listSubjects($curriculumId)
+    {
+        $curriculum = Curriculum::findOrFail($curriculumId); 
+        $subjects = Subject::all();
+
+        return view('subjects.list_subjects', compact('subjects', 'curriculum'));
+    }
+
 
     public function showSchedule($curriculumId)
     {
@@ -100,11 +112,14 @@ class CurriculumController extends Controller
     }
 
     public function edit($id)
-    {
-        $courses = Course::all();
-        $curriculum = Curriculum::findOrFail($id);
-        return view('subjects.curriculums.edit_cur', compact('curriculum','courses'));
-    }
+{
+    $courses = Course::all();
+    $users = Users::all();
+    $curriculum = Curriculum::findOrFail($id);
+
+    return view('subjects.curriculums.edit_cur', compact('curriculum', 'courses', 'users'));
+}
+
 
     
     public function update(Request $request, $id)
@@ -130,4 +145,30 @@ class CurriculumController extends Controller
 
         return redirect()->route('curriculums_index');
     }
+
+    public function attachSubjects(Request $request, $id)
+{
+    $curriculum = Curriculum::findOrFail($id);
+
+    
+    $request->validate([
+        'subjects' => 'array',
+        'subjects.*' => 'exists:subjects,id',
+    ]);
+
+   
+    $curriculum->subjects()->syncWithoutDetaching($request->input('subjects', []));
+
+    return view('subjects.curriculums.show', compact('curriculum'));
+}
+
+    public function detachSubject($curriculumId, $subjectId)
+    {
+       $curriculum = Curriculum::findOrFail($curriculumId);
+
+       $curriculum->subjects()->detach($subjectId);
+
+       return view('subjects.curriculums.show', compact('curriculum'));
+}
+
 }
