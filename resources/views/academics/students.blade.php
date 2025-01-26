@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 @if (isset($finalGrades[$student->id]))
-                                    {{ number_format($finalGrades[$student->id], 2) }} %
+                                    {{ number_format($finalGrades[$student->id], 2) }}
                                 @else
                                     Not Graded
                                 @endif

@@ -37,6 +37,16 @@ class GradeController extends Controller
             'student_id' => 'required|exists:users,id',
         ]);
 
+        $existingActivity = Activity::where('name', $validated['name'])
+        ->where('subject_id', $validated['subject_id'])
+        ->where('student_id', $validated['student_id'])
+        ->where('prof_id', $professor->id)
+        ->first();
+
+    if ($existingActivity) {
+        return redirect()->back()->withErrors(['duplicate' => 'This activity already exists for the selected student and subject.']);
+    }
+
         $grade = ($validated['score'] / $validated['max_score']) * 100;
 
         $activity = Activity::create([
@@ -102,6 +112,17 @@ public function updateActivity(Request $request, $id)
         'subject_id' => 'required|exists:subjects,id',
         'student_id' => 'required|exists:users,id',
     ]);
+
+    $existingActivity = Activity::where('name', $validated['name'])
+    ->where('subject_id', $validated['subject_id'])
+    ->where('student_id', $validated['student_id'])
+    ->where('prof_id', $professor->id)
+    ->where('id', '!=', $id) // Exclude the current activity being updated
+    ->first();
+
+if ($existingActivity) {
+    return redirect()->back()->withErrors(['duplicate' => 'This activity already exists for the selected student and subject.']);
+}
 
     $grade = ($validated['score'] / $validated['max_score']) * 100;
 
@@ -231,7 +252,7 @@ public function showStudents(Request $request)
             $finalAssignmentGrade = $totalAssignmentGrade * ($gradePercentage->assignment_percentage / 100);
 
             // Calculate final grade
-            $finalGrade = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
+            $finalGradePercentage = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
 
             $finalGradePoint = $this->mapPercentageToPoints($finalGradePercentage);
 
@@ -310,11 +331,13 @@ public function showStudentGrade(Request $request)
             $finalExamGrade = $totalExamGrade * ($gradePercentage->exam_percentage / 100);
             $finalAssignmentGrade = $totalAssignmentGrade * ($gradePercentage->assignment_percentage / 100);
 
-            // Calculate final grade
-            $finalGrade = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
+            $finalGradePercentage = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
 
-            // Store the final grade for each subject
-            $finalGrades[$subject->id] = $finalGrade;
+            // Map the percentage to the point system
+            $finalGradePoint = $this->mapPercentageToPoints($finalGradePercentage);
+            
+            // Store the final grade as points for each subject
+            $finalGrades[$subject->id] = $finalGradePoint;
         }
     }
 

@@ -12,6 +12,7 @@
                     <th scope="col">Subject</th>
                     <th scope="col">Instructor</th>
                     <th scope="col">Days & Time</th>
+                    <th scope="col">Building & Room</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,9 @@
                 <td>
                             {{ implode(', ', explode(',', $schedule->days)) }} <br>
                             {{ date('h:i A', strtotime($schedule->start_time)) }} - {{ date('h:i A', strtotime($schedule->end_time)) }}
+                </td>
+                <td>
+                        {{ $schedule->building->name ?? 'N/A' }} - {{ $schedule->room->name ?? 'N/A' }}
                 </td>
             </tr>
             @empty

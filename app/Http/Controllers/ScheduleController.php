@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Users;
 use App\Models\Subject;
 use App\Models\Curriculum;
+use App\Models\Building;
 
 class ScheduleController extends Controller
 {
@@ -19,18 +20,20 @@ class ScheduleController extends Controller
         $users = Users::where('role_id', 6)
                 ->where('department_id', $user->department_id)
                 ->get();
+        $buildings = Building::with('rooms')->get();
 
         return view('schedule.create_sched', [
             'curriculum' => $curriculum,
             'subjects' => $curriculum->subjects,
             'courses' => $courses,
             'users' => $users,
+            'buildings' => $buildings,
         ]);
     }
 
     public function index()
         {
-            $schedules = Schedule::with(['course', 'subject', 'user'])->get(); 
+            $schedules = Schedule::with(['course', 'subject', 'user', 'building'])->get(); 
             return view('schedule.index_sched', compact('schedules'));
         }
    
@@ -46,18 +49,35 @@ class ScheduleController extends Controller
                 'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun', // Ensure valid day values
                 'start_time' => 'required|date_format:H:i',
                 'end_time' => 'required|date_format:H:i|after:start_time',
+                'building_id' => 'required|exists:buildings,id',
+                'room_id' => 'required|exists:rooms,id',
                 'curriculum_id' => 'required|exists:curriculums,id',
             ]);
-        
+
+           
+            $duplicateSchedule = Schedule::where('course_id', $validated['course_id'])
+                        ->where('year_level', $validated['year_level'])
+                        ->where('block', $validated['block'])
+                        ->where('subject_id', $validated['subject_id'])
+                        ->where('curriculum_id', $validated['curriculum_id'])
+                        ->exists();
+
+            if ($duplicateSchedule) {
+                return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
+            }
+
+
             Schedule::create([
                 'course_id' => $validated['course_id'],
                 'year_level' => $validated['year_level'],
                 'block' => $validated['block'],
                 'subject_id' => $validated['subject_id'],
                 'user_id' => $validated['user_id'],
-                'days' => implode(',', $validated['days'] ?? []), // Convert array to string
+                'days' => implode(',', $validated['days'] ?? []), 
                 'start_time' => $validated['start_time'],
                 'end_time' => $validated['end_time'],
+                'building_id' => $validated['building_id'],
+                'room_id' => $validated['room_id'],
                 'curriculum_id' => $validated['curriculum_id'],
             ]);
         
@@ -73,8 +93,9 @@ class ScheduleController extends Controller
         $subjects = $curriculum->subjects;
         $courses = Course::all();
         $users = Users::where('role_id', 6)->get();
+        $buildings = Building::with('rooms')->get();
     
-        return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users'));
+        return view('schedule.edit_sched', compact('schedule', 'curriculum', 'subjects' ,'courses', 'users', 'buildings'));
     }
 
     public function update(Request $request, $id)
@@ -89,10 +110,26 @@ class ScheduleController extends Controller
         'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun',
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i|after:start_time',
+        'building_id' => 'required|exists:buildings,id',
+        'room_id' => 'required|exists:rooms,id',
         'curriculum_id' => 'required|exists:curriculums,id',
     ]);
 
     $schedule = Schedule::findOrFail($id);
+
+    $duplicateSchedule = Schedule::where('course_id', $validated['course_id'])
+        ->where('year_level', $validated['year_level'])
+        ->where('block', $validated['block'])
+        ->where('subject_id', $validated['subject_id'])
+        ->where('curriculum_id', $validated['curriculum_id'])
+        ->where('id', '!=', $schedule->id)
+        ->exists();
+
+    if ($duplicateSchedule) {
+        return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
+    }
+
+
     $schedule->update([
         'course_id' => $validated['course_id'],
         'year_level' => $validated['year_level'],
@@ -102,6 +139,8 @@ class ScheduleController extends Controller
         'days' => implode(',', $validated['days'] ?? []),
         'start_time' => $validated['start_time'],
         'end_time' => $validated['end_time'],
+        'building_id' => $validated['building_id'],
+        'room_id' => $validated['room_id'],
         'curriculum_id' => $validated['curriculum_id'],
     ]);
 

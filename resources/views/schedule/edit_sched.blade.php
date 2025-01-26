@@ -2,6 +2,14 @@
 @include('navbar_programhead')
 @section('content')
 
+@if($errors->any())
+        <div id="error-messages" style="display: none;">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
 <div class="rec_dashboard">
     <h1 class="createroomLbl">Edit Schedule</h1> 
 
@@ -115,6 +123,34 @@
                 required>
             </div>
 
+            <div class="mb-3">
+                <label for="building_id" class="RbuildingLbl">Building:</label>
+                <select id="building_id" name="building_id" class="form-control" required>
+                <option value="">Select Building</option>
+                    @foreach($buildings as $building)
+                <option value="{{ $building->id }}" {{ $building->id == $schedule->building_id ? 'selected' : '' }}>
+                    {{ $building->name }}
+                </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="room_id" class="RbuildingLbl">Room:</label>
+                <select id="room_id" name="room_id" class="form-control" required>
+                <option value="">Select Room</option>
+                @foreach($buildings as $building)
+                    <optgroup label="{{ $building->name }}">
+                        @foreach($building->rooms as $room)
+                            <option value="{{ $room->id }}" {{ $room->id == $schedule->room_id ? 'selected' : '' }}>
+                                {{ $room->name }}
+                            </option>
+                        @endforeach
+                    </optgroup>
+                @endforeach
+                </select>
+            </div>
+
 
             <div class="button-container">
                 <button type="submit" class="createRoomBtn">Update</button>
@@ -124,3 +160,18 @@
 </div>
 
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const errorMessages = document.getElementById('error-messages');
+        if (errorMessages) {
+            let messages = '';
+            errorMessages.querySelectorAll('p').forEach((error) => {
+                messages += error.innerText + '\n'; 
+            });
+            if (messages) {
+                alert(messages); 
+            }
+        }
+    });
+</script>
