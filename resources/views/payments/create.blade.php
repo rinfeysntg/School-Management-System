@@ -20,9 +20,14 @@
             </h4>         
             <br>
             <div class="button-container">
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn">Create Payment</button>
             </div>
         </form>
+        <br>
+            <div class="button-container" style="float:right;">
+                <a href="{{ route('payments.index') }}"><button class="btn">Return</button></a>
+            </div>
+        
         <br>
     </div>
 </div>

@@ -24,11 +24,13 @@
             </h4>         
             <br>
 
-            <div class="button-container">
+            <div class="button-container1">
                 <button type="submit" class="btn">Update Payment</button>
             </div>
         </form>
-        <br>
+            <div class="button-container" style="float:left;">
+                <a href="{{ route('payments.index') }}"><button class="btn">Return</button></a>
+            </div>
     </div>
 </div>
 
@@ -36,12 +38,12 @@
     $(document).ready(function () {
         $('#user_id').select2({
             ajax: {
-                url: '{{ route("payments.searchUsers") }}',  // The route to search for users
+                url: '{{ route("payments.searchUsers") }}',
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
                     return {
-                        search: params.term, // The search query
+                        search: params.term,
                     };
                 },
                 processResults: function (data) {

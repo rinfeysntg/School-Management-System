@@ -23,7 +23,7 @@ class ProgramHead extends Controller
         
         $users = Users::with(['role', 'department', 'course'])
         ->where('department_id', $user->department_id)
-        ->where('role_id', 6)
+        ->where('role_id', 7)
         ->when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%")
@@ -59,7 +59,7 @@ class ProgramHead extends Controller
         $users->year_level = $request->get('year_level');
         $users->block = $request->get('block');
 
-        $users->role_id = 6;
+        $users->role_id = 7;
 
         $users->save();
 
@@ -105,7 +105,7 @@ class ProgramHead extends Controller
         $users->year_level = $req->get('year_level');
         $users->block = $req->get('block');
 
-        $users->role_id = 6;
+        $users->role_id = 7;
 
         $users->save();
 

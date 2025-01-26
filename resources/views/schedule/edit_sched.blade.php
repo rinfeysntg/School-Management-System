@@ -71,9 +71,50 @@
             </div>
 
             <div class="mb-3">
-                <label for="days_time" class="RnamelBl">Days and Time:</label>
-                <input type="text" class="Nrooms_txt" id="days_time" name="days_time" value="{{ $schedule->days_time }}" required>
+                <label for="days" class="RnamelBl">Days:</label>
+                <div>
+        @php
+            $daysOfWeek = ['Mon' => 'Monday', 'Tue' => 'Tuesday', 'Wed' => 'Wednesday', 'Thu' => 'Thursday', 'Fri' => 'Friday', 'Sat' => 'Saturday', 'Sun' => 'Sunday'];
+            $selectedDays = isset($schedule) ? explode(',', $schedule->days) : [];
+        @endphp
+        @foreach ($daysOfWeek as $key => $day)
+            <div class="form-check form-check-inline">
+                <input 
+                    type="checkbox" 
+                    name="days[]" 
+                    id="day_{{ $key }}" 
+                    class="form-check-input" 
+                    value="{{ $key }}"
+                    @if(in_array($key, old('days', $selectedDays))) checked @endif
+                >
+                <label for="day_{{ $key }}" class="form-check-label">{{ $day }}</label>
             </div>
+        @endforeach
+    </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="start_time" class="RnamelBl">Start Time:</label>
+                <input 
+                type="time" 
+                id="start_time" 
+                name="start_time" 
+                class="form-control" 
+                value="{{ old('start_time', isset($schedule) ? $schedule->start_time : '') }}" 
+                required>
+            </div>
+
+            <div class="mb-3">
+                <label for="end_time" class="RnamelBl">End Time:</label>
+                <input 
+                type="time" 
+                id="end_time" 
+                name="end_time" 
+                class="form-control" 
+                value="{{ old('end_time', isset($schedule) ? $schedule->end_time : '') }}" 
+                required>
+            </div>
+
 
             <div class="button-container">
                 <button type="submit" class="createRoomBtn">Update</button>

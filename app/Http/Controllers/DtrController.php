@@ -11,7 +11,7 @@ class DtrController extends Controller
     // Show the DTR form for time in/out
     public function showForm()
     {
-        $employees = Users::where('role_id', '!=', 7)->get();
+        $employees = Users::where('role_id', '!=', 6)->get();
         return view('attendance.dtr.form', compact('employees')); // Pass the employees list to the form view
     }
 

@@ -3,6 +3,15 @@
 @section('enrollmentTable')
 <div class="glass">
     <h1 class="heading">Enrolled Students</h1>
+
+    <!-- Search Form -->
+    <form method="GET" action="{{ route('enrollmentTable') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by Name" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
     <div class="table-responsive">
         <table class="table table-success table-striped">
             <thead class="thead-light">
@@ -23,10 +32,13 @@
                             <a href="{{ route('enrollment.edit', $enrollment->id) }}">Edit</a>
                         </td>
                     </tr>
-                @endforeach 
+                @endforeach
             </tbody>
         </table>
     </div>
+
+    <!-- Pagination Links -->
+    {{ $enrollments->links() }}
 
     <div class="button-container">
         <a href="{{ route('enrollmentTableNot') }}"><button class="btn">View Not Enrolled</button></a>
