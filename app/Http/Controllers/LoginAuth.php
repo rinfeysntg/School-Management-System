@@ -47,29 +47,33 @@ class LoginAuth extends Controller
 
     private function redirectToRolePage($role_id)
     {
-        $user = session('user');
-    
-        if ($user->first_time_log_in == 1) {
-            return redirect()->route('change_password'); 
-        }
-    
+    $user = session('user');
+
+    // Ensure first_time_log_in is checked
+    if ($user->first_time_log_in == 1) {
+        return redirect()->route('change_password');
+    }
+
         if ($role_id == 'admin') {
-            return redirect()->route('registrar'); // Admin or registrar
+            return redirect()->route('registrar');
         } elseif ($role_id == 'registrar') {
-            return redirect()->route('registrar'); // Admin or registrar
-        } elseif ($role_id == 3) {
-            return redirect()->route('treasury'); // Treasury
-        } elseif ($role_id == 4) {
-            return redirect()->route('program_head'); // Program Head
-        } elseif ($role_id == 5) {
-            return redirect()->route('professor'); 
-        } elseif ($role_id == 6) {
-            return redirect()->route('student_dashboard'); // Students
+            return redirect()->route('registrar');
+        } elseif ($role_id == 'treasury') {
+            return redirect()->route('course');
+        } elseif ($role_id == 'program_head') {
+            return redirect()->route('course');
+        } elseif ($role_id == 'human_resource') {
+            return redirect()->route('course');
+        } elseif ($role_id == 'professors') {
+            return redirect()->route('course');
+        } elseif ($role_id == 'student') {
+            return redirect()->route('student_dashboard');
         }
-    
+
         // Default route if no role matches
         return redirect()->route('login')->withErrors(['Role not found']);
     }
+
     
     public function changePasswordPage()
 
