@@ -2,6 +2,14 @@
 @include('navbar_professor')
 @section('content')
 
+@if($errors->any())
+        <div id="error-messages" style="display: none;">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
 <div class="rec_dashboard">
     <h1 class="createroomLbl">Add New Activity</h1>
 
@@ -73,6 +81,19 @@
             placeholder: 'Search for a student',
             minimumInputLength: 1
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const errorMessages = document.getElementById('error-messages');
+        if (errorMessages) {
+            let messages = '';
+            errorMessages.querySelectorAll('p').forEach((error) => {
+                messages += error.innerText + '\n'; 
+            });
+            if (messages) {
+                alert(messages); 
+            }
+        }
     });
 </script>
 
