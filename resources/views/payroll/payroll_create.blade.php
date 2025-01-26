@@ -107,6 +107,9 @@
                 @error('user_id_create')
                     <div class="alert alert-danger">User already in payroll/<br>User does not exist</div>
                 @enderror
+                @error('date_end_create')
+                    <div class="alert alert-danger">Start Date must not exceed End Date</div>
+                @enderror
             </div>
         </form>
         <div class="function-box">
