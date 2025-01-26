@@ -122,6 +122,7 @@
                 <div class="input-box payroll_id">
                     <input id="payroll_id" name="payroll_id" readonly>
                 </div>
+                <div class="alert alert-info">Note: Users that got tracked<br>will be logged in and be<br>shown once they time in.</div>
                 @error('user_id')
                     <div class="alert alert-danger">User payroll has already<br>been released</div>
                 @enderror

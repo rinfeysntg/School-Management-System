@@ -105,7 +105,7 @@
                 
                 <div class="input-box payroll_id">
                     <input id="payroll_id_update" value="{{$data[0]->payroll_id}}" name="payroll_id_update" readonly>
-                    <input id="attendance_update" value ="{{$data[0]->attendances}}" name="attendance_update" readonly>
+                    <input id="attendance_update" value ="{{ $data[0]->dtrs ?? 0 }}" name="attendance_update" readonly>
                     <input id="rate_update" value="{{$data[0]->rate}}" name="rate_update" readonly>
                 </div>
                 <button type="submit" class="btn btn-success update">Update</button>

@@ -21,7 +21,10 @@ class PayrollDashboardController extends Controller
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
                 ->join('departments', 'departments.id', '=', 'users.department_id')
-                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
+                ->join('dtrs', function ($join) {
+                    $join->on('dtrs.employee_id', '=', 'payrolls.user_id')
+                         ->whereBetween('dtrs.date', [DB::raw('payrolls.date_start'), DB::raw('payrolls.date_end')]);
+                })
                 ->select(
                     'users.id as user_id',
                     'users.address as address',
@@ -31,7 +34,6 @@ class PayrollDashboardController extends Controller
                     'users.email as email',
                     'roles.name as role',
                     'departments.name as department',
-                    'payrolls.date_end',
                     'positions.name as position',
                     'payrolls.date_start as date_start',
                     'payrolls.date_end as date_end',
@@ -39,7 +41,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendances.id) as attendances')
+                    DB::raw('COUNT(dtrs.id) as dtrs')
                 )
                 ->groupBy(
                     'payrolls.user_id', 
@@ -51,7 +53,6 @@ class PayrollDashboardController extends Controller
                     'users.email',
                     'roles.name',
                     'departments.name',
-                    'payrolls.date_end',
                     'positions.name',
                     'payrolls.date_start',
                     'payrolls.date_end',
@@ -77,6 +78,8 @@ class PayrollDashboardController extends Controller
         // Validate the request
         $validated = $request->validate([
             'user_id_create' => 'required|integer|unique:payrolls,user_id',
+            'date_start_create' => 'required|date',
+            'date_end_create' => 'required|date|after:date_start_create'
         ]);
 
         Payroll::create([
@@ -96,7 +99,10 @@ class PayrollDashboardController extends Controller
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
                 ->join('departments', 'departments.id', '=', 'users.department_id')
-                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
+                ->join('dtrs', function ($join) {
+                    $join->on('dtrs.employee_id', '=', 'payrolls.user_id')
+                         ->whereBetween('dtrs.date', [DB::raw('payrolls.date_start'), DB::raw('payrolls.date_end')]);
+                })
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -107,7 +113,6 @@ class PayrollDashboardController extends Controller
                     'users.email as email',
                     'roles.name as role',
                     'departments.name as department',
-                    'payrolls.date_end',
                     'positions.name as position',
                     'payrolls.date_start as date_start',
                     'payrolls.date_end as date_end',
@@ -115,7 +120,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendances.id) as attendances')
+                    DB::raw('COUNT(dtrs.id) as dtrs')
                 )
                 ->groupBy(
                     'payrolls.user_id',
@@ -127,7 +132,6 @@ class PayrollDashboardController extends Controller
                     'users.email',
                     'roles.name',
                     'departments.name',
-                    'payrolls.date_end',
                     'positions.name',
                     'payrolls.date_start',
                     'payrolls.date_end',
@@ -172,7 +176,10 @@ class PayrollDashboardController extends Controller
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
                 ->join('departments', 'departments.id', '=', 'users.department_id')
-                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
+                ->join('dtrs', function ($join) {
+                    $join->on('dtrs.employee_id', '=', 'payrolls.user_id')
+                         ->whereBetween('dtrs.date', [DB::raw('payrolls.date_start'), DB::raw('payrolls.date_end')]);
+                })
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -183,7 +190,6 @@ class PayrollDashboardController extends Controller
                     'users.email as email',
                     'roles.name as role',
                     'departments.name as department',
-                    'payrolls.date_end',
                     'positions.name as position',
                     'payrolls.date_start as date_start',
                     'payrolls.date_end as date_end',
@@ -191,7 +197,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendances.id) as attendances')
+                    DB::raw('COUNT(dtrs.id) as dtrs')
                 )
                 ->groupBy(
                     'payrolls.user_id', 
@@ -203,7 +209,6 @@ class PayrollDashboardController extends Controller
                     'users.email',
                     'roles.name',
                     'departments.name',
-                    'payrolls.date_end',
                     'positions.name',
                     'payrolls.date_start',
                     'payrolls.date_end',
