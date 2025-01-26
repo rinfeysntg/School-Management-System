@@ -85,7 +85,7 @@
                 
                 <div class="input-box payroll_id">
                     <input id="payroll_id_release" value="{{$data[0]->payroll_id}}" name="payroll_id_release" readonly>
-                    <input id="attendance_release" value ="{{$data[0]->attendances}}" name="attendance_release" readonly>
+                    <input id="attendance_release" value ="{{$data[0]->dtrs}}" name="attendance_release" readonly>
                     <input id="rate_release" value="{{$data[0]->rate}}" name="rate_release" readonly>
                 </div>
                 <button type="submit" class="btn btn-success update">Release</button>
