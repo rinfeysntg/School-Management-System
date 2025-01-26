@@ -127,6 +127,31 @@ public function destroyActivity($id)
     return redirect()->route('activities.index')->with('success', 'Activity deleted successfully.');
 }
 
+private function mapPercentageToPoints($percentage)
+{
+    if ($percentage >= 98) {
+        return 1.0;
+    } elseif ($percentage >= 95) {
+        return 1.25;
+    } elseif ($percentage >= 92) {
+        return 1.5;
+    } elseif ($percentage >= 89) {
+        return 1.75;
+    } elseif ($percentage >= 86) {
+        return 2.0;
+    } elseif ($percentage >= 83) {
+        return 2.25;
+    } elseif ($percentage >= 80) {
+        return 2.5;
+    } elseif ($percentage >= 77) {
+        return 2.75;
+    } elseif ($percentage >= 75) {
+        return 3.0;
+    } else {
+        return 5.0; // Fail
+    }
+}
+
 public function showStudents(Request $request)
 {
     $professor = session('user');
@@ -208,8 +233,10 @@ public function showStudents(Request $request)
             // Calculate final grade
             $finalGrade = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
 
+            $finalGradePoint = $this->mapPercentageToPoints($finalGradePercentage);
+
             // Store the final grade
-            $finalGrades[$student->id] = $finalGrade;
+            $finalGrades[$student->id] = $finalGradePoint;
         }
     }
 
