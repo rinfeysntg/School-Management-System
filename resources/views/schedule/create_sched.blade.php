@@ -2,6 +2,14 @@
 @include('navbar_programhead')
 @section('content')
 
+@if($errors->any())
+        <div id="error-messages" style="display: none;">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
 <div class="rec_dashboard">
     
     <h1 class="createroomLbl">Create Schedule</h1>
@@ -148,3 +156,18 @@
 </div>
 
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const errorMessages = document.getElementById('error-messages');
+        if (errorMessages) {
+            let messages = '';
+            errorMessages.querySelectorAll('p').forEach((error) => {
+                messages += error.innerText + '\n'; 
+            });
+            if (messages) {
+                alert(messages); 
+            }
+        }
+    });
+</script>

@@ -290,7 +290,9 @@ Route::post('/grade_percentages', [GradePercentageController::class, 'store'])->
 Route::put('/grade-percentages/{subjectId}', [GradePercentageController::class, 'update'])->name('grade_percentages.update');
 Route::delete('/grade-percentages/{subjectId}', [GradePercentageController::class, 'destroy'])->name('grade_percentages.destroy');
 
+//
 
+Route::resource('schedules', ScheduleController::class)->middleware('web');
 
 
 
