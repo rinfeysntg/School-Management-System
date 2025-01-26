@@ -37,6 +37,9 @@ Route::get('/login', [LoginAuth::class, 'Unback']);
 Route::get('login', [LoginAuth::class, 'LoginPage'])->name('login');
 Route::post('login', [LoginAuth::class, 'login']);
 Route::get('logout', [LoginAuth::class, 'logout'])->name('logout');
+Route::get('/change-password', [LoginAuth::class, 'changePasswordPage'])->name('change_password');
+Route::post('/update-password', [LoginAuth::class, 'updatePassword'])->name('update_password');
+
 
 
 // registrar site

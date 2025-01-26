@@ -9,36 +9,52 @@ class LoginAuth extends Controller
 {
     public function LoginPage()
     {
-        if (session()->has('user')) {
-            $role_id = session('user')->role_id;
-            return $this->redirectToRolePage($role_id); 
+    if (session()->has('user')) {
+        $user = session('user');
+
+        if ($user->first_time_log_in == 1) {
+            return redirect()->route('change_password');
         }
 
-        return view('login');
+        return $this->redirectToRolePage($user->role_id); 
+    }
+
+    return view('login');
     }
 
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
 
-        $user = DB::table('users')->where('username', $request->username)->first();
+    $user = DB::table('users')->where('username', $request->username)->first();
 
-        if ($user && $user->password === $request->password) {
-            session(['user' => $user]); 
-            return $this->redirectToRolePage($user->role_id); 
+    if ($user && $user->password === $request->password) {
+        session(['user' => $user]);
+
+        if ($user->first_time_log_in == 1) {
+            return redirect()->route('change_password');
         }
 
-        return redirect()->route('login')->withErrors('Invalid username or password');
+        return $this->redirectToRolePage($user->role_id);
     }
+
+    return redirect()->route('login')->withErrors('Invalid username or password');
+    }
+
 
     private function redirectToRolePage($role_id)
     {
-
+        $user = session('user');
+    
+        if ($user->first_time_log_in == 1) {
+            return redirect()->route('change_password'); 
+        }
+    
         if ($role_id == 'admin') {
-            return redirect()->route('registrar');  // Admin or registrar
+            return redirect()->route('registrar'); // Admin or registrar
         } elseif ($role_id == 'registrar') {
             return redirect()->route('registrar'); // Admin or registrar
         } elseif ($role_id == 'treasury') {
@@ -56,6 +72,39 @@ class LoginAuth extends Controller
         // Default route if no role matches
         return redirect()->route('login')->withErrors(['Role not found']);
     }
+    
+    public function changePasswordPage()
+
+    {
+    return view('first_time_log_in'); 
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+    
+        $user = session('user');
+    
+        if ($user->password === $request->password) {
+            return redirect()->back()->with('error', 'The new password cannot be the same as the current password.');
+        }
+    
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'password' => $request->password,
+                'first_time_log_in' => 0,
+            ]);
+    
+        $user->first_time_log_in = 0;
+        $user->password = $request->password;
+        session(['user' => $user]);
+    
+        return $this->redirectToRolePage($user->role_id);
+    }
+    
 
     public function logout()
     {
