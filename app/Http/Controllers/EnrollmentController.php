@@ -24,7 +24,7 @@ class EnrollmentController extends Controller
         $search = $request->input('search', '');
 
         $users = Users::where('name', 'LIKE', "%$search%")
-                    ->orWhere('id', 'LIKE', "%{$search}%")->get();
+            ->orWhere('id', 'LIKE', "%{$search}%")->get();
 
         return response()->json($users->map(function ($user) {
             return [
@@ -50,23 +50,50 @@ class EnrollmentController extends Controller
         return redirect()->route('enrollDashboard')->with('success', 'Student enrolled successfully!');
     }
 
-    public function showEnrollmentTable()
+    public function showEnrollmentTable(Request $request)
     {
-        Enrollment::where('status', 'Not Enrolled')->delete();
+        $search = $request->input('search');
 
-        $enrollments = Enrollment::with('user')->get();
+        $enrollments = Enrollment::with('user')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%");
+                });
+            })
+            ->paginate(10);
 
         return view('enrollment.enrollmentTable', compact('enrollments'));
     }
 
-    public function showNotEnrollmentTable()
-    {
-        $users = Users::where('role_id', 6)
-            ->whereDoesntHave('enrollments')
-            ->get();
 
+    public function searchNotEnrolledUsers($search)
+    {
+        return Users::where('role_id', 6)
+            ->whereDoesntHave('enrollments')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%");
+            })
+            ->get();
+    }
+
+
+
+    public function showNotEnrollmentTable(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            $users = $this->searchNotEnrolledUsers($search);
+        } else {
+            $users = Users::where('role_id', 6)
+                ->whereDoesntHave('enrollments')
+                ->get();
+        }
+    
         return view('enrollment.enrollmentTableNot', compact('users'));
     }
+    
+    
 
     public function edit(Enrollment $enrollment)
     {
@@ -80,6 +107,7 @@ class EnrollmentController extends Controller
         ]);
 
         $enrollment->update($request->all());
+
         return redirect()->route('enrollmentTable')->with('success', 'Enrollment updated successfully!');
     }
 }

@@ -1,4 +1,6 @@
 @extends('layoutrole')
+@include('navbar_admin')
+
 
 <div class="pad">
 <form action="{{ route('rolesController') }}" method="GET" class="mb-3">
