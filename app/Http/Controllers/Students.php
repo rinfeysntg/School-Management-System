@@ -86,7 +86,9 @@ class Students extends Controller
                 ->whereIn('target_id', function ($scheduleQuery) use ($user) {
                     $scheduleQuery->select('subject_id') 
                         ->from('schedules')
-                        ->where('user_id', $user->id);
+                        ->where('course_id', $user->course_id)
+                        ->where('year_level', $user->year_level)
+                        ->where('block', $user->block);
                 });
         });
     })
@@ -94,7 +96,6 @@ class Students extends Controller
         ->orWhere(function ($subQuery) use ($user) {
         $subQuery->where('target_type', 'event')
             ->whereIn('target_id', function ($eventQuery) use ($user) {
-                // Assuming the user is attending events through the 'event_students' pivot table
                 $eventQuery->select('event_id')
                     ->from('event_students')
                     ->where('user_id', $user->id)

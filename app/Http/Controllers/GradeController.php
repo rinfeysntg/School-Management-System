@@ -172,6 +172,8 @@ public function showStudents(Request $request)
             $totalExamGrade = 0;
             $totalAssignmentGrade = 0;
             $quizCount = 0;
+            $examCount = 0;
+            $assignmentCount = 0;
 
             // Loop through each activity and categorize them by type
             foreach ($activities as $activity) {
@@ -179,8 +181,10 @@ public function showStudents(Request $request)
                     $quizCount++;
                     $totalQuizGrade += $activity->grade;
                 } elseif (str_contains(strtolower($activity->name), 'exam')) {
+                    $examCount++;
                     $totalExamGrade += $activity->grade;
                 } elseif (str_contains(strtolower($activity->name), 'assignment')) {
+                    $assignmentCount++;
                     $totalAssignmentGrade += $activity->grade;
                 }
             }
@@ -188,6 +192,12 @@ public function showStudents(Request $request)
             // Average quiz grade if multiple quizzes
             if ($quizCount > 0) {
                 $totalQuizGrade /= $quizCount;
+            }
+            if ($examCount > 0) {
+                $totalExamGrade /= $examCount;
+            }
+            if ($assignmentCount > 0) {
+                $totalAssignmentGrade /= $assignmentCount;
             }
 
             // Multiply by respective percentages
@@ -205,6 +215,86 @@ public function showStudents(Request $request)
 
     return view('academics.students', compact('students', 'subjects', 'finalGrades', 'schedules'));
 }
+
+public function showStudentGrade(Request $request)
+{
+    $student = session('user');
+
+    $schedules = Schedule::where('course_id', $student->course_id)
+                         ->where('year_level', $student->year_level)
+                         ->where('block', $student->block)
+                         ->get();
+
+    $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
+
+    $finalGrades = [];
+    $professors = [];
+
+    foreach ($subjects as $subject) {
+
+        $schedule = $schedules->where('subject_id', $subject->id)->first();
+        
+        if ($schedule) {
+            $professor = Users::find($schedule->user_id); 
+            $professors[$subject->id] = $professor; 
+        }
+
+        $gradePercentage = GradePercentage::where('subject_id', $subject->id)->first();
+
+        if ($gradePercentage) {
+            $activities = Activity::where('student_id', $student->id)
+                ->where('subject_id', $subject->id)
+                ->get();
+
+            $totalQuizGrade = 0;
+            $totalExamGrade = 0;
+            $totalAssignmentGrade = 0;
+            $quizCount = 0;
+            $examCount = 0;
+            $assignmentCount = 0;
+
+            // Loop through activities and categorize them by type
+            foreach ($activities as $activity) {
+                if (str_contains(strtolower($activity->name), 'quiz')) {
+                    $quizCount++;
+                    $totalQuizGrade += $activity->grade;
+                } elseif (str_contains(strtolower($activity->name), 'exam')) {
+                    $examCount++;
+                    $totalExamGrade += $activity->grade;
+                } elseif (str_contains(strtolower($activity->name), 'assignment')) {
+                    $assignmentCount++;
+                    $totalAssignmentGrade += $activity->grade;
+                }
+            }
+
+            // Average quiz, exam, and assignment grades if multiple
+            if ($quizCount > 0) {
+                $totalQuizGrade /= $quizCount;
+            }
+            if ($examCount > 0) {
+                $totalExamGrade /= $examCount;
+            }
+            if ($assignmentCount > 0) {
+                $totalAssignmentGrade /= $assignmentCount;
+            }
+
+            // Multiply by respective percentages
+            $finalQuizGrade = $totalQuizGrade * ($gradePercentage->quiz_percentage / 100);
+            $finalExamGrade = $totalExamGrade * ($gradePercentage->exam_percentage / 100);
+            $finalAssignmentGrade = $totalAssignmentGrade * ($gradePercentage->assignment_percentage / 100);
+
+            // Calculate final grade
+            $finalGrade = $finalQuizGrade + $finalExamGrade + $finalAssignmentGrade;
+
+            // Store the final grade for each subject
+            $finalGrades[$subject->id] = $finalGrade;
+        }
+    }
+
+    // Pass the data to the view
+    return view('student.student_grade', compact('student', 'subjects', 'finalGrades', 'schedules', 'professors'));
+}
+
 
 
 }

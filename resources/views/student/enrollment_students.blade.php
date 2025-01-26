@@ -1,5 +1,4 @@
 @extends('layoutenrollment')
-
 @section('enrollment')
 <div class="glass">
     <h1 class="heading">Enrollment</h1>

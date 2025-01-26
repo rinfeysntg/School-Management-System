@@ -76,8 +76,7 @@ Route::get('/students/enrollment', [Students::class, 'enrollmentForm'])->name('e
 Route::get('/student/activities', [Students::class, 'studentActivities'])->name('student.activities');
 Route::get('/students/grades', [Students::class, 'showStudents'])->name('student.showStudents');
 Route::get('/students/show', [Students::class, 'showStudents'])->name('students.show');
-
-
+Route::get('/student/grades', [GradeController::class, 'showStudentGrade'])->name('student.grades');
 
 // users
 Route::get('/userController', [UsersController::class, 'index'])->name('usersController');
@@ -263,6 +262,7 @@ Route::put('payment/{id}', [PaymentController::class, 'update'])->name('payments
 Route::delete('payment/delete/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
 Route::get('payment/receipt/{id}', [PaymentController::class, 'showReceipt'])->name('payments.receipt');
 Route::get('payments/search-users', [PaymentController::class, 'searchUsers'])->name('payments.searchUsers');
+Route::get('/payment-search', [PaymentController::class, 'paymentSearch'])->name('paymentSearch');
 
 
 //Grade Calculator   

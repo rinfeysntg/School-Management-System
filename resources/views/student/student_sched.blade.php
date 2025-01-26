@@ -1,4 +1,5 @@
 @extends('layout')
+@include('navbar_student')
 
 @section('content')
 

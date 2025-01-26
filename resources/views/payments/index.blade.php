@@ -3,6 +3,14 @@
 @section('enrollmentTable')
 <div class="glass">
     <h1 class="heading">Payments</h1>
+
+    <form method="GET" action="{{ route('paymentSearch') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by Name" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    
     <div class="table-responsive">
         <table class="table table-success table-striped">
             <thead class="thead-light">
@@ -36,7 +44,9 @@
             </tbody>
         </table>
     </div>
-    <div class="button-container">
+    
+    <div class="button-container" style="display: flex; flex-direction: row; gap: 10px;">
+        <a href="{{ route('treasury') }}"><button class="btn">Return</button></a>
         <a href="{{ route('payments.create') }}" class="btn">Create Payment</a>      
     </div>
 </div>
