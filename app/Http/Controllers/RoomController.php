@@ -19,19 +19,16 @@ class RoomController extends Controller
    
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:rooms,name',
             'description' => 'nullable|string',
-            'building_id' => 'required|exists:buildings,id', 
+            'building_id' => 'required|exists:buildings,id',
         ]);
 
-        
         Room::create($validated);
 
         return redirect()->route('building.index')->with('success', 'Room created successfully!');
     }
-
    
     public function index()
     {
@@ -52,7 +49,7 @@ public function update(Request $request, $id)
 {
     
     $request->validate([
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:rooms,name,' . $id,
         'description' => 'nullable|string',
         'building_id' => 'required|exists:buildings,id',
     ]);

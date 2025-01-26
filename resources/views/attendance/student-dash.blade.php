@@ -11,10 +11,10 @@
             margin: 0;
             padding: 0;
             background-image: url('../images/bg.png');
-            background-size: cover;  /* Ensure background covers the entire screen */
-            background-position: top center;  /* Position the background image properly */
-            background-attachment: fixed;  /* Make sure the background doesn't scroll */
-            height: 100vh;  /* Full viewport height */
+            background-size: cover;  
+            background-position: top center;  
+            background-attachment: fixed;  
+            height: 100vh;  
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -32,20 +32,20 @@
             height: 100%;
             width: 100%;
             position: relative;
-            z-index: 1; /* Ensures content stays above background */
+            z-index: 1; 
         }
 
         /* Position Logo in the Top Right Corner */
         .logoDashboard {
             position: absolute;
             top: 20px;
-            right: 20px; /* Logo is placed in the top-right corner */
+            right: 20px; 
             background-image: url('../images/logo.png');
             background-repeat: no-repeat;
             background-size: contain;
             width: 150px;
             height: 150px;
-            z-index: 10; /* Ensures logo stays above content */
+            z-index: 10; 
         }
 
         /* Attendance Summary Section */
@@ -67,7 +67,7 @@
         }
 
         .summary-item {
-            background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+            background-color: rgba(255, 255, 255, 0.8); 
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -90,13 +90,15 @@
 
         /* Attendance Table */
         .attendance-table-container {
-            background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+            background-color: rgba(255, 255, 255, 0.8); 
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
             width: 80%;
             max-width: 900px;
+            overflow-x: auto; 
+            max-height:400px;
         }
 
         .attendance-table {
@@ -104,6 +106,7 @@
             border-collapse: collapse;
             margin-top: 20px;
             text-align: center;
+            table-layout: fixed; 
         }
 
         .attendance-table td {
@@ -212,6 +215,7 @@
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Subject</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -219,17 +223,17 @@
                     @foreach($attendance as $att)
                         <tr>
                             <td>{{ $att->date }}</td>
+                            <td>{{ $att->subject->name }}</td>
                             <td>{{ $att->status }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
+        
         <!-- Dashboard Navigation Buttons -->
         <div class="button-container">
-            <a href="/student-dashboard" class="btn">Dashboard</a>
-            <a href="/profile" class="btn">Profile</a>
+            <a href="/students" class="btn">Dashboard</a>
         </div>
 
     </div>

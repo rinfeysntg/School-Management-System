@@ -9,7 +9,7 @@
         <h1>{{ $curriculum->name }}</h1>
 
         <h3>Curriculum Code: {{ $curriculum->code }}</h3>
-        <h4>Program Head: {{ $curriculum->program_head }}</h4>
+        <h4>Program Head: {{ $curriculum->user->name }}</h4>
         <h5>Course ID: {{ $curriculum->course_id }}</h5>
     </div>
 
@@ -34,11 +34,9 @@
                     <td>{{ $subject->code }}</td>
                     <td>{{ $subject->id }}</td>
                     <td>
-                        <a href="{{ route('subjects_edit', $subject->id) }}" class="btn btn-success btn-sm">Edit</a>
-                        <form action="{{ route('subjects_destroy', $subject->id) }}" method="POST">
+                        <form action="{{ route('subjects.detach', ['curriculumId' => $curriculum->id, 'subjectId' => $subject->id]) }}" method="POST">
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Detach</button>
                         </form>
                     </td>
                 </tr>
@@ -52,6 +50,8 @@
         </div>
         </div>
         <div>
-        <a href="{{ route('create_subject') }}" class="add-sub">Add Subject</a>
-    </div>
+    <a href="{{ route('subjects_list', $curriculum->id) }}" class="add-sub btn btn-primary">Add Subject</a>
+</div>
+
+
 @endsection

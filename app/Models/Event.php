@@ -16,7 +16,11 @@ class Event extends Model
     protected $fillable = [
         'name',          // Event name
         'event_date',    // Event date
-        'event_time',    // Event time
+        'event_time',
+        'department_id',
+        'course_id',
+        'year_level',
+        'block',      
     ];
 
     /**
@@ -36,14 +40,24 @@ class Event extends Model
         return $this->hasMany(EventAttendance::class);
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+    
+        public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
     /**
      * Define the relationship between Event and Student.
      * A student can attend many events through event attendance.
      */
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'event_attendances')
-                    ->withTimestamps(); // Using a pivot table with timestamps
+        return $this->belongsToMany(Users::class, 'event_attendances')
+                    ->withTimestamps(); 
     }
 
     /**
@@ -131,4 +145,16 @@ class Event extends Model
     {
         return $this->event_date->isPast();
     }
+
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
+
+    public function attendees()
+{
+    return $this->belongsToMany(Users::class, 'event_students', 'event_id', 'user_id')
+                ->withPivot('status')  
+                ->withTimestamps();
+}
 }

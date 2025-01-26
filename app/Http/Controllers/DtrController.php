@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dtr;
-use App\Models\Employee; // Assuming you have an Employee model
+use App\Models\Users; // Assuming you have an Employee model
 
 class DtrController extends Controller
 {
     // Show the DTR form for time in/out
     public function showForm()
     {
-        $employees = Employee::all(); // Get the list of all employees
+        $employees = Users::where('role_id', '!=', 7)->get();
         return view('attendance.dtr.form', compact('employees')); // Pass the employees list to the form view
     }
 
@@ -20,7 +20,7 @@ class DtrController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'employee_id' => 'required|exists:employees,id', // Ensure the employee exists in the database
+            'employee_id' => 'required|exists:users,id', // Ensure the employee exists in the database
             'date' => 'required|date', // Validate date format
             'time_in' => 'required|date_format:H:i', // Validate time_in format
             'time_out' => 'nullable|date_format:H:i|after:time_in', // Validate time_out format, if provided, and ensure it's after time_in

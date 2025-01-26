@@ -13,12 +13,21 @@ class Subject extends Model
         'code',
         'name', 
         'description', 
-        'curriculum_id'
     ];
 
     public function curriculum()
     {
-        return $this->belongsTo(Curriculum::class);
+        return $this->belongsToMany(Curriculum::class, 'curriculum_subject');
+    }
+
+    public function announcements()
+    {
+        return $this->morphMany(Announcement::class, 'target');
+    }
+
+    public function gradePercentage()
+    {
+        return $this->hasMany(GradePercentage::class, 'subject_id');
     }
 }
 

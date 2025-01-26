@@ -20,8 +20,8 @@ class PayrollDashboardController extends Controller
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->select(
                     'users.id as user_id',
                     'users.address as address',
@@ -39,7 +39,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id', 
@@ -74,13 +74,18 @@ class PayrollDashboardController extends Controller
     public function store(Request $request)
     {
 
+        // Validate the request
+        $validated = $request->validate([
+            'user_id_create' => 'required|integer|unique:payrolls,user_id',
+        ]);
+
         Payroll::create([
             'user_id' => $request->get('user_id_create'),
             'date_start' => $request->get('date_start_create'),
             'date_end' => $request->get('date_end_create'),
             'deductions' => $request->get('deductions_create'),
             'amount' => $request->get('salary_create')
-        ])->save();
+        ]);
         return redirect()->route('payrollDashboard');
     }
 
@@ -90,8 +95,8 @@ class PayrollDashboardController extends Controller
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -110,7 +115,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id',
@@ -161,12 +166,13 @@ class PayrollDashboardController extends Controller
     }
     public function pay(Request $request, $id)
     {
+
         $data = DB::table('payrolls')
                 ->join('users', 'users.id', '=', 'payrolls.user_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
                 ->join('positions', 'positions.role_id', '=', 'roles.id')
-                ->join('departments', 'departments.id', '=', 'roles.department_id')
-                ->join('attendance', 'attendance.user_id', '=', 'payrolls.user_id')
+                ->join('departments', 'departments.id', '=', 'users.department_id')
+                ->join('attendances', 'attendances.user_id', '=', 'payrolls.user_id')
                 ->where('payrolls.id', $id)
                 ->select(
                     'users.id as user_id',
@@ -185,7 +191,7 @@ class PayrollDashboardController extends Controller
                     'payrolls.amount as amount',
                     'payrolls.deductions as deductions',
                     'payrolls.id as payroll_id',
-                    DB::raw('COUNT(attendance.id) as attendances')
+                    DB::raw('COUNT(attendances.id) as attendances')
                 )
                 ->groupBy(
                     'payrolls.user_id', 
@@ -220,6 +226,9 @@ class PayrollDashboardController extends Controller
             'receipt' => $request->get('receipt_release'),
             'user_id' => $request->get('user_id_release'),
         ])->save();
+
+        Payroll::where('user_id', $request->get('user_id_release'))
+        ->delete();
         return redirect()->route('payrollDashboard');
     }
 }

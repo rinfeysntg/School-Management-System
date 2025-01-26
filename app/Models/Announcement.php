@@ -9,6 +9,11 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    // Allow mass assignment for these fields
-    protected $fillable = ['title', 'announcement_target_id', 'message'];
+    protected $fillable = ['title', 'date', 'target_type', 'target_id', 'message'];
+
+    public function target()
+    {
+        return $this->morphTo();
+    }
+
 }

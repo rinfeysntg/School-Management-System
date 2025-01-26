@@ -13,6 +13,9 @@
             <div class="mb-3">
                 <label for="name" class="RnamelBl">Name:</label>
                 <input type="text" class="Nrooms_txt" id="name" name="name" value="{{ old('name', $room->name) }}" required>
+                @if($errors->has('name'))
+                    <div class="text-danger">{{ $errors->first('name') }}</div>
+                @endif
             </div>
 
             <div class="mb-3">

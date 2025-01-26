@@ -14,7 +14,9 @@
             <input class="form-control" type="password" name="password" id="password" required>
         </div>
         <br>
+        <div class="loginbtn-container">
         <button class="btn btn-success" type="submit">Login</button>
+        </div>
         </div>
 
         @if ($errors->any())
@@ -27,5 +29,9 @@
             </div>
         @endif
     </form>
+    <br>
+    <div class="loginbtn-container">
+    <a href="{{ route('dtr.form') }}"><button class="btn btn-info">DTR</button><a>
+    </div>
 </div>
 @endsection

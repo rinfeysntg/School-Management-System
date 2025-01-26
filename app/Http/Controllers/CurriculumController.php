@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
 use App\Models\Course;
+use App\Models\Users;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 
@@ -11,25 +13,55 @@ class CurriculumController extends Controller
 {
    
     public function index(Request $request)
-    {
-        $curriculums = Curriculum::all();
-        $courses = Course::all();
-
-        if ($request->has('course_id') && $request->course_id != '') {
-            $curriculums = Curriculum::where('course_id', $request->course_id)->get();
-        } else {
-            $curriculums = collect();
-        }
-
-        return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
+{
+    $courses = Course::all();
+    
+    $curriculums = Curriculum::with('user');
+    if ($request->has('course_id') && $request->course_id != '') {
+        $curriculums = $curriculums->where('course_id', $request->course_id);
     }
 
+    
+    $curriculums = $curriculums->get();
+
+    return view('subjects.curriculums.index_curriculum', compact('curriculums', 'courses'));
+}
+
+    public function programheadIndex() {
+
+        $user = session('user');
+
+
+            if ($user->role_id == 4) {
+                $curriculums = Curriculum::where('user_id', $user->id)->get();
+            } else {
+                $curriculums = collect();
+            }
+
+            return view('subjects.curriculums.index_program_head', compact('curriculums'));
+    }
+
+    public function programheadShow($id)
+{
+    $user = session('user');
+
+    // Find the curriculum and ensure it belongs to the logged-in Program Head
+    $curriculum = Curriculum::where('id', $id)
+                            ->where('user_id', $user->id)  // Ensure the curriculum is assigned to the Program Head
+                            ->with('subjects')
+                            ->firstOrFail();
+
+    return view('subjects.curriculums.show_programhead', compact('curriculum'));
+}
     
     public function create()
     {
                                                                                  
         $courses = Course::all();
-        return view('subjects.curriculums.create_curriculum', compact('courses'));
+        $users = Users::whereHas('role', function ($query) {
+            $query->where('name', 'program_head');
+        })->get();
+        return view('subjects.curriculums.create_curriculum', compact('courses', 'users'));
     }
 
    
@@ -39,7 +71,7 @@ class CurriculumController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'program_head' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);
     
@@ -47,7 +79,7 @@ class CurriculumController extends Controller
         Curriculum::create([
             'code' => $validated['code'],
             'name' => $validated['name'],
-            'program_head' => $validated['program_head'],
+            'user_id' => $validated['user_id'],
             'course_id' => $validated['course_id'], 
         ]);
     
@@ -60,14 +92,34 @@ class CurriculumController extends Controller
         $courses = Course::all();
         $curriculum = Curriculum::with('subjects')->findOrFail($id);
         return view('subjects.curriculums.show', compact('curriculum'));
+
+        
+    }
+
+    public function listSubjects($curriculumId)
+    {
+        $curriculum = Curriculum::findOrFail($curriculumId); 
+        $subjects = Subject::all();
+
+        return view('subjects.list_subjects', compact('subjects', 'curriculum'));
+    }
+
+
+    public function showSchedule($curriculumId)
+    {
+        $curriculum = Curriculum::with('schedules')->findOrFail($curriculumId);
+        return view('schedule.index_sched', compact('curriculum'));
     }
 
     public function edit($id)
-    {
-        $courses = Course::all();
-        $curriculum = Curriculum::findOrFail($id);
-        return view('subjects.curriculums.edit_cur', compact('curriculum','courses'));
-    }
+{
+    $courses = Course::all();
+    $users = Users::all();
+    $curriculum = Curriculum::findOrFail($id);
+
+    return view('subjects.curriculums.edit_cur', compact('curriculum', 'courses', 'users'));
+}
+
 
     
     public function update(Request $request, $id)
@@ -75,7 +127,7 @@ class CurriculumController extends Controller
         $request->validate([
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'program_head' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);
 
@@ -93,4 +145,30 @@ class CurriculumController extends Controller
 
         return redirect()->route('curriculums_index');
     }
+
+    public function attachSubjects(Request $request, $id)
+{
+    $curriculum = Curriculum::findOrFail($id);
+
+    
+    $request->validate([
+        'subjects' => 'array',
+        'subjects.*' => 'exists:subjects,id',
+    ]);
+
+   
+    $curriculum->subjects()->syncWithoutDetaching($request->input('subjects', []));
+
+    return view('subjects.curriculums.show', compact('curriculum'));
+}
+
+    public function detachSubject($curriculumId, $subjectId)
+    {
+       $curriculum = Curriculum::findOrFail($curriculumId);
+
+       $curriculum->subjects()->detach($subjectId);
+
+       return view('subjects.curriculums.show', compact('curriculum'));
+}
+
 }

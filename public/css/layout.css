@@ -98,7 +98,18 @@ body {
     border-radius: 10px;
     top: 50px; 
     width: 700px;
-    height: 300px; 
+    height: 400px; 
+    margin: 0 auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.rec_dashboard12 {
+    position: relative;
+    background-color: #D6D4A5; 
+    border-radius: 10px;
+    top: 50px; 
+    width: 800px;
+    height: 400px; 
     margin: 0 auto; 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
 }
@@ -110,7 +121,37 @@ body {
     top: 50px; 
     width: 900px;
     height: 330px; 
+    max-height: 400px;
     margin: 0 auto; 
+    overflow: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.rec_dashboard13 {
+    position: relative;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    top: 50px;
+    left:-50px; 
+    width: 900px;
+    height: 330px; 
+    max-height: 400px;
+    margin: 0 auto; 
+    overflow: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+
+.rec_dashboard4 {
+    position: relative;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    top: 10px; 
+    width: 900px;
+    height: 330px; 
+    max-height: 400px;
+    margin: 0 auto; 
+    overflow: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
 }
 
@@ -187,6 +228,20 @@ body {
     font-style: normal;
     border-radius: 10px;
     height: 40px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+
+}
+
+.createBtn {
+
+    background-color: #BDCB95;
+    width: 120px;
+    color: black;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 5px;
+    height: 40px;
+    border: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
 
 }
@@ -302,6 +357,25 @@ body {
 }
 
 .createRoomBtn2:hover {
+    background-color: #4c8c4c; /* Darker shade of green */
+}
+
+.createRoomBtn3 {
+    position: relative;
+    left: 100px;
+    float: left;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set text color to white */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.createRoomBtn3:hover {
     background-color: #4c8c4c; /* Darker shade of green */
 }
 
@@ -462,10 +536,64 @@ body {
     background-color: #f1f1f1;
 }
 
-
-.add-sub {
+.subh1{
     position: relative;
-    left: 828px;
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    top: 50px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: white;
+}
+
+.curdash {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.curh1 {
+    flex: 1;
+    text-align: center;
+    font-family: "Tiro Tamil", serif;
+    font-weight: 400;
+    font-size: 30px;
+    color: white;
+    margin: 0;
+}
+
+.course-form {
+    top: 50px;
+    position: absolute;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.courseopt {
+    font-size: 16px;
+    font-weight: bold;
+    color: #85c946;
+    margin-right: 4px;
+}
+
+.course-select {
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    color: #333;
+}
+
+.create-sub{
+    position: relative;
+    left: 900px;
     top: 50px;
     margin-top: 40px;
     padding: 10px 20px;
@@ -477,6 +605,102 @@ body {
     color: white;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.subform1{
+    justify-content: center;
+    display: block;
+    position: relative;
+    background-color: #D6D4A5; 
+    border-radius: 10px;
+    top: 50px; 
+    width: 80%;
+    height: 300px; 
+    margin: 0 auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.form-control2 {
+    width: 70%;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+}
+
+.subcur {
+    position: relative;
+    background-color: #D6D4A5; 
+    border-radius: 10px;
+    top: 50px; 
+    width: 800px;
+    height: 200px; 
+    margin: 0 auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .5); 
+}
+
+.add-subcur{
+    position: relative;
+    left: 800px;
+    top: 40px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-sub {
+    position: relative;
+    left: 880px;
+    top: 70px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-curr2 {
+    position: relative;
+    left: 850px;
+    top: 50px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.add-curr {
+    position: relative;
+    left: 750px;
+    top: 50px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #62a762; 
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 .sel-crs {
     bottom: 150%;
@@ -493,23 +717,64 @@ body {
 
 .button-sub-container {
     display: flex;
-    gap: 10px;
+    gap: 10px; 
+    align-items: center;
 }
 
 .editsub-btn, .deletesub-btn {
-    padding: 5px 10px;
+    padding: 5px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    height: 35px;
 }
 
 .editsub-btn {
-    padding: 10px;
     background-color: #90EE90;
     color: #fff;
+    font-weight: bold;
 }
 
 .deletesub-btn {
-    background-color: #FF7F7F; 
+    background-color: #f08080;
     color: #fff;
+    font-weight: bold;
 }
+
+
+.loginbtn-container {
+    display: flex;
+    justify-content: center; /* Centers buttons horizontally */
+    gap: 20px; /* Adds space between buttons */
+    margin-top: 10px;
+}
+
+.loginbtn-container button {
+    padding: 10px 50px;
+    font-size: 16px;
+}
+
+#backBtn {
+    position: relative;
+    left: 50px;
+}
+
+.button-container-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.button-container-act {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: right;
+}
+
+.form-control2.is-invalid {
+    border-color: #dc3545;
+}
+

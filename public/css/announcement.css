@@ -151,7 +151,7 @@ textarea::placeholder {
 
 /*Button css*/
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .view-button {
     padding: 8px 15px;
     margin-right: 10px;
     border: none;

@@ -19,17 +19,20 @@ class SubjectsController extends Controller
     {
         
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:subjects,name',  
+            'code' => 'required|string|max:255|unique:subjects,code',  
             'description' => 'nullable|string',
-            'curriculum_id' => 'required|exists:curriculums,id',
+        ], [
+            'name.unique' => 'This name is already taken.',
+            'code.unique' => 'This code is already taken.',
+            'name.required' => 'The subject name is required.',
+            'code.required' => 'The subject code is required.',
+            
         ]);
-
-        
+    
         Subject::create($validated);
-
-        
-        return redirect()->route('curriculums_index');
+    
+        return redirect()->route('subjects');
     }
 
     public function AdminIndex()

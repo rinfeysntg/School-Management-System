@@ -1,0 +1,70 @@
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    backdrop-filter: blur(10px); /* Apply a blur effect */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional, adds subtle shadow */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Optional border */
+}
+
+/* Glass effect for buttons */
+.glass-button {
+    background: rgba(35, 119, 187, 0.623); /* Light transparent background */
+    color: white; /* Ensure text is readable */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional, gives a subtle border */
+    backdrop-filter: blur(5px); /* Blurred background behind the button */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.glass-button:hover {
+    background: rgba(255, 255, 255, 0.4); /* Slightly more opaque on hover */
+    border-color: rgba(255, 255, 255, 0.5); /* Slightly brighter border on hover */
+    transform: translateY(-3px); /* Lift the button on hover for a 3D effect */
+}
+
+.glass-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5); /* Add custom focus shadow */
+}
+
+/* Glass effect for modal backdrop */
+.modal-backdrop {
+    background: rgba(0, 0, 0, 0.5); /* Slightly dark background */
+    backdrop-filter: blur(10px); /* Apply a blur effect */
+}
+
+/* Glass effect for modal content */
+.modal-content {
+    background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    border-radius: 10px; /* Rounded corners */
+    backdrop-filter: blur(10px); /* Apply a blur effect to the content */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Optional border for better definition */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional, adds subtle shadow */
+}
+
+/* Optional: Style the modal header and body for better readability */
+.modal-header, .modal-body {
+    color: rgb(0, 0, 0); /* Ensure text is readable on a light background */
+}
+
+/* Optional: Adjust close button for a better look on transparent background */
+.modal-header .btn-close {
+    filter: invert(1); /* Inverts the close button color */
+}
+
+
+.btn-danger {
+    background: rgba(209, 18, 18, 0.774); /* Transparent background */
+    color: white; /* White text */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border */
+    backdrop-filter: blur(5px); /* Blur the background */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* DELETE button hover effect */
+.btn-danger:hover {
+    background: rgba(255, 255, 255, 0.4); /* Slightly more opaque on hover */
+    border-color: rgba(255, 255, 255, 0.5); /* Slightly brighter border on hover */
+    transform: translateY(-3px); /* Lift the button on hover for a 3D effect */
+}

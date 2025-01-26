@@ -5,7 +5,7 @@
 
 
 <div class="sub_dashboard">
-<h1 class="createroomLbl">Subjects</h1>
+<h1 class="subh1">Subjects</h1>
 <div class="rec_dashboard3">
     <table class="rooms-table">
         <thead>
@@ -24,14 +24,17 @@
                     <td>{{ $subject->description }}</td>
                     <td>{{ $subject->code }}</td>
                     <td>{{ $subject->id }}</td>
-                    <td class="button-sub-container">
+                    <td>
+                        <div class="button-sub-container">
                         <a href="{{ route('subjects_edit', $subject->id) }}" class="editsub-btn">Edit</a>
-                        <form action="{{ route('subjects_destroy', $subject->id) }}" method="POST">
+                            <form action="{{ route('subjects_destroy', $subject->id) }}" method="POST" style="margin: 0;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="deletesub-btn">Delete</button>
-                        </form>
-                    </td>
+                        <button type="submit" class="deletesub-btn">Delete</button>
+        </form>
+    </div>
+</td>
+
                 </tr>
             @empty
                 <tr>
@@ -43,7 +46,7 @@
     </div>
     
     <div>
-        <a href="{{ route('curriculums_index') }}" class="add-sub">Add</a>
+        <a href="{{ route('create_subject') }}" class="add-sub">Add</a>
     </div>
 
 </div>

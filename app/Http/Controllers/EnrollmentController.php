@@ -4,19 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Enrollment;
-use App\Models\User;
+use App\Models\Users;
 
 class EnrollmentController extends Controller
 {
     public function enroll()
     {
-        $users = User::where('role_id', 'student')
+        $users = Users::where('role_id', 6)
             ->whereDoesntHave('enrollments', function ($query) {
                 $query->where('status', 'Enrolled');
             })
             ->get();
 
         return view('enrollment.enrollment', compact('users'));
+    }
+
+    public function searchUsers(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $users = Users::where('name', 'LIKE', "%$search%")
+                    ->orWhere('id', 'LIKE', "%{$search}%")->get();
+
+        return response()->json($users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+            ];
+        }));
     }
 
     public function store(Request $request)
@@ -46,11 +61,11 @@ class EnrollmentController extends Controller
 
     public function showNotEnrollmentTable()
     {
-        $users = User::where('role_id', 'student')
+        $users = Users::where('role_id', 6)
             ->whereDoesntHave('enrollments')
             ->get();
 
-        return view('enrollmentTableNot', compact('users'));
+        return view('enrollment.enrollmentTableNot', compact('users'));
     }
 
     public function edit(Enrollment $enrollment)
