@@ -23,7 +23,8 @@ return new class extends Migration
             $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('set null');
             $table->string('year_level')->nullable();
             $table->string('block')->nullable();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('set null');
+            $table->unsignedBigInteger('role_id')->nullable();  // Change to unsignedBigInteger
+
             $table->timestamps(); 
             $table->integer('first_time_log_in')->default(1);
         });

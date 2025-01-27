@@ -7,6 +7,16 @@
         <form class="announcement-content" action="{{ route('announcement.store') }}" method="POST">
             @csrf
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="d-flex flex-row mb-3">
                 <div class="input-group mb-3 flex-grow-1">
                     <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
@@ -16,7 +26,8 @@
                         type="text" 
                         class="form-control" 
                         aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+                        aria-describedby="inputGroup-sizing-default"
+                        value="{{ old('title') }}">
                 </div>
 
                 <div class="input-group mb-3 flex-grow-1">
@@ -27,7 +38,8 @@
                         type="date" 
                         class="form-control" 
                         aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+                        aria-describedby="inputGroup-sizing-default"
+                        value="{{ old('date') }}">
                 </div>
             </div>
 
@@ -57,7 +69,7 @@
                         required 
                         class="form-control w-100 h-100" 
                         placeholder="Leave your announcement here" 
-                        id="floatingTextarea2"></textarea>
+                        id="floatingTextarea2">{{ old('message') }}</textarea>
                     <label for="floatingTextarea2">Announcement Message</label>
                 </div>
             </div>
@@ -92,7 +104,7 @@
                     minimumInputLength: 1,
                 });
 
-                // Clear and reload dropdown when target type changes
+                
                 $('#target_type').on('change', function () {
                     $('#target_id').val(null).trigger('change');
                 });

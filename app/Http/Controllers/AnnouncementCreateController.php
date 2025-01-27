@@ -10,6 +10,8 @@ use App\Models\Subject;
 use App\Models\AnnouncementTarget;
 use App\Models\Department;
 use App\Models\Event;
+use Illuminate\Validation\Rule;
+
 
 class AnnouncementCreateController extends Controller
 {
@@ -63,8 +65,19 @@ public function store(Request $request)
 {
     \Log::info("Storing announcement with data: ", $request->all());
 
+    $departmentId = $request->input('target_id');
+
+    
     $request->validate([
-        'title' => 'required|string|max:255',
+        'title' => [
+            'required',
+            'string',
+            'max:255',
+            
+            Rule::unique('announcements', 'title')->where(function ($query) use ($departmentId) {
+                return $query->where('target_id', $departmentId);  
+            }),
+        ],
         'date' => 'required|date',
         'target_type' => 'required|in:department,course,subject,event,student',
         'target_id' => 'required|integer',
