@@ -25,6 +25,20 @@
 <div class="rec">
 
 <div class="container">
+
+    <!-- Show success or error message if any -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @yield('RoleControl')
 </div>
     

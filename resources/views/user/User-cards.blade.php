@@ -24,6 +24,7 @@
             </div>
 
             <!-- Edit User Modal -->
+<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" aria-labelledby="editUserModalLabel{{ $user->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content glass-effect">
@@ -34,53 +35,61 @@
             <div class="modal-body">
                 <form action="{{ route('edit_user') }}" method="POST">
                     @csrf
-                    <!-- Include the User ID -->
                     <input type="hidden" name="id" value="{{ $user->id }}">
+
+                    <!-- Display Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <!-- Name -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="name" value="{{ $user->name }}" placeholder="Name" required>
+                        <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" placeholder="Name" required>
                         <label for="name">Name</label>
                     </div>
 
                     <!-- Age -->
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="age" value="{{ $user->age }}" placeholder="Age" required>
+                        <input type="number" class="form-control" name="age" value="{{ old('age', $user->age) }}" placeholder="Age" required>
                         <label for="age">Age</label>
                     </div>
 
                     <!-- Address -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="address" value="{{ $user->address }}" placeholder="Address" required>
+                        <input type="text" class="form-control" name="address" value="{{ old('address', $user->address) }}" placeholder="Address" required>
                         <label for="address">Address</label>
                     </div>
 
                     <!-- Username -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="username" value="{{ $user->username }}" placeholder="Username" required>
+                        <input type="text" class="form-control" name="username" value="{{ old('username', $user->username) }}" placeholder="Username" required>
                         <label for="username">Username</label>
                     </div>
 
                     <!-- Email -->
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" placeholder="Email" required>
+                        <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" placeholder="Email" required>
                         <label for="email">Email</label>
                     </div>
 
                     <!-- Password (Editable Field) -->
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="password" value="{{ $user->password }}" placeholder="Password" required>
+                        <input type="password" class="form-control" name="password" value="{{ old('password', $user->password) }}" placeholder="Password" required>
                         <label for="password">Password</label>
                     </div>
 
-                <!-- Department -->
+                    <!-- Department -->
                     <div class="form-floating mb-3">
                         <select class="form-control" name="department_id">
                             <option value="">None</option>
                             @foreach ($departments as $department)
-                                <option value="{{ $department->id }}" {{ $user->department_id == $department->id ? 'selected' : '' }}>
-                                    {{ $department->name }}
-                                </option>
+                                <option value="{{ $department->id }}" {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
                             @endforeach
                         </select>
                         <label for="department_id">Department (Optional)</label>
@@ -91,9 +100,7 @@
                         <select class="form-control" name="course_id">
                             <option value="">None</option>
                             @foreach ($courses as $course)
-                                <option value="{{ $course->id }}" {{ $user->course_id == $course->id ? 'selected' : '' }}>
-                                    {{ $course->name }}
-                                </option>
+                                <option value="{{ $course->id }}" {{ old('course_id', $user->course_id) == $course->id ? 'selected' : '' }}>{{ $course->name }}</option>
                             @endforeach
                         </select>
                         <label for="course_id">Course (Optional)</label>
@@ -103,9 +110,7 @@
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
-                                    {{ $role->name }}
-                                </option>
+                                <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                             @endforeach
                         </select>
                         <label for="role_id">Role</label>
@@ -118,6 +123,7 @@
         </div>
     </div>
 </div>
+
 
 
             <!-- View User Modal -->

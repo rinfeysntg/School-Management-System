@@ -24,32 +24,41 @@
             </div>
 
             <!-- Modal for Editing position -->
-            <div class="modal fade" id="editProductModal{{ $position->id }}" tabindex="-1" aria-labelledby="editProductModalLabel{{ $position->id }}" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content glass-effect">
-                        <div class="modal-header">
-                            <h5 style="color:white" class="modal-title" id="editProductModalLabel{{ $position->id }}">Edit Position - {{ $position->name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('edit_position') }}" method="POST" id="editProductForm{{ $position->id }}">
-                                @csrf
-                                <div>
-                                    <div class="form-floating mb-3">
-                                        <input type="hidden" name="id" value="{{ $position->id }}">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{ $position->name }}" required>
-                                        <label for="name">Name</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="description" id="description" placeholder="description" value="{{ $position->description }}" required>
-                                        <label for="description">Description</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" name="rate" id="rate" placeholder="rate" value="{{ $position->rate }}" required>
-                                        <label for="rate">Rate</label>
-                                    </div>
+            <!-- Modal for Editing position -->
+<div class="modal fade" id="editProductModal{{ $position->id }}" tabindex="-1" aria-labelledby="editProductModalLabel{{ $position->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content glass-effect">
+            <div class="modal-header">
+                <h5 style="color:white" class="modal-title" id="editProductModalLabel{{ $position->id }}">Edit Position - {{ $position->name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('edit_position') }}" method="POST" id="editProductForm{{ $position->id }}">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $position->id }}">
 
-                                    <!-- Role Dropdown -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="name" value="{{ old('name', $position->name) }}" required>
+                        <label for="name">Name</label>
+                        @error('name')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="description" value="{{ old('description', $position->description) }}" required>
+                        <label for="description">Description</label>
+                        @error('description')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" name="rate" id="rate" placeholder="rate" value="{{ $position->rate }}" required>
+                        <label for="rate">Rate</label>
+                    </div>
+
+                    <!-- Role Dropdown -->
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
                             @foreach ($roles as $role)
@@ -60,13 +69,14 @@
                         </select>
                         <label for="role_id">Role</label>
                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-success" id="submitButton">Edit position</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
+                    <button type="submit" class="btn btn-success" id="submitButton">Edit position</button>
+                </form>
             </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Modal for Viewing position details -->
             <div class="modal fade" id="viewProductModal{{ $position->id }}" tabindex="-1" aria-labelledby="viewProductModalLabel{{ $position->id }}" aria-hidden="true">

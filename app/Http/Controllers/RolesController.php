@@ -25,22 +25,23 @@ class RolesController extends Controller
 
     // Store a new role in the database
     public function store(Request $request)
-    {
-        // Validate the incoming request data
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'name' => 'required|string|max:255|unique:roles,name', // Ensure role name is unique
+    ]);
 
-        // Create a new role and save the data
-        $roles = new Role();
-        $roles->name = $request->get('name');
+    // Create a new role and save the data
+    $roles = new Role();
+    $roles->name = $request->get('name');
 
-        // Save the role to the database
-        $roles->save();
+    // Save the role to the database
+    $roles->save();
 
-        // Redirect back with a success message
-        return redirect()->route('rolesController')->with('success', 'Role created successfully.');
-    }
+    // Redirect back with a success message
+    return redirect()->route('rolesController')->with('success', 'Role created successfully.');
+}
+
 
     // Delete a specific role
     public function delete($id)
@@ -75,26 +76,27 @@ class RolesController extends Controller
 
     // Update the details of a specific role
     public function edit(Request $request)
-    {
-        // Validate the incoming request data
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+{
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'name' => 'required|string|max:255|unique:roles,name,' . $request->id, // Ensure role name is unique excluding the current role
+    ]);
 
-        // Find the role by ID
-        $roles = Role::find($request->id);
+    // Find the role by ID
+    $roles = Role::find($request->id);
 
-        if (!$roles) {
-            return redirect()->route('rolesController')->with('error', 'Role not found.');
-        }
-
-        // Update the role details
-        $roles->name = $request->name;
-
-        // Save the changes to the database
-        $roles->save();
-
-        // Redirect back with a success message
-        return redirect()->route('rolesController')->with('success', 'Role updated successfully.');
+    if (!$roles) {
+        return redirect()->route('rolesController')->with('error', 'Role not found.');
     }
+
+    // Update the role details
+    $roles->name = $request->name;
+
+    // Save the changes to the database
+    $roles->save();
+
+    // Redirect back with a success message
+    return redirect()->route('rolesController')->with('success', 'Role updated successfully.');
+}
+
 }

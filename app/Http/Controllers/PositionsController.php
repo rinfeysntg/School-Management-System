@@ -40,18 +40,30 @@ class PositionsController extends Controller
 
     // Store new position
     public function store(Request $request)
-    {
-        $positions = new Positions();
-        $positions->name = $request->get('name');
-        $positions->description = $request->get('description');
-        $positions->rate = $request->get('rate');
-        $role = $request->get('role_id');  // This will be the role name (e.g., 'admin')
-        $positions->role_id = $request->get('role_id');
+{
+    // Validate the input data, ensuring name and description are unique
+    $request->validate([
+        'name' => 'required|string|max:255|unique:positions,name',
+        'description' => 'required|string|max:255|unique:positions,description',
+        'rate' => 'required|numeric',
+        'role_id' => 'required|exists:roles,id',
+    ], [
+        'name.unique' => 'The name has already been taken.',
+        'description.unique' => 'The description has already been used.',
+    ]);
 
-        $positions->save();
+    // Create a new position
+    $positions = new Positions();
+    $positions->name = $request->get('name');
+    $positions->description = $request->get('description');
+    $positions->rate = $request->get('rate');
+    $positions->role_id = $request->get('role_id');
+    $positions->save();
 
-        return redirect()->route('positionsController')->with('success', 'Position created successfully.');
-    }
+    // Redirect with success message
+    return redirect()->route('positionsController')->with('success', 'Position created successfully.');
+}
+
 
     // Delete position
     public function delete($id)
@@ -81,23 +93,41 @@ class PositionsController extends Controller
     }
 
     // Edit position details
-    public function edit(Request $req)
-    {
-        $positions = Positions::find($req->id);
+    // Edit position details
+public function edit(Request $request)
+{
+    // Get the position to be updated
+    $position = Positions::find($request->id);
 
-        if (!$positions) {
-            return redirect()->route('positionsController')->with('error', 'Position not found.');
-        }
-
-        $positions->name = $req->name;
-        $positions->description = $req->description;
-        $positions->rate = $req->rate;
-        $role = $req->role_id;
-        $positions->role_id = $req->role_id; // Update role ID
-
-        $positions->save();
-
-        return redirect()->route('positionsController')->with('success', 'Position updated successfully.');
+    if (!$position) {
+        return redirect()->route('positionsController')->with('error', 'Position not found.');
     }
+
+    // Check if any of the name or description already exists (excluding the current position)
+    $existingPosition = Positions::where(function ($query) use ($request) {
+        $query->where('name', $request->name)
+              ->orWhere('description', $request->description);
+    })->where('id', '!=', $request->id) // Exclude the current position from the check
+    ->first();
+
+    if ($existingPosition) {
+        return redirect()->back()->withErrors([
+            'name' => 'The name has already been taken.',
+            'description' => 'The description has already been used.',
+        ]);
+    }
+
+    // Update position details
+    $position->name = $request->name;
+    $position->description = $request->description;
+    $position->rate = $request->rate;
+    $position->role_id = $request->role_id;
+
+    // Save changes
+    $position->save();
+
+    return redirect()->route('positionsController')->with('success', 'Position updated successfully.');
+}
+
 
 }
