@@ -125,8 +125,8 @@ class CurriculumController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|string|max:255|unique:curriculums,code',
-            'name' => 'required|string|max:255|unique:curriculums,name',
+            'code' => 'required|string|max:255|unique:curriculums,code,' . $id,
+            'name' => 'required|string|max:255|unique:curriculums,name,' . $id,
             'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);

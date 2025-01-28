@@ -70,7 +70,7 @@ public function update(Request $request, $id)
 {
     
     $request->validate([
-        'name' => 'required|string|max:255|unique:departments,name',
+        'name' => 'required|string|max:255|unique:departments,name,' . $id,
         'description' => 'nullable|string',
         'building_id' => 'required|exists:buildings,id',
     ]);

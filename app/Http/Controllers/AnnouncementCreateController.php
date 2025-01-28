@@ -64,7 +64,7 @@ public function store(Request $request)
     \Log::info("Storing announcement with data: ", $request->all());
 
     $request->validate([
-        'title' => 'required|string|max:255',
+        'title' => 'required|string|max:255|unique:announcements,title',
         'date' => 'required|date',
         'target_type' => 'required|in:department,course,subject,event,student',
         'target_id' => 'required|integer',

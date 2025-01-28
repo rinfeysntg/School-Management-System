@@ -42,7 +42,7 @@ class AnnouncementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:announcements,title,' . $id,
             'date' => 'required|date',
             'target_type' => 'required|in:department,course,subject,student', // Ensure target_type is valid
             'target_id' => 'required|exists:' . $this->getTargetTable($request->input('target_type')) . ',id', // Validate the target ID
