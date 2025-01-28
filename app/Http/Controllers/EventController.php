@@ -51,7 +51,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event_name' => 'required|string|max:255',
+            'event_name' => 'required|string|max:255|unique:events,event_name,',
             'description' => 'nullable|string',
             'event_date' => 'required|date',
             'event_time' => 'nullable|date_format:H:i',
@@ -101,7 +101,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
 
         $request->validate([
-            'event_name' => 'required|string|max:255',
+            'event_name' => 'required|string|unique:events,event_name,' . $id,
             'description' => 'nullable|string',
             'event_date' => 'required|date',
             'event_time' => 'nullable|date_format:H:i',
