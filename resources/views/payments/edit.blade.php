@@ -1,6 +1,15 @@
 @extends('layoutenrollmentEdit')
 
 @section('enrollmentEdit')
+
+@if($errors->any())
+        <div id="error-messages" style="display: none;">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
 <div class="glass">
     <h1 class="heading">Edit Payment</h1>
     <div class="frame">
@@ -58,6 +67,20 @@
             minimumInputLength: 1
         });
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const errorMessages = document.getElementById('error-messages');
+        if (errorMessages) {
+            let messages = '';
+            errorMessages.querySelectorAll('p').forEach((error) => {
+                messages += error.innerText + '\n'; 
+            });
+            if (messages) {
+                alert(messages); 
+            }
+        }
+    });
+    
 </script>
 
 @endsection
