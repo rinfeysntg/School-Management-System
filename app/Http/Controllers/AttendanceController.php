@@ -38,7 +38,7 @@ class AttendanceController extends Controller
         $schedules = Schedule::where('user_id', $user->id)->get();
 
         $subjects = Subject::whereIn('id', $schedules->pluck('subject_id'))->get();
-
+        
         $students = Users::where('role_id', 7)->get();
 
         if ($request->has('subject_id') && $request->subject_id != '') {
@@ -70,23 +70,36 @@ class AttendanceController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'student_id' => 'required|exists:users,id',
-            'subject_id' => 'required|exists:subjects,id', 
-            'date' => 'required|date',
-            'status' => 'required|in:present,absent,late',
-        ]);
+{
+    // Validate the request
+    $request->validate([
+        'student_id' => 'required|exists:users,id',
+        'subject_id' => 'required|exists:subjects,id',
+        'date' => 'required|date',
+        'status' => 'required|in:present,absent,late',
+    ]);
 
-        Attendance::create([
-            'student_id' => $request->student_id,
-            'subject_id' => $request->subject_id, 
-            'date' => $request->date,
-            'status' => $request->status,
-        ]);
+    // Check if the student already has an attendance record for the same subject and date
+    $existingAttendance = Attendance::where('student_id', $request->student_id)
+                                    ->where('subject_id', $request->subject_id)
+                                    ->where('date', $request->date)
+                                    ->first();
 
-        return redirect()->route('teacher.dashboard')->with('success', 'Attendance record created successfully!');
+    if ($existingAttendance) {
+        // Return with an error message if the record already exists
+        return back()->withErrors(['duplicate' => 'Attendance for this student on this date and subject already exists.']);
     }
+
+    // Create a new attendance record if no duplicate is found
+    Attendance::create([
+        'student_id' => $request->student_id,
+        'subject_id' => $request->subject_id,
+        'date' => $request->date,
+        'status' => $request->status,
+    ]);
+
+    return redirect()->route('teacher.dashboard')->with('success', 'Attendance record created successfully!');
+}
 
     public function searchUsers(Request $request)
     {
