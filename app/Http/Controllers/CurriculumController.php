@@ -69,8 +69,8 @@ class CurriculumController extends Controller
     {
         
         $validated = $request->validate([
-            'code' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255|unique:curriculums,code',
+            'name' => 'required|string|max:255|unique:curriculums,name',
             'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);
@@ -125,8 +125,8 @@ class CurriculumController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255|unique:curriculums,code',
+            'name' => 'required|string|max:255|unique:curriculums,name',
             'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id' 
         ]);

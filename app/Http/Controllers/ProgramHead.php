@@ -43,6 +43,18 @@ class ProgramHead extends Controller
     public function storeStudent(Request $request)
     {
 
+        $request->validate([
+            'name' => 'required|string|max:255|unique:users,name',
+            'age' => 'required|integer|min:1',
+            'address' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
+            'email' => 'required|email|max:255|unique:users,email',
+            'department_id' => 'required|exists:departments,id',
+            'course_id' => 'required|exists:courses,id',
+            'year_level' => 'required|string|max:255',
+            'block' => 'required|string|max:255',
+        ]);
+
         $users = new Users();
         $users->name = $request->get('name');
         $users->age = $request->get('age');
