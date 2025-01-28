@@ -21,21 +21,32 @@ class PaymentController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'purpose' => 'required|string|max:255',
-            'amount' => 'required|integer|min:1',
-            'user_id' => 'required|exists:users,id', 
-        ]);
+{
+    $request->validate([
+        'purpose' => 'required|string|max:255',
+        'amount' => 'required|integer|min:1',
+        'user_id' => 'required|exists:users,id',
+    ]);
 
-        $payment = Payment::create([
-            'purpose' => $request->purpose,
-            'amount' => $request->amount,
-            'user_id' => $request->user_id,
-        ]);
-    
-        return redirect()->route('payments.receipt', ['id' => $payment->id])
-                     ->with('success', 'Payment added successfully!');
+    $existingPayment = Payment::where('purpose', $request->purpose)
+        ->where('amount', $request->amount)
+        ->where('user_id', $request->user_id)
+        ->first();
+
+    if ($existingPayment) {
+        return redirect()->route('payments.create')
+            ->withErrors(['duplicate' => 'This payment already exists for the selected user.'])
+            ->withInput();
+    }
+
+    $payment = Payment::create([
+        'purpose' => $request->purpose,
+        'amount' => $request->amount,
+        'user_id' => $request->user_id,
+    ]);
+
+    return redirect()->route('payments.receipt', ['id' => $payment->id])
+        ->with('success', 'Payment added successfully!');
     }
 
     public function edit($id)
