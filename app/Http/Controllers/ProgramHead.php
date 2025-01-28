@@ -42,13 +42,15 @@ class ProgramHead extends Controller
 
     public function storeStudent(Request $request)
     {
+
         $users = new Users();
         $users->name = $request->get('name');
         $users->age = $request->get('age');
         $users->address = $request->get('address');
         $users->username = $request->get('username');
         $users->email = $request->get('email');
-        $users->password = $request->get('password');
+
+        $users->password = 'SCHOOL-AUTOMATE';
 
         $department = Department::find($request->get('department_id'));
         $users->department_id = $department ? $department->id : null; 
@@ -87,6 +89,21 @@ class ProgramHead extends Controller
 
         if (!$users) {
             return redirect()->route('students_index')->with('error', 'Student not found.');
+        }
+
+        $existingUser = Users::where(function ($query) use ($req) {
+            $query->where('name', $req->name)
+                  ->orWhere('email', $req->email)
+                  ->orWhere('username', $req->username);
+        })->where('id', '!=', $req->id) // Exclude the current user from the check
+        ->first();
+    
+        if ($existingUser) {
+            return redirect()->back()->withErrors([
+                'name' => 'The name has already been taken.',
+                'email' => 'The email has already been registered.',
+                'username' => 'The username has already been taken.',
+            ]);
         }
 
         $users->name = $req->name;

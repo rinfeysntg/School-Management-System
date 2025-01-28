@@ -19,7 +19,7 @@ class BuildingController extends Controller
     {
         
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:buildings,name',
             'description' => 'nullable|string',
         ]);
 
@@ -57,7 +57,7 @@ public function update(Request $request, $id)
 {
     
     $request->validate([
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:buildings,name',
         'description' => 'nullable|string',
     ]);
 
