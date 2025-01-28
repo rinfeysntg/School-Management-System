@@ -103,24 +103,12 @@
 
             <div class="mb-3">
                 <label for="start_time" class="RnamelBl">Start Time:</label>
-                <input 
-                type="time" 
-                id="start_time" 
-                name="start_time" 
-                class="form-control" 
-                value="{{ old('start_time', isset($schedule) ? $schedule->start_time : '') }}" 
-                required>
+                <input type="time" name="start_time" value="{{ old('start_time', $schedule->start_time) }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="end_time" class="RnamelBl">End Time:</label>
-                <input 
-                type="time" 
-                id="end_time" 
-                name="end_time" 
-                class="form-control" 
-                value="{{ old('end_time', isset($schedule) ? $schedule->end_time : '') }}" 
-                required>
+                <input type="time" name="end_time" value="{{ old('end_time', $schedule->end_time) }}" required>
             </div>
 
             <div class="mb-3">

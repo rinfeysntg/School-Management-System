@@ -103,7 +103,6 @@
                 id="start_time" 
                 name="start_time" 
                 class="form-control" 
-                value="{{ old('start_time', isset($schedule) ? $schedule->start_time : '') }}" 
                 required>
             </div>
 
@@ -114,7 +113,6 @@
                 id="end_time" 
                 name="end_time" 
                 class="form-control" 
-                value="{{ old('end_time', isset($schedule) ? $schedule->end_time : '') }}" 
                 required>
             </div>
 
