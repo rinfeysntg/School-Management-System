@@ -57,22 +57,34 @@ class PaymentController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'purpose' => 'required|string|max:255',
-            'amount' => 'required|integer|min:1',
-            'user_id' => 'required|exists:users,id', 
-        ]);
+{
+    $request->validate([
+        'purpose' => 'required|string|max:255',
+        'amount' => 'required|integer|min:1',
+        'user_id' => 'required|exists:users,id',
+    ]);
 
-        $payment = Payment::findOrFail($id); 
-        $payment->update([
-            'purpose' => $request->purpose,
-            'amount' => $request->amount,
-            'user_id' => $request->user_id,
-        ]);
+    $existingPayment = Payment::where('purpose', $request->purpose)
+        ->where('amount', $request->amount)
+        ->where('user_id', $request->user_id)
+        ->where('id', '!=', $id) 
+        ->first();
 
-        return redirect()->route('payments.index')->with('success', 'Payment updated successfully!');
+    if ($existingPayment) {
+        return redirect()->route('payments.edit', ['id' => $id])
+            ->withErrors(['duplicate' => 'This payment already exists for the selected user.'])
+            ->withInput();
     }
+
+    $payment = Payment::findOrFail($id);
+    $payment->update([
+        'purpose' => $request->purpose,
+        'amount' => $request->amount,
+        'user_id' => $request->user_id,
+    ]);
+
+    return redirect()->route('payments.index')->with('success', 'Payment updated successfully!');
+}
 
     public function destroy($id)
     {
