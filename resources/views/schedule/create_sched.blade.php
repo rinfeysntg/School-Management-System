@@ -14,7 +14,7 @@
     
     <h1 class="createroomLbl">Create Schedule</h1>
 
-    <div class="rec_dashboard2">
+    <div class="rec_dashboard2" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
 
         <form class="cRoomsForm" action="{{ route('schedule.store') }}" method="POST">
             @csrf 

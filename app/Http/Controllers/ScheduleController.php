@@ -45,35 +45,42 @@ class ScheduleController extends Controller
                 'block' => 'nullable|string',
                 'subject_id' => 'required|exists:subjects,id',
                 'user_id' => 'required|exists:users,id',
-                'days' => 'nullable|array', // Validate as an array
-                'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun', // Ensure valid day values
+                'days' => 'nullable|array',
+                'days.*' => 'in:Mon,Tue,Wed,Thu,Fri,Sat,Sun',
                 'start_time' => 'required|date_format:H:i',
                 'end_time' => 'required|date_format:H:i|after:start_time',
                 'building_id' => 'required|exists:buildings,id',
                 'room_id' => 'required|exists:rooms,id',
                 'curriculum_id' => 'required|exists:curriculums,id',
             ]);
-
-           
-            $duplicateSchedule = Schedule::where('course_id', $validated['course_id'])
-                        ->where('year_level', $validated['year_level'])
-                        ->where('block', $validated['block'])
-                        ->where('subject_id', $validated['subject_id'])
-                        ->where('curriculum_id', $validated['curriculum_id'])
-                        ->exists();
-
-            if ($duplicateSchedule) {
-                return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
+        
+            $overlappingSchedule = Schedule::where('room_id', $validated['room_id'])
+                ->where(function ($query) use ($validated) {
+                    foreach ($validated['days'] ?? [] as $day) {
+                        $query->orWhereRaw("FIND_IN_SET(?, days)", [$day]);
+                    }
+                })
+                ->where(function ($query) use ($validated) {
+                    $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
+                          ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
+                          ->orWhere(function ($q) use ($validated) {
+                              $q->where('start_time', '<=', $validated['start_time'])
+                                ->where('end_time', '>=', $validated['end_time']);
+                          });
+                })
+                ->exists();
+        
+            if ($overlappingSchedule) {
+                return back()->withErrors(['overlap' => 'The selected schedule overlaps with an existing schedule in the same room.']);
             }
-
-
+        
             Schedule::create([
                 'course_id' => $validated['course_id'],
                 'year_level' => $validated['year_level'],
                 'block' => $validated['block'],
                 'subject_id' => $validated['subject_id'],
                 'user_id' => $validated['user_id'],
-                'days' => implode(',', $validated['days'] ?? []), 
+                'days' => implode(',', $validated['days'] ?? []),
                 'start_time' => $validated['start_time'],
                 'end_time' => $validated['end_time'],
                 'building_id' => $validated['building_id'],
@@ -81,7 +88,8 @@ class ScheduleController extends Controller
                 'curriculum_id' => $validated['curriculum_id'],
             ]);
         
-            return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']]);
+            return redirect()->route('schedule.show', ['curriculumId' => $validated['curriculum_id']])
+                ->with('success', 'Schedule created successfully!');
         }
 
     //EDIT//
@@ -117,18 +125,26 @@ class ScheduleController extends Controller
 
     $schedule = Schedule::findOrFail($id);
 
-    $duplicateSchedule = Schedule::where('course_id', $validated['course_id'])
-        ->where('year_level', $validated['year_level'])
-        ->where('block', $validated['block'])
-        ->where('subject_id', $validated['subject_id'])
-        ->where('curriculum_id', $validated['curriculum_id'])
+    $overlappingSchedule = Schedule::where('room_id', $validated['room_id'])
         ->where('id', '!=', $schedule->id)
+        ->where(function ($query) use ($validated) {
+            foreach ($validated['days'] ?? [] as $day) {
+                $query->orWhereRaw("FIND_IN_SET(?, days)", [$day]);
+            }
+        })
+        ->where(function ($query) use ($validated) {
+            $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
+                  ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
+                  ->orWhere(function ($q) use ($validated) {
+                      $q->where('start_time', '<=', $validated['start_time'])
+                        ->where('end_time', '>=', $validated['end_time']);
+                  });
+        })
         ->exists();
 
-    if ($duplicateSchedule) {
-        return back()->withErrors(['duplicate' => 'A similar schedule already exists.']);
+    if ($overlappingSchedule) {
+        return back()->withErrors(['overlap' => 'The selected schedule overlaps with an existing schedule in the same room.']);
     }
-
 
     $schedule->update([
         'course_id' => $validated['course_id'],
@@ -144,9 +160,9 @@ class ScheduleController extends Controller
         'curriculum_id' => $validated['curriculum_id'],
     ]);
 
-    return redirect()->route('curriculums_program_head')->with('success', 'Schedule updated successfully!');
+    return redirect()->route('curriculums_program_head')
+        ->with('success', 'Schedule updated successfully!');
 }
-
 
 public function destroy($id)
 {
