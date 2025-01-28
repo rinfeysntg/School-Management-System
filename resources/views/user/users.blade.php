@@ -33,6 +33,18 @@
             <div class="modal-body">
                 <form action="{{ route('store_user') }}" method="POST">
                     @csrf
+
+                    <!-- Show Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="name" placeholder="Name" required>
                         <label for="name">Name</label>
@@ -58,21 +70,16 @@
                         <label for="email">Email</label>
                     </div>
 
+                    <!-- Department -->
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                        <label for="password">Password</label>
+                        <select class="form-control" name="department_id">
+                            <option value="">None</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        <label for="department_id">Department</label>
                     </div>
-
-                            <!-- Department -->
-                        <div class="form-floating mb-3">
-                            <select class="form-control" name="department_id">
-                                <option value="">None</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                @endforeach
-                            </select>
-                            <label for="department_id">Department</label>
-                        </div>
 
                     <!-- Course -->
                     <div class="form-floating mb-3">
@@ -85,6 +92,7 @@
                         <label for="course_id">Course</label>
                     </div>
 
+                    <!-- Role -->
                     <div class="form-floating mb-3">
                         <select class="form-control" name="role_id" required>
                             <option value="">Select a role</option>
@@ -101,4 +109,5 @@
         </div>
     </div>
 </div>
+
 @endsection

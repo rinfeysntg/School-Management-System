@@ -32,6 +32,18 @@
             <div class="modal-body">
                 <form action="{{ route('store_role') }}" method="POST">
                     @csrf
+
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="form-floating mb-3">
                         <select class="form-control" name="name" required>
                             <option value="admin">Admin</option>
@@ -50,5 +62,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection
