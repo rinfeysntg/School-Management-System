@@ -9,6 +9,7 @@
     <title>Create Attendance</title>
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <style>
+        /* Keep your existing styles */
         body {
             position: relative;
             background-image: url('../images/bg.png');
@@ -148,6 +149,17 @@
         <h1 class="registrarLbl">Add Attendance</h1>
         
         <div class="form-container">
+            <!-- Display Validation Errors -->
+            @if ($errors->any())
+                <div class="alert alert-danger" style="background-color: #ffdddd; padding: 10px; border-radius: 5px;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('attendance.store') }}" method="POST">
                 @csrf
                 <div>
@@ -205,6 +217,6 @@
             minimumInputLength: 1
         });
     });
-</script>
+    </script>
 </body>
 </html>

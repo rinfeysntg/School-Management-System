@@ -144,6 +144,17 @@
         <h1 class="registrarLbl">Edit Attendance Status</h1>
         
         <div class="form-container">
+            <!-- Display Validation Errors -->
+            @if ($errors->any())
+                <div class="alert alert-danger" style="background-color: #ffdddd; padding: 10px; border-radius: 5px;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('attendance.update', $attendance->id) }}" method="POST">
                 @csrf
                 @method('PUT')

@@ -15,18 +15,19 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = session('user');
+        $perPage = $request->input('perPage', 10); // Get pagination size, default 10
     
         if ($user && isset($user->department_id)) {
             $events = Event::with(['course', 'department'])
                 ->where('department_id', $user->department_id) // Filter by user's department
-                ->paginate(10);
+                ->paginate($perPage);
         } else {
-            $events = Event::with(['course', 'department'])->paginate(10);
+            $events = Event::with(['course', 'department'])->paginate($perPage);
         }
-    
+
         return view('attendance.events.list', compact('events'));
     }
 
@@ -51,7 +52,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event_name' => 'required|string|max:255|unique:events,event_name,',
+            'event_name' => 'required|string|max:255|unique:events,event_name',
             'description' => 'nullable|string',
             'event_date' => 'required|date',
             'event_time' => 'nullable|date_format:H:i',
@@ -78,12 +79,11 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified event.
      *
-     * @param  int  $id
+     * @param  Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
-        $event = Event::findOrFail($id);
         $courses = Course::all();
         $departments = Department::all();
         return view('attendance.events.edit', compact('event', 'courses', 'departments'));
@@ -93,15 +93,13 @@ class EventController extends Controller
      * Update the specified event in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        $event = Event::findOrFail($id);
-
         $request->validate([
-            'event_name' => 'required|string|unique:events,event_name,' . $id,
+            'event_name' => 'required|string|unique:events,event_name,' . $event->id,
             'description' => 'nullable|string',
             'event_date' => 'required|date',
             'event_time' => 'nullable|date_format:H:i',
@@ -128,12 +126,11 @@ class EventController extends Controller
     /**
      * Remove the specified event from storage.
      *
-     * @param  int  $id
+     * @param  Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        $event = Event::findOrFail($id);
         $event->delete();
 
         return redirect()->route('attendance.events.list')->with('success', 'Event deleted successfully!');
@@ -142,38 +139,41 @@ class EventController extends Controller
     /**
      * Show the attendees for a specific event.
      *
-     * @param  int  $eventId
+     * @param  Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function eventAttendees($eventId)
+    public function eventAttendees(Event $event)
     {
-        $event = Event::with(['course', 'department'])->findOrFail($eventId);
-
-        $attendees = Users::where('course_id', $event->course->id) 
-            ->where('department_id', $event->department->id) 
+        $attendees = Users::where('course_id', $event->course->id)
+            ->where('department_id', $event->department->id)
             ->where('year_level', $event->year_level)
-            ->where('block', $event->block) 
+            ->where('block', $event->block)
             ->get();
-    
+
         return view('attendance.events.attendees', compact('event', 'attendees'));
     }
 
-    public function markAttendance(Request $request, $eventId, $userId)
+    /**
+     * Mark attendance for a user in an event.
+     *
+     * @param  Request  $request
+     * @param  Event  $event
+     * @param  Users  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function markAttendance(Request $request, Event $event, Users $user)
     {
-    $event = Event::findOrFail($eventId);
-    $user = Users::findOrFail($userId);
+        // Update or attach attendance status
+        if ($user->events()->wherePivot('event_id', $event->id)->exists()) {
+            $user->events()->updateExistingPivot($event->id, [
+                'status' => $request->status,
+            ]);
+        } else {
+            $user->events()->attach($event->id, [
+                'status' => $request->status,
+            ]);
+        }
 
-     if ($user->events()->wherePivot('event_id', $eventId)->exists()) {
-        $user->events()->updateExistingPivot($eventId, [
-            'status' => $request->status,
-        ]);
-    } else {
-        $user->events()->attach($eventId, [
-            'status' => $request->status,
-        ]);
+        return redirect()->route('attendance.event.attendees', $event->id);
     }
-
-    return redirect()->route('attendance.event.attendees', $eventId);
-    }
-
 }

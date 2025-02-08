@@ -164,22 +164,26 @@
     <div class="rec_dashboard">
         <div class="logoDashboard"></div>
         <h1 class="registrarLbl">Professor Dashboard</h1>
+
+        <!-- Attendance Management Section -->
         <div class="attendance-section">
             <h2 class="createBldgLbl">Manage Attendance</h2>
             <button onclick="window.location='{{ route('attendance.create') }}'" id="createBldgBtn" class="btn">Add Attendance</button>
         </div>
 
+        <!-- Subject Filter Section -->
         <div class="attendance-filter">
-        <form action="{{ route('teacher.dashboard') }}" method="GET">
-        <select name="subject_id" id="subject_id" class="btn" style="padding: 12px;" onchange="this.form.submit()">
-            <option value="">Subjects</option>
-            @foreach($subjects as $subject)
-                <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
-            @endforeach
-        </select>
-    </form>
-    </div>
+            <form action="{{ route('teacher.dashboard') }}" method="GET">
+                <select name="subject_id" id="subject_id" class="btn" style="padding: 12px;" onchange="this.form.submit()">
+                    <option value="">Select Subject</option>
+                    @foreach($subjects as $subject)
+                        <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
 
+        <!-- Attendance Table Section -->
         <div class="attendance-table-container">
             <h2 class="createBldgLbl">Student Attendance</h2>
             <div class="recgray2">
@@ -194,34 +198,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse($attendance as $attendanceRecord)
-                        <tr>
-                            <td>{{ $attendanceRecord->student->name }}</td>
-                            <td>{{ $attendanceRecord->subject->name }}</td>
-                            <td>{{ $attendanceRecord->status }}</td>
-                            <td>{{ $attendanceRecord->date }}</td>
-                            <td>
-                                <!-- Edit Button -->
-                                <a href="{{ route('attendance.edit', $attendanceRecord->id) }}" class="btn" style="background-color: #4CAF50; color: white;">
-                                    Edit
-                                </a>
-                                
-                                <!-- Delete Button -->
-                                <form action="{{ route('attendance.destroy', $attendanceRecord->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn" style="background-color: #f44336; color: white;">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3">No students found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
+                        @forelse($attendance as $attendanceRecord)
+                            <tr>
+                                <td>{{ $attendanceRecord->student->name }}</td>
+                                <td>{{ $attendanceRecord->subject->name }}</td>
+                                <td>{{ $attendanceRecord->status }}</td>
+                                <td>{{ $attendanceRecord->date }}</td>
+                                <td>
+                                    <!-- Edit Button -->
+                                    <a href="{{ route('attendance.edit', $attendanceRecord->id) }}" class="btn" style="background-color: #4CAF50; color: white;">
+                                        Edit
+                                    </a>
+                                    
+                                    <!-- Delete Button -->
+                                    <form action="{{ route('attendance.destroy', $attendanceRecord->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" style="background-color: #f44336; color: white;">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">No attendance records found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -232,6 +236,5 @@
             <a href="/profile" id="profileBtn" class="btn">Profile</a>
         </div>
     </div>
-
 </body>
 </html>

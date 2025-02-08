@@ -1,11 +1,12 @@
 @extends('layout')
 @include('navbar_programhead')
-@section('content')
 
+@section('content')
 <div class="rec_dashboard">
     <h1 class="createroomLbl">Attendees for Event: {{ $event->name }}</h1>
 
     <button onclick="window.location='{{ route('attendance.events.list') }}'" id="backBtn" class="btn btn-secondary back-btn">Back to Events</button>
+
     <!-- No Attendees Found Message -->
     @if($attendees->isEmpty())
         <div class="alert alert-info">
@@ -43,6 +44,7 @@
                                 @elseif($attendance && $attendance->pivot->status === 'absent')
                                     <span class="text-danger">Marked as Absent</span>
                                 @else
+                                    <!-- Mark Attendance Forms -->
                                     <form action="{{ route('attendance.event.mark', ['eventId' => $event->id, 'userId' => $attendee->id]) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         <input type="hidden" name="status" value="attended">
@@ -61,9 +63,6 @@
             </table>
         </div>
     @endif
-
-    <!-- Back to Events Button -->
-    
 </div>
 
 @endsection
