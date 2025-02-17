@@ -6,7 +6,7 @@
 
     <div class="rec_dashboard2">
 
-        <form class="cRoomsForm" action="{{ route('rooms.update', $room->id) }}" method="POST">
+        <form class="cRoomsForm" action="{{ route('rooms.update', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to update this room?')">
             @csrf
             @method('PUT')
 
@@ -35,6 +35,7 @@
 
             <div class="button-container">
                 <button type="submit" class="createRoomBtn">Update</button> 
+            </div>
         </form>
 
     </div>
